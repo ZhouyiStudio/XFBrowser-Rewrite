@@ -38,9 +38,10 @@ XFBrowser 是基于 ungoogled-chromium 的 Windows 隐私增强浏览器。
 - XFBrowser 覆盖补丁（11 个）的 hunk header range count（`+N,M` 和 `-N,M`）已修正——original 工具生成的 patch 尾部 context 行未被计入 range
 
 ### 待办
-- 在真实 Chromium 仓库上测试 `git apply --check` 验证所有补丁
-- 排查是否有其他 patch 格式问题
-- 推送后运行完整 CI pipeline
+- ~~XFBrowser 覆盖补丁（11 个）的 hunk header range count（`+N,M` 和 `-N,M`）已修正——original 工具生成的 patch 尾部 context 行未被计入 range~~
+- ~~4 个补丁同文件多 hunk 间的空白分隔行已移除（`git apply` 会丢失文件关联导致 "patch fragment without header"）~~
+- CI 上验证 `0001-remove-google-services.patch` 是否仍有错误
+- 全部 CI pipeline 通过后上线
 
 ## 重要决策
 - 放弃稀疏检出（排除太激进导致补丁丢失文件）
