@@ -56,16 +56,16 @@ jobs:
           echo "${{ github.workspace }}\depot_tools" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
           & "C:\Program Files (x86)\Microsoft Visual Studio\Installer\vswhere.exe" -latest -property installationPath
 
-      - name: Clone Chromium (shallow + sparse)
+      - name: Clone Chromium (shallow full checkout)
         if: steps.cache.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          git clone --no-checkout --depth 1 --branch "$env:CHROMIUM_REF" `
+          git clone --depth 1 --branch "$env:CHROMIUM_REF" `
             "https://chromium.googlesource.com/chromium/src.git" chromium-src
           Set-Location chromium-src
-          git sparse-checkout init --no-cone
-          Copy-Item "${{ github.workspace }}\config\sparse-checkout" ".git\info\sparse-checkout"
-          git read-tree -mu HEAD
+          # Init submodules needed by patches
+          git submodule update --init --depth 1 `
+            third_party/devtools-frontend/src 2>$null
 
       - name: Apply ungoogled-chromium patches
         if: steps.cache.outputs.cache-hit != 'true'
@@ -77,7 +77,7 @@ jobs:
             $p = $line.Trim()
             if ($p -eq '' -or $p.StartsWith('#')) { continue }
             $path = "${{ github.workspace }}\patches\ungoogled-chromium-official\$p"
-            git apply --ignore-whitespace $path
+            git apply --ignore-whitespace --whitespace=fix $path
           }
 
       - name: Apply XFBrowser patches
@@ -93,7 +93,7 @@ jobs:
           foreach ($d in $dirs) {
             if (Test-Path $d) {
               Get-ChildItem $d -Filter *.patch | ForEach-Object {
-                git apply --ignore-whitespace $_.FullName 2>$null
+                git apply --ignore-whitespace --whitespace=fix $_.FullName 2>$null
               }
             }
           }
