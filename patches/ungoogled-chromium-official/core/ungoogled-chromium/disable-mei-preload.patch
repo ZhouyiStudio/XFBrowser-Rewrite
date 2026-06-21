@@ -1,0 +1,31 @@
+# Disables use of a binary for preloading the Media Engagement index
+# Said binary is: chrome/browser/resources/media/mei_preload/preloaded_data.pb
+# According to media/base/media_switches (for PreloadMediaEngagementData), it
+# "enables a list of origins to be considered as having a high MEI until there
+# is enough local data to determine the user's preferred behavior." This feature
+# does not seem to outweigh the benefit of removing the binary, thus this patch.
+
+--- a/chrome/BUILD.gn
++++ b/chrome/BUILD.gn
+@@ -382,7 +382,6 @@ if (!is_android && !is_mac) {
+       }
+ 
+       data_deps += [
+-        "//chrome/browser/resources/media/mei_preload:component",
+         "//third_party/widevine/cdm",
+       ]
+       if (invoker.collect_inputs_only) {
+--- a/chrome/browser/resources/BUILD.gn
++++ b/chrome/browser/resources/BUILD.gn
+@@ -96,11 +96,6 @@ group("resources") {
+     public_deps += [ "accessibility:reading_mode_gdocs_extension_resources" ]
+   }
+ 
+-  if (is_mac) {
+-    public_deps += [
+-      "//chrome/browser/resources/media/mei_preload:component",
+-    ]
+-  }
+ 
+   if (is_win || is_mac || is_linux || is_chromeos_ash) {
+     public_deps += [ "connectors_internals:resources" ]

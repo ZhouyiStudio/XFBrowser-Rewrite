@@ -72,14 +72,12 @@ jobs:
         shell: pwsh
         run: |
           Set-Location chromium-src
-          Write-Host "Cloning ungoogled-chromium patches repo..."
-          git clone --depth 1 --verbose "https://github.com/ungoogled-software/ungoogled-chromium.git" ungoogled-patches 2>&1
-          $exit = $LASTEXITCODE
-          Write-Host "Clone exit code: $exit"
-          if ($exit -ne 0) { exit $exit }
-          if (Test-Path "ungoogled-patches\patches") {
-            Get-ChildItem "ungoogled-patches\patches" -Recurse -Filter *.patch |
-              ForEach-Object { git apply --ignore-whitespace $_.FullName 2>$null }
+          $series = Get-Content "${{ github.workspace }}\patches\ungoogled-chromium-official\series"
+          foreach ($line in $series) {
+            $p = $line.Trim()
+            if ($p -eq '' -or $p.StartsWith('#')) { continue }
+            $path = "${{ github.workspace }}\patches\ungoogled-chromium-official\$p"
+            git apply --ignore-whitespace $path
           }
 
       - name: Apply XFBrowser patches
