@@ -7,6 +7,7 @@ on:
 
 env:
   PYTHON_VERSION: '3.11'
+  SCCACHE_GHA_ENABLED: 'true'
 
 jobs:
   build:
@@ -19,8 +20,13 @@ jobs:
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
-      - name: Setup Rust
+      - name: Setup Rust (with sccache)
         uses: dtolnay/rust-toolchain@stable
+        with:
+          components: clippy
+
+      - name: Setup sccache
+        uses: mozilla-actions/sccache-action@v0
 
       - name: Clone mozilla-central
         uses: actions/checkout@v4
@@ -38,14 +44,13 @@ jobs:
           Start-Process $exe -ArgumentList "/S" -Wait
           Remove-Item $exe -Force
 
-      - name: Patch pyyaml pin (workaround pip strict resolver)
+      - name: Patch pyyaml pin
         shell: pwsh
         run: |
           $files = Get-ChildItem -Recurse -File "firefox-src" | Select-String -Pattern "pyyaml==6\.0\.2" | ForEach-Object { $_.Path }
           if ($files) {
             $files | ForEach-Object { (Get-Content $_) -replace "pyyaml==6\.0\.2", "pyyaml==6.0.3" | Set-Content $_ }
-            echo "Patched pyyaml in: $($files -join ', ')"
-          } else { echo "pyyaml==6.0.2 not found (may be already patched)" }
+          }
 
       - name: Write mozconfig
         shell: pwsh
@@ -57,6 +62,13 @@ jobs:
           ac_add_options --disable-debug
           ac_add_options --enable-optimize
           ac_add_options --disable-clang-plugin
+          ac_add_options --disable-crashreporter
+          ac_add_options --disable-updater
+          ac_add_options --disable-parental-controls
+          ac_add_options --disable-tests
+          export CC="sccache clang-cl"
+          export CXX="sccache clang-cl"
+          export RUSTC_WRAPPER=sccache
           "@ | Out-File -FilePath "firefox-src\mozconfig" -Encoding utf8
 
       - name: mach configure
