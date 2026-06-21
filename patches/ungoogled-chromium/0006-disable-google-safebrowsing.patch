@@ -1,0 +1,93 @@
+diff --git a/chrome/browser/safe_browsing/BUILD.gn b/chrome/browser/safe_browsing/BUILD.gn
+--- a/chrome/browser/safe_browsing/BUILD.gn
++++ b/chrome/browser/safe_browsing/BUILD.gn
+@@ -1,21 +1,5 @@
+-# Copyright 2017 The Chromium Authors
+-# Use of this source code is governed by a BSD-style license that can be
+-# found in the LICENSE file.
+-
+-import("//build/config/features.gni")
+-
+-group("safe_browsing") {
+-  public_deps = [
+-    "//chrome/browser/safe_browsing/incident_reporting",
+-    "//chrome/browser/safe_browsing/verdict_cache_manager_factory",
+-    "//components/safe_browsing/content/browser:content_browser",
+-    "//components/safe_browsing/content/browser/safe_browsing_network_contexts",
+-    "//components/safe_browsing/core/browser:browser",
+-    "//components/safe_browsing/core/browser/db:database_manager",
+-    "//components/safe_browsing/core/browser/ping",
+-    "//components/safe_browsing/core/browser/realtime:policy_engine",
+-    "//components/safe_browsing/core/browser/tailored_security_service",
+-  ]
+-}
++// XFBrowser: Google Safe Browsing replaced by uBlock Origin-style blocking
++group("safe_browsing") {
++  public_deps = []
++}
+
+diff --git a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc b/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
+--- a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
++++ b/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
+@@ -1,18 +1,5 @@
+-// Copyright 2021 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.h"
+-
+-#include "base/functional/bind.h"
+-#include "base/metrics/histogram_functions.h"
+-#include "chrome/browser/browser_process.h"
+-#include "chrome/browser/enterprise/connectors/interstitials/enterprise_block_controller.h"
+-#include "chrome/browser/enterprise/connectors/interstitials/enterprise_block_page.h"
+-#include "chrome/browser/enterprise/connectors/interstitials/enterprise_warn_controller.h"
+-#include "chrome/browser/enterprise/connectors/interstitials/enterprise_warn_page.h"
+-#include "chrome/browser/safe_browsing/chrome_safe_browsing_tailored_security_service.h"
+-#include "chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.h"
++// XFBrowser: Replace Safe Browsing interstitial with local blocking
++#include "chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.h"
+ 
+ safe_browsing::SafeBrowsingBlockingPage*
+ ChromeSafeBrowsingBlockingPageFactory::CreateSafeBrowsingPage(
+@@ -21,7 +8,7 @@ ChromeSafeBrowsingBlockingPageFactory::CreateSafeBrowsingPage(
+     content::WebContents* web_contents,
+     const safe_browsing::UnsafeResource& unsafe_resource,
+     bool should_trigger_reporting) {
+-  return nullptr;  // XFBrowser: no Safe Browsing pages
++  return nullptr;  // Replaced by local adblock engine
+ }
+
+diff --git a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc b/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
+--- a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
++++ b/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
+@@ -1,16 +1,4 @@
+-// Copyright 2021 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.h"
+-
+-#include "base/containers/contains.h"
+-#include "base/metrics/histogram_functions.h"
+-#include "base/ranges/algorithm.h"
+-#include "base/strings/string_number_conversions.h"
+-#include "chrome/browser/browser_process.h"
+-#include "chrome/browser/enterprise/connectors/connectors_service.h"
+-#include "chrome/browser/extensions/api/safe_browsing_private/safe_browsing_private_api.h"
++// XFBrowser: cloud scanning disabled
++#include "chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.h"
+ 
+ namespace safe_browsing {
+ namespace deep_scanning {
+@@ -25,9 +13,4 @@ void LogDeepScanningEvent(DeepScanAccessPoint access_point,
+                           const DeepScanningEvent& event) {
+-  // XFBrowser: cloud telemetry removed
+-}
+-
+-void LogLocalAnalysisEvent(const LocalAnalysisEvent& event) {
+-  // local analysis event - retained
++  // Cloud scanning disabled
+ }
+ }  // namespace deep_scanning
+ }  // namespace safe_browsing

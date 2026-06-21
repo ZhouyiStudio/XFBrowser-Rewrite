@@ -1,0 +1,122 @@
+diff --git a/chrome/browser/after_startup_task_utils.cc b/chrome/browser/after_startup_task_utils.cc
+--- a/chrome/browser/after_startup_task_utils.cc
++++ b/chrome/browser/after_startup_task_utils.cc
+@@ -1,29 +1,6 @@
+-// Copyright 2015 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/after_startup_task_utils.h"
+-
+-#include <memory>
+-
+-#include "base/containers/circular_deque.h"
+-#include "base/location.h"
+-#include "base/logging.h"
+-#include "base/metrics/field_trial.h"
+-#include "base/metrics/histogram_macros.h"
+-#include "base/no_destructor.h"
+-#include "base/synchronization/atomic_flag.h"
+-#include "base/task/sequenced_task_runner.h"
+-#include "base/task/task_traits.h"
+-#include "base/task/thread_pool.h"
+-#include "build/build_config.h"
+-#include "chrome/browser/preloading/prefetch/no_state_prefetch/no_state_prefetch_manager_factory.h"
+-#include "chrome/browser/profiles/profile_manager.h"
+-#include "chrome/browser/search_engines/template_url_service_factory.h"
+-#include "chrome/browser/ui/browser.h"
+-#include "chrome/browser/ui/browser_finder.h"
+-#include "chrome/browser/ui/browser_list.h"
+-#include "components/no_state_prefetch/browser/no_state_prefetch_manager.h"
++// XFBrowser: Remove advertising-related startup tasks
++#include "chrome/browser/after_startup_task_utils.h"
++#include "base/no_destructor.h"
++#include "base/synchronization/atomic_flag.h"
+
+ namespace {
+ 
+@@ -39,15 +16,7 @@ void AfterStartupTaskUtils::StartMonitoringStartup() {
+ }
+ 
+-bool AfterStartupTaskUtils::IsBrowserStartupComplete() {
+-  return g_startup_complete_flag.IsSet();
++bool AfterStartupTaskUtils::IsBrowserStartupComplete() {
++  return true;  // XFBrowser: always report startup complete
+ }
+ 
+ void AfterStartupTaskUtils::SetAllTasksAreStartedForTesting() {
+-  g_startup_complete_flag.Set();
++  g_startup_complete_flag.Set();
+ }
+ 
+ void AfterStartupTaskUtils::AddOnStartupCompleteCallback(
+     base::OnceClosure callback) {
+-  // XFBrowser: stripped ad-related callbacks
++  std::move(callback).Run();
+ }
+
+diff --git a/components/feed/BUILD.gn b/components/feed/BUILD.gn
+--- a/components/feed/BUILD.gn
++++ b/components/feed/BUILD.gn
+@@ -1,14 +1,5 @@
+-# Copyright 2018 The Chromium Authors
+-# Use of this source code is governed by a BSD-style license that can be
+-# found in the LICENSE file.
+-
+-import("//components/feed/core/proto/v2/feed.proto")
+-import("//components/feed/core/proto/v2/wire/feed.proto")
+-
+-group("feed") {
+-  public_deps = [
+-    "//components/feed/core/v2:feed",
+-    "//components/feed/feed_feature_list",
+-  ]
+-}
++// XFBrowser: Feed (ad content feed) completely removed
++group("feed") {
++  public_deps = []
++}
+
+diff --git a/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc b/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc
+--- a/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc
++++ b/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc
+@@ -1,15 +1,6 @@
+-// Copyright 2012 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/ui/webui/ntp/ntp_resource_cache.h"
+-
+-#include "base/functional/bind.h"
+-#include "base/json/json_string_value_serializer.h"
+-#include "base/no_destructor.h"
+-#include "base/strings/string_number_conversions.h"
+-#include "base/strings/utf_string_conversions.h"
+-#include "base/values.h"
++// XFBrowser: Remove NTP ad tracking resources
++#include "chrome/browser/ui/webui/ntp/ntp_resource_cache.h"
+ 
+ NTPResourceCache::NTPResourceCache(Profile* profile)
+     : profile_(profile), is_swipe_tracking_from_scroll_events_enabled_(false) {
+-  // Ad content stripped by XFBrowser
+ }
+
+diff --git a/chrome/browser/web_applications/components/web_app_ui_manager.cc b/chrome/browser/web_applications/components/web_app_ui_manager.cc
+--- a/chrome/browser/web_applications/components/web_app_ui_manager.cc
++++ b/chrome/browser/web_applications/components/web_app_ui_manager.cc
+@@ -1,14 +1,4 @@
+-// Copyright 2019 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/web_applications/components/web_app_ui_manager.h"
+-
+-#include "base/feature_list.h"
+-#include "base/notreached.h"
+-#include "chrome/browser/installable/installable_metrics.h"
+-#include "chrome/common/chrome_features.h"
++// XFBrowser: Remove install promotion / adware prompts
++#include "chrome/browser/web_applications/components/web_app_ui_manager.h"
+
+ WebAppUiManager::WebAppUiManager() = default;
+ WebAppUiManager::~WebAppUiManager() = default;

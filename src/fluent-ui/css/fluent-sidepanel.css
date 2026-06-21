@@ -1,0 +1,93 @@
+/* ===========================================================
+   XFBrowser - Fluent 侧边垂直标签面板
+   =========================================================== */
+
+.xf-sidepanel {
+  width: 280px;
+  background: var(--fluent-bg-layer1);
+  border-right: 1px solid var(--fluent-border-base);
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+}
+
+.xf-sidepanel-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--fluent-space-lg) var(--fluent-space-xl);
+  border-bottom: 1px solid var(--fluent-border-base);
+}
+
+.xf-sidepanel-title {
+  font-size: var(--fluent-font-body);
+  font-weight: 600;
+  color: var(--fluent-text-primary);
+}
+
+.xf-sidepanel-search {
+  display: flex;
+  align-items: center;
+  margin: var(--fluent-space-md) var(--fluent-space-xl);
+  height: 32px;
+  background: var(--fluent-bg-base);
+  border-radius: var(--fluent-radius-md);
+  padding: 0 var(--fluent-space-lg);
+  gap: var(--fluent-space-sm);
+}
+
+.xf-sidepanel-search svg {
+  width: 14px;
+  height: 14px;
+  fill: var(--fluent-text-secondary);
+}
+
+.xf-sidepanel-search input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-primary);
+  font-family: var(--fluent-font-family);
+}
+
+.xf-sidepanel-list {
+  flex: 1;
+  overflow-y: auto;
+  padding: var(--fluent-space-sm) var(--fluent-space-md);
+}
+
+.xf-sidepanel-tab {
+  display: flex;
+  align-items: center;
+  padding: var(--fluent-space-md) var(--fluent-space-lg);
+  border-radius: var(--fluent-radius-md);
+  cursor: pointer;
+  gap: var(--fluent-space-lg);
+  transition: background var(--fluent-duration-fast) var(--fluent-easing-standard);
+  margin-bottom: 2px;
+}
+
+.xf-sidepanel-tab:hover {
+  background: var(--fluent-bg-hover);
+}
+
+.xf-sidepanel-tab-active {
+  background: var(--fluent-accent-soft);
+}
+
+.xf-sidepanel-tab-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+}
+
+.xf-sidepanel-tab-title {
+  flex: 1;
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

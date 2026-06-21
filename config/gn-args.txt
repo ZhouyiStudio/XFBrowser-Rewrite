@@ -1,0 +1,56 @@
+# ============================================================
+# XFBrowser GN Build Arguments
+# Windows x64 Release 专用配置
+# 位置: out/x64_Release_XFBrowser/args.gn
+# ============================================================
+
+# ---- 目标平台 ----
+target_os = "win"
+target_cpu = "x64"
+
+# ---- 编译模式 ----
+is_debug = false
+is_official_build = true
+is_component_build = false
+symbol_level = 0
+blink_symbol_level = 0
+v8_symbol_level = 0
+
+# ---- 优化 ----
+optimize_for_size = true
+use_thin_lto = true
+use_jumbo_build = true
+exclude_unwind_tables = true
+
+# ---- 禁用冗余功能 ----
+enable_nacl = false
+enable_remoting = false
+enable_hangout_services_extension = false
+enable_reading_list = false
+enable_widevine = false
+enable_media_remoting = false
+enable_plugin_install = false
+enable_reporting = false
+enable_service_discovery = false
+enable_vr = false
+enable_webvr = false
+enable_webxr = false
+enable_wifi_display = false
+disable_ftp_support = true
+disable_fieldtrial_config = true
+
+# ---- XFBrowser 特殊配置 ----
+enable_extensions = true
+disable_google_now = true
+disable_gaia_services = true
+
+# ---- 编译工具 ----
+use_goma = false
+use_sysroot = false
+clang_use_chrome_plugins = false
+treat_warnings_as_errors = false
+
+# ---- Google API (全部清空) ----
+google_api_key = ""
+google_default_client_id = ""
+google_default_client_secret = ""

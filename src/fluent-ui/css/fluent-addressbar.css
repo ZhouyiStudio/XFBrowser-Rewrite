@@ -1,0 +1,191 @@
+/* ===========================================================
+   XFBrowser - Fluent 地址栏 (Omnibox)
+   圆角搜索框 + 自动补全下拉
+   =========================================================== */
+
+.xf-addressbar {
+  display: flex;
+  align-items: center;
+  height: 44px;
+  padding: 0 var(--fluent-space-xl);
+  background: var(--fluent-bg-layer1);
+  border-bottom: 1px solid var(--fluent-border-base);
+}
+
+/* 地址栏输入容器 */
+.xf-addressbar-container {
+  display: flex;
+  align-items: center;
+  flex: 1;
+  height: 36px;
+  background: var(--fluent-bg-base);
+  border-radius: var(--fluent-radius-xl);
+  border: 1px solid transparent;
+  transition: all var(--fluent-duration-fast) var(--fluent-easing-standard);
+  padding: 0 var(--fluent-space-lg);
+  gap: var(--fluent-space-sm);
+}
+
+.xf-addressbar-container:focus-within {
+  border-color: var(--fluent-border-focus);
+  box-shadow: 0 0 0 1px var(--fluent-border-focus);
+  background: var(--fluent-bg-layer1);
+}
+
+/* 安全锁图标 */
+.xf-addressbar-security {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--fluent-text-secondary);
+}
+
+.xf-addressbar-security[data-secure="true"] {
+  color: #0078d4;
+}
+
+.xf-addressbar-security[data-secure="false"] {
+  color: #d32f2f;
+}
+
+.xf-addressbar-security svg {
+  width: 14px;
+  height: 14px;
+  fill: currentColor;
+}
+
+/* URL 输入框 */
+.xf-addressbar-input {
+  flex: 1;
+  border: none;
+  outline: none;
+  background: transparent;
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-primary);
+  font-family: var(--fluent-font-family);
+  line-height: 1;
+  padding: 0;
+  min-width: 0;
+}
+
+.xf-addressbar-input::placeholder {
+  color: var(--fluent-text-disabled);
+}
+
+/* 地址栏右侧操作按钮 */
+.xf-addressbar-actions {
+  display: flex;
+  align-items: center;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.xf-addressbar-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border: none;
+  background: transparent;
+  border-radius: var(--fluent-radius-md);
+  cursor: pointer;
+  color: var(--fluent-text-secondary);
+  transition: all var(--fluent-duration-fast) var(--fluent-easing-standard);
+}
+
+.xf-addressbar-btn:hover {
+  background: var(--fluent-bg-hover);
+  color: var(--fluent-text-primary);
+}
+
+.xf-addressbar-btn:active {
+  background: var(--fluent-bg-active);
+}
+
+.xf-addressbar-btn svg {
+  width: 16px;
+  height: 16px;
+  fill: currentColor;
+}
+
+/* 书签星标 */
+.xf-addressbar-star {
+  color: var(--fluent-text-disabled);
+}
+
+.xf-addressbar-star[data-bookmarked="true"] {
+  color: #ffb300;
+}
+
+/* 自动补全下拉 */
+.xf-addressbar-dropdown {
+  position: absolute;
+  top: calc(100% + 4px);
+  left: 0;
+  right: 0;
+  background: var(--fluent-bg-layer1);
+  border-radius: var(--fluent-radius-lg);
+  box-shadow: var(--fluent-shadow-lg);
+  border: 1px solid var(--fluent-border-base);
+  z-index: 1000;
+  max-height: 400px;
+  overflow-y: auto;
+  display: none;
+}
+
+.xf-addressbar-dropdown[data-open="true"] {
+  display: block;
+}
+
+/* 补全建议项 */
+.xf-autocomplete-item {
+  display: flex;
+  align-items: center;
+  padding: var(--fluent-space-lg) var(--fluent-space-xl);
+  gap: var(--fluent-space-lg);
+  cursor: pointer;
+  transition: background var(--fluent-duration-fast) var(--fluent-easing-standard);
+}
+
+.xf-autocomplete-item:hover,
+.xf-autocomplete-item[data-selected="true"] {
+  background: var(--fluent-bg-hover);
+}
+
+.xf-autocomplete-item-icon {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  color: var(--fluent-text-secondary);
+}
+
+.xf-autocomplete-item-icon svg {
+  width: 100%;
+  height: 100%;
+  fill: currentColor;
+}
+
+.xf-autocomplete-item-content {
+  flex: 1;
+  min-width: 0;
+}
+
+.xf-autocomplete-item-title {
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.xf-autocomplete-item-url {
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-secondary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}

@@ -1,0 +1,224 @@
+<!DOCTYPE html>
+<html lang="zh-CN" data-theme="light">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="color-scheme" content="light dark">
+  <title>设置 - XFBrowser</title>
+  <link rel="stylesheet" href="../../fluent-ui/css/fluent-tokens.css">
+  <link rel="stylesheet" href="../../fluent-ui/css/fluent-settings.css">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="xf-settings">
+    <header class="xf-settings-header">
+      <h1 class="xf-settings-title">设置</h1>
+      <p class="xf-settings-subtitle">自定义 XFBrowser 浏览体验</p>
+    </header>
+
+    <!-- 外观 -->
+    <section class="xf-settings-group">
+      <div class="xf-settings-group-header">外观</div>
+      <div class="xf-settings-group-body">
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">主题</div>
+            <div class="xf-settings-row-desc">选择浏览器的外观主题</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <select class="xf-select" id="themeSelect">
+              <option value="system">跟随系统</option>
+              <option value="light">浅色</option>
+              <option value="dark">深色</option>
+            </select>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">窗口材质</div>
+            <div class="xf-settings-row-desc">Windows 11 Mica / Windows 10 Acrylic</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="materialToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">侧边垂直标签</div>
+            <div class="xf-settings-row-desc">在左侧显示垂直标签面板</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="sidePanelToggle">
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 隐私与安全 -->
+    <section class="xf-settings-group">
+      <div class="xf-settings-group-header">隐私与安全</div>
+      <div class="xf-settings-group-body">
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">广告拦截</div>
+            <div class="xf-settings-row-desc">拦截跟踪广告和恶意内容</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="adblockToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">指纹伪装</div>
+            <div class="xf-settings-row-desc">随机化浏览器指纹防止追踪</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="fingerprintToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">第三方 Cookie 拦截</div>
+            <div class="xf-settings-row-desc">禁止第三方网站设置 Cookie</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="cookieToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">反追踪保护</div>
+            <div class="xf-settings-row-desc">阻止已知追踪器加载</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="trackingToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">加密 DNS (DoH)</div>
+            <div class="xf-settings-row-desc">通过 HTTPS 加密 DNS 查询</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <select class="xf-select" id="dnsSelect">
+              <option value="secure">安全模式</option>
+              <option value="fallback">回退模式</option>
+              <option value="off">关闭</option>
+            </select>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">DNS 提供商</div>
+            <div class="xf-settings-row-desc">选择 DoH 解析服务商</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <select class="xf-select" id="dnsProvider">
+              <option value="0">腾讯 DNSPod</option>
+              <option value="1">阿里 DNS</option>
+              <option value="2">Cloudflare</option>
+              <option value="3">Google</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 标签页 -->
+    <section class="xf-settings-group">
+      <div class="xf-settings-group-header">标签页</div>
+      <div class="xf-settings-group-body">
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">闲置标签自动休眠</div>
+            <div class="xf-settings-row-desc">30 分钟无操作后自动休眠标签以释放内存</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="sleepToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">启动时恢复上次会话</div>
+            <div class="xf-settings-row-desc">重启浏览器后恢复之前打开的标签页</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <label class="xf-toggle">
+              <input type="checkbox" id="sessionRestoreToggle" checked>
+              <span class="xf-toggle-track"></span>
+              <span class="xf-toggle-thumb"></span>
+            </label>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 搜索引擎 -->
+    <section class="xf-settings-group">
+      <div class="xf-settings-group-header">搜索引擎</div>
+      <div class="xf-settings-group-body">
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">默认搜索引擎</div>
+            <div class="xf-settings-row-desc">地址栏使用的搜索引擎</div>
+          </div>
+          <div class="xf-settings-row-control">
+            <select class="xf-select" id="searchEngine">
+              <option value="google">Google</option>
+              <option value="bing">Bing</option>
+              <option value="baidu">百度</option>
+              <option value="duckduckgo">DuckDuckGo</option>
+            </select>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- 关于 -->
+    <section class="xf-settings-group">
+      <div class="xf-settings-group-header">关于 XFBrowser</div>
+      <div class="xf-settings-group-body">
+        <div class="xf-settings-row">
+          <div class="xf-settings-row-info">
+            <div class="xf-settings-row-label">版本</div>
+            <div class="xf-settings-row-desc">基于 Chromium 128 的隐私增强浏览器</div>
+          </div>
+          <div class="xf-settings-row-control" style="color:var(--fluent-text-secondary);font-size:var(--fluent-font-caption)">
+            1.0.0
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

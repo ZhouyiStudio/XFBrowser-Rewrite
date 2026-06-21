@@ -1,0 +1,28 @@
+/* ===========================================================
+   XFBrowser - Fluent 浅色模式覆盖样式
+   当 [data-theme="light"] 时生效
+   =========================================================== */
+
+[data-theme="light"] .xf-addressbar-container {
+  background: var(--fluent-bg-base);
+}
+
+[data-theme="light"] .xf-tab-active {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="light"] .xf-sidepanel {
+  background: var(--fluent-bg-layer1);
+}
+
+[data-theme="light"] .xf-context-menu {
+  background: var(--fluent-bg-layer1);
+}
+
+[data-theme="light"] .ntp-tile-icon {
+  background: var(--fluent-bg-layer1);
+}
+
+[data-theme="light"] .ntp-search-container {
+  background: var(--fluent-bg-layer1);
+}

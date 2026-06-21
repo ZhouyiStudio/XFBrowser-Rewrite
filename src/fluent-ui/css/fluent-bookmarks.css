@@ -1,0 +1,98 @@
+/* ===========================================================
+   XFBrowser - Fluent 书签管理样式
+   =========================================================== */
+
+.xf-bookmarks-bar {
+  display: flex;
+  align-items: center;
+  height: 32px;
+  padding: 0 var(--fluent-space-md);
+  gap: var(--fluent-space-sm);
+  background: var(--fluent-bg-layer1);
+  border-bottom: 1px solid var(--fluent-border-base);
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.xf-bookmarks-bar::-webkit-scrollbar {
+  display: none;
+}
+
+.xf-bookmark-item {
+  display: flex;
+  align-items: center;
+  gap: var(--fluent-space-sm);
+  padding: var(--fluent-space-xs) var(--fluent-space-md);
+  border-radius: var(--fluent-radius-sm);
+  cursor: pointer;
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-primary);
+  white-space: nowrap;
+  transition: background var(--fluent-duration-fast) var(--fluent-easing-standard);
+  text-decoration: none;
+  flex-shrink: 0;
+}
+
+.xf-bookmark-item:hover {
+  background: var(--fluent-bg-hover);
+}
+
+.xf-bookmark-item-icon {
+  width: 14px;
+  height: 14px;
+  flex-shrink: 0;
+}
+
+.xf-bookmark-folder {
+  display: flex;
+  align-items: center;
+  gap: var(--fluent-space-sm);
+  padding: var(--fluent-space-xs) var(--fluent-space-md);
+  border-radius: var(--fluent-radius-sm);
+  cursor: pointer;
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-primary);
+  position: relative;
+}
+
+.xf-bookmark-folder:hover {
+  background: var(--fluent-bg-hover);
+}
+
+.xf-bookmark-dropdown {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background: var(--fluent-bg-layer1);
+  border-radius: var(--fluent-radius-lg);
+  box-shadow: var(--fluent-shadow-xl);
+  border: 1px solid var(--fluent-border-base);
+  padding: var(--fluent-space-sm);
+  min-width: 180px;
+  z-index: 1000;
+  display: none;
+}
+
+.xf-bookmark-folder:hover .xf-bookmark-dropdown {
+  display: block;
+}
+
+.xf-bookmark-tree {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.xf-bookmark-tree-item {
+  display: flex;
+  align-items: center;
+  padding: var(--fluent-space-md) var(--fluent-space-lg);
+  border-radius: var(--fluent-radius-sm);
+  gap: var(--fluent-space-lg);
+  cursor: pointer;
+  transition: background var(--fluent-duration-fast) var(--fluent-easing-standard);
+}
+
+.xf-bookmark-tree-item:hover {
+  background: var(--fluent-bg-hover);
+}

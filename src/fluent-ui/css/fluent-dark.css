@@ -1,0 +1,57 @@
+/* ===========================================================
+   XFBrowser - Fluent 深色模式覆盖样式
+   当 [data-theme="dark"] 时生效
+   =========================================================== */
+
+[data-theme="dark"] .xf-addressbar-container {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="dark"] .xf-addressbar-container:focus-within {
+  background: var(--fluent-bg-layer1);
+}
+
+[data-theme="dark"] .xf-tab-active {
+  background: var(--fluent-bg-layer1);
+}
+
+[data-theme="dark"] .xf-tab-active::after {
+  background: var(--fluent-accent);
+}
+
+[data-theme="dark"] .xf-sidepanel {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="dark"] .xf-sidepanel-tab-active {
+  background: var(--fluent-accent-soft);
+}
+
+[data-theme="dark"] .xf-context-menu {
+  background: var(--fluent-bg-layer2);
+  border-color: var(--fluent-border-base);
+}
+
+[data-theme="dark"] .xf-settings-group {
+  background: var(--fluent-bg-layer1);
+}
+
+[data-theme="dark"] .xf-select {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="dark"] .xf-input {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="dark"] .ntp-tile-icon {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="dark"] .ntp-search-container {
+  background: var(--fluent-bg-layer2);
+}
+
+[data-theme="dark"] .ntp-search-container:focus-within {
+  background: var(--fluent-bg-layer1);
+}

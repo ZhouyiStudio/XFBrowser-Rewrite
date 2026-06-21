@@ -1,0 +1,199 @@
+# ============================================================
+# XFBrowser CI Build
+# Platform: Windows x64 Release (official sources)
+# Runner:  GitHub-hosted Windows (large runner recommended)
+# ============================================================
+name: XFBrowser Build
+
+on:
+  workflow_dispatch:
+    inputs:
+      chromium_ref:
+        description: Chromium tag or branch
+        required: false
+        default: '128.0.6613.84'
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+env:
+  CHROMIUM_REF: ${{ github.event.inputs.chromium_ref || '128.0.6613.84' }}
+  SRC_DIR: ${{ github.workspace }}\chromium-src
+  OUT_DIR: ${{ github.workspace }}\chromium-src\out\x64_Release_XFBrowser
+  DEPOT_TOOLS_DIR: ${{ github.workspace }}\depot_tools
+
+jobs:
+  build:
+    runs-on: windows-2022
+
+    steps:
+      - name: Checkout XFBrowser
+        uses: actions/checkout@v4
+
+      - name: Check disk space (before)
+        shell: pwsh
+        run: Get-PSDrive C | Select-Object Used, Free
+
+      - name: Free up disk space
+        shell: pwsh
+        run: |
+          Write-Host "Removing pre-installed tools to free space for Chromium build..."
+          $remove = @(
+            "$env:ProgramFiles\dotnet",
+            "$env:ProgramFiles\Microsoft SQL Server",
+            "$env:ProgramFiles\Microsoft SDKs",
+            "$env:ProgramFiles(x86)\Microsoft SDKs",
+            "$env:ProgramFiles(x86)\Windows Kits\10\Windows Performance Toolkit",
+            "$env:ProgramFiles(x86)\Windows Phone Kits",
+            "$env:ProgramFiles(x86)\Windows Mobile Kits",
+            "$env:SystemDrive\Android",
+            "$env:SystemDrive\hostedtoolcache\windows\go",
+            "$env:SystemDrive\hostedtoolcache\windows\ruby",
+            "$env:SystemDrive\hostedtoolcache\windows\pipx",
+            "$env:SystemDrive\hostedtoolcache\windows\stack",
+            "$env:SystemDrive\hostedtoolcache\windows\miniconda",
+            "$env:SystemDrive\hostedtoolcache\windows\python",
+            "$env:SystemDrive\hostedtoolcache\windows\node",
+            "$env:SystemDrive\hostedtoolcache\windows\java",
+            "$env:SystemDrive\hostedtoolcache\windows\maven",
+            "$env:SystemDrive\hostedtoolcache\windows\gradle",
+            "$env:SystemDrive\hostedtoolcache\windows\kotlin",
+            "$env:LocalAppData\Microsoft\pip_cache",
+            "$env:LOCALAPPDATA\Microsoft\php_sdk"
+          )
+          foreach ($p in $remove) { if (Test-Path $p) { Remove-Item -Recurse -Force $p -ErrorAction SilentlyContinue } }
+          # Clean WinSxS temporary files
+          Dism /Online /Cleanup-Image /StartComponentCleanup /ResetBase /Quiet 2>$null
+          Write-Host "Disk cleanup done."
+          Get-PSDrive C | Select-Object Used, Free
+
+      - name: Setup VS + depot_tools
+        shell: pwsh
+        run: |
+          # depot_tools uses vswhere.exe to auto-detect VS, just set the env var
+          echo "DEPOT_TOOLS_WIN_TOOLCHAIN=0" | Out-File -FilePath $env:GITHUB_ENV -Encoding utf8 -Append
+          echo "DEPOT_TOOLS_WIN_TOOLCHAIN=0"
+
+          git clone --depth 1 "https://chromium.googlesource.com/chromium/tools/depot_tools.git" "$env:DEPOT_TOOLS_DIR"
+          echo "$env:DEPOT_TOOLS_DIR" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+
+          # Verify VS is findable
+          & "$env:DEPOT_TOOLS_DIR\vswhere.exe" -latest -property installationPath
+
+      - name: Clone Chromium (shallow + sparse)
+        shell: pwsh
+        run: |
+          git clone --no-checkout --depth 1 --branch "$env:CHROMIUM_REF" `
+            "https://chromium.googlesource.com/chromium/src.git" "$env:SRC_DIR"
+
+          Set-Location "$env:SRC_DIR"
+          git sparse-checkout init --cone
+          Copy-Item "${{ github.workspace }}\config\sparse-checkout" ".git\info\sparse-checkout"
+          git read-tree -mu HEAD
+          Write-Host "Chromium source size:"
+          Get-ChildItem -Recurse "$env:SRC_DIR" -Force | Measure-Object Length -Sum |
+            ForEach-Object { "{0:N2} GB" -f ($_.Sum / 1GB) }
+
+      - name: Apply ungoogled-chromium patches
+        shell: pwsh
+        run: |
+          Set-Location "$env:SRC_DIR"
+          git clone --depth 1 `
+            "https://github.com/ungoogled-software/ungoogled-chromium.git" `
+            "$env:SRC_DIR\ungoogled-patches"
+
+          if (Test-Path "$env:SRC_DIR\ungoogled-patches\patches") {
+            Get-ChildItem "$env:SRC_DIR\ungoogled-patches\patches" -Recurse -Filter *.patch |
+              ForEach-Object { git apply --ignore-whitespace $_.FullName 2>$null }
+          }
+
+      - name: Apply XFBrowser patches
+        shell: pwsh
+        run: |
+          Set-Location "$env:SRC_DIR"
+          $patchDirs = @(
+            "${{ github.workspace }}\patches\ungoogled-chromium",
+            "${{ github.workspace }}\patches\fluent-ui",
+            "${{ github.workspace }}\patches\privacy"
+          )
+          foreach ($dir in $patchDirs) {
+            if (Test-Path $dir) {
+              Get-ChildItem $dir -Filter *.patch | ForEach-Object {
+                Write-Host "Applying: $($_.Name)"
+                git apply --ignore-whitespace $_.FullName 2>$null
+              }
+            }
+          }
+
+      - name: Generate GN args
+        shell: pwsh
+        run: |
+          if (-not (Test-Path "$env:OUT_DIR")) { New-Item -ItemType Directory -Path "$env:OUT_DIR" }
+          @"
+          target_os = "win"
+          target_cpu = "x64"
+          is_debug = false
+          is_official_build = true
+          is_component_build = false
+          symbol_level = 0
+          blink_symbol_level = 0
+          v8_symbol_level = 0
+          enable_nacl = false
+          enable_remoting = false
+          enable_hangout_services_extension = false
+          enable_reading_list = false
+          enable_widevine = false
+          enable_media_remoting = false
+          enable_plugin_install = false
+          enable_reporting = false
+          enable_service_discovery = false
+          enable_vr = false
+          enable_webvr = false
+          enable_webxr = false
+          enable_wifi_display = false
+          disable_ftp_support = true
+          disable_fieldtrial_config = true
+          exclude_unwind_tables = true
+          google_api_key = ""
+          google_default_client_id = ""
+          google_default_client_secret = ""
+          treat_warnings_as_errors = false
+          use_goma = false
+          use_jumbo_build = true
+          use_sysroot = false
+          use_thin_lto = true
+          optimize_for_size = true
+          clang_use_chrome_plugins = false
+          fieldtrial_testing_like_official = true
+          enable_extensions = true
+          disable_google_now = true
+          enable_doj_standalone = false
+          disable_gaia_services = true
+          disable_dashboard = true
+          "@ | Out-File -FilePath "$env:OUT_DIR\args.gn" -Encoding utf8
+
+      - name: Run GN
+        shell: pwsh
+        run: |
+          Set-Location "$env:SRC_DIR"
+          gn gen "$env:OUT_DIR" --fail-on-unused-args
+
+      - name: Build XFBrowser
+        shell: pwsh
+        run: |
+          $jobs = [Environment]::ProcessorCount
+          Write-Host "Using $jobs parallel jobs"
+          Set-Location "$env:SRC_DIR"
+          ninja -C "$env:OUT_DIR" -j $jobs chrome
+
+      - name: Upload artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: XFBrowser-x64-Release
+          path: ${{ env.OUT_DIR }}\chrome.exe
+          retention-days: 7
+
+      - name: Check disk space (after)
+        shell: pwsh
+        run: Get-PSDrive C | Select-Object Used, Free

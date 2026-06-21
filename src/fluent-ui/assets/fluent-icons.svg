@@ -1,0 +1,67 @@
+<svg xmlns="http://www.w3.org/2000/svg" style="display:none">
+  <!-- XFBrowser Fluent UI 图标库 -->
+  
+  <!-- 新标签 -->
+  <symbol id="ic-new-tab" viewBox="0 0 16 16">
+    <path d="M2 8h12M8 2v12" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 关闭 -->
+  <symbol id="ic-close" viewBox="0 0 16 16">
+    <path d="M4 4l8 8m0-8l-8 8" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 搜索 -->
+  <symbol id="ic-search" viewBox="0 0 16 16">
+    <circle cx="6.5" cy="6.5" r="5" stroke="currentColor" stroke-width="1.5" fill="none"/>
+    <path d="M10 10l5 5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 刷新 -->
+  <symbol id="ic-refresh" viewBox="0 0 16 16">
+    <path d="M2 8a6 6 0 0110.5-3.8l1.5-1.5v5h-5l1.3-1.3A4 4 0 004 8H2zm12 0a6 6 0 01-10.5 3.8L2 13.3v-5h5l-1.3 1.3A4 4 0 0012 8h2z" fill="currentColor"/>
+  </symbol>
+
+  <!-- 星标/书签 -->
+  <symbol id="ic-star" viewBox="0 0 16 16">
+    <path d="M8 1l1.8 3.6 4 .6-2.9 2.8.7 4L8 10.5l-3.6 1.9.7-4L2.2 5.2l4-.6L8 1z" fill="currentColor"/>
+  </symbol>
+
+  <!-- 设置 -->
+  <symbol id="ic-settings" viewBox="0 0 16 16">
+    <path d="M8 1l1.5 3 3.5.5-2.5 2.5.5 3.5L8 9l-3.5 1.5.5-3.5L2.5 4.5 6.5 4 8 1z" stroke="currentColor" stroke-width="1.2" fill="none"/>
+    <circle cx="8" cy="8" r="2" fill="currentColor"/>
+  </symbol>
+
+  <!-- 历史 -->
+  <symbol id="ic-history" viewBox="0 0 16 16">
+    <circle cx="7" cy="7" r="5" stroke="currentColor" stroke-width="1.2" fill="none"/>
+    <path d="M7 4v3l2 1" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 下载 -->
+  <symbol id="ic-download" viewBox="0 0 16 16">
+    <path d="M1 10v3a1 1 0 001 1h12a1 1 0 001-1v-3M8 1v8M4 5l4 4 4-4" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 锁/安全 -->
+  <symbol id="ic-lock" viewBox="0 0 16 16">
+    <rect x="3" y="7" width="10" height="8" rx="1" fill="currentColor" opacity="0.2"/>
+    <path d="M5 7V5a3 3 0 116 0v2M8 9v3" stroke="currentColor" stroke-width="1.2" fill="none" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 菜单/汉堡 -->
+  <symbol id="ic-menu" viewBox="0 0 16 16">
+    <path d="M2 4h12M2 8h12M2 12h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 返回 -->
+  <symbol id="ic-back" viewBox="0 0 16 16">
+    <path d="M10 2L4 8l6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+
+  <!-- 前进 -->
+  <symbol id="ic-forward" viewBox="0 0 16 16">
+    <path d="M6 2l6 6-6 6" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>
+  </symbol>
+</svg>

@@ -1,0 +1,107 @@
+diff --git a/chrome/browser/metrics/chrome_metrics_services_manager_client.cc b/chrome/browser/metrics/chrome_metrics_services_manager_client.cc
+--- a/chrome/browser/metrics/chrome_metrics_services_manager_client.cc
++++ b/chrome/browser/metrics/chrome_metrics_services_manager_client.cc
+@@ -24,15 +24,8 @@
+ // XFBrowser: Force-disable all metrics and crash reporting
+ 
+ bool ChromeMetricsServicesManagerClient::IsMetricsReportingEnabled() {
+-  return false;
++  return false;  // Always disabled - XFBrowser
+ }
+ 
+-bool ChromeMetricsServicesManagerClient::IsMetricsReportingForceEnabled() {
+-  return false;  // XFBrowser: never force enable
+-}
+-
+ bool ChromeMetricsServicesManagerClient::IsUkmAllowedForAllProfiles() {
+-  return false;  // XFBrowser: UKM disabled
++  return false;  // UKM always disabled
+ }
+
+diff --git a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp b/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
+--- a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
++++ b/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
+@@ -1,12 +1,6 @@
+ // XFBrowser: Remove all UMAs, histograms, field trials
+-void RegisterChromeMetricsExtensions(MetricsService* service) {
+-  // Telemetry stripped by XFBrowser
+-}
++void RegisterChromeMetricsExtensions(MetricsService* service) {}
+
+diff --git a/chrome/browser/ui/startup/google_api_keys_migration.cc b/chrome/browser/ui/startup/google_api_keys_migration.cc
+--- a/chrome/browser/ui/startup/google_api_keys_migration.cc
++++ b/chrome/browser/ui/startup/google_api_keys_migration.cc
+@@ -1,14 +1,4 @@
+-// Copyright 2022 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/ui/startup/google_api_keys_migration.h"
+-
+-#include "base/command_line.h"
+-#include "chrome/browser/about_flags.h"
+-#include "chrome/browser/flag_descriptions.h"
+-#include "chrome/common/chrome_switches.h"
++// XFBrowser: Remove Google API keys migration
++#include "chrome/browser/ui/startup/google_api_keys_migration.h"
+
+ void MaybeMigrateGoogleApiKeys() {
+-  // Migration logic removed - XFBrowser does not use Google APIs
++  // No-op in XFBrowser
+ }
+
+diff --git a/components/metrics/metrics_service.cc b/components/metrics/metrics_service.cc
+--- a/components/metrics/metrics_service.cc
++++ b/components/metrics/metrics_service.cc
+@@ -1,32 +1,12 @@
+-// Copyright 2014 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "components/metrics/metrics_service.h"
+-
+-#include "base/metrics/histogram_functions.h"
+-#include "base/metrics/persistent_histogram_allocator.h"
+-#include "base/metrics/statistics_recorder.h"
+-#include "base/strings/string_util.h"
+-#include "build/build_config.h"
+-#include "components/metrics/environment_recorder.h"
+-#include "components/metrics/field_trials_provider.h"
+-#include "components/metrics/metrics_log.h"
+-#include "components/metrics/metrics_pref_names.h"
+-#include "components/metrics/metrics_rotation_scheduler.h"
+-#include "components/metrics/metrics_state_manager.h"
+-#include "components/metrics/stability_metrics_helper.h"
+-#include "components/metrics/url_constants.h"
+-#include "components/prefs/pref_service.h"
+-#include "components/variations/entropy_provider.h"
++// XFBrowser: Minimal stub - telemetry disabled
++#include "components/metrics/metrics_service.h"
++#include "components/prefs/pref_service.h"
+
+ MetricsService::MetricsService(MetricsStateManager* state_manager,
+                                MetricsServiceClient* client,
+                                PrefService* local_state)
+-    : tab_count_(0),
+-      idle_since_last_transmission_(false),
+-      session_id_(base::Time::Now().ToTimeT()) {
+-  // XFBrowser: Telemetry disabled - empty body
+-}
++    : local_state_(local_state) {}
+ 
+ MetricsService::~MetricsService() = default;
+
+ void MetricsService::Start() {
+-  // No-op in XFBrowser
++  // Telemetry permanently disabled
+ }
+ 
+ void MetricsService::Stop() {
+-  // No-op in XFBrowser
++  // Telemetry permanently disabled
+ }
+ 
+ void MetricsService::RegisterPrefs(PrefRegistrySimple* registry) {
+-  // Minimal registration to avoid crashes
++  registry->RegisterInt64Pref(prefs::kMetricsReportingEnabledTimestamp, 0);
+ }

@@ -1,0 +1,58 @@
+# ============================================================
+# XFBrowser Build Configuration
+# 导入到 Chromium BUILD.gn 中使用
+# ============================================================
+
+declare_args() {
+  # XFBrowser 编译标记
+  enable_xfbrowser = true
+  
+  # 隐私功能开关
+  xfbrowser_disable_metrics = true
+  xfbrowser_disable_crash_reporting = true
+  xfbrowser_block_third_party_cookies = true
+  xfbrowser_enable_doh = true
+  xfbrowser_fingerprint_protection = true
+  xfbrowser_adblock = true
+  
+  # Fluent UI 功能
+  xfbrowser_fluent_titlebar = true
+  xfbrowser_fluent_tabs = true
+  xfbrowser_fluent_sidepanel = true
+  xfbrowser_window_mica = true
+  xfbrowser_window_acrylic = true
+}
+
+# XFBrowser 编译配置检查
+assert(enable_xfbrowser, "XFBrowser builds must have enable_xfbrowser=true")
+
+config("xfbrowser_config") {
+  defines = [
+    "XFBROWSER_BUILD",
+    "XFBROWSER_VERSION=\"1.0.0\"",
+  ]
+  
+  if (xfbrowser_disable_metrics) {
+    defines += ["XFBROWSER_DISABLE_METRICS"]
+  }
+  
+  if (xfbrowser_disable_crash_reporting) {
+    defines += ["XFBROWSER_DISABLE_CRASH_REPORTING"]
+  }
+  
+  if (xfbrowser_block_third_party_cookies) {
+    defines += ["XFBROWSER_BLOCK_THIRD_PARTY_COOKIES"]
+  }
+  
+  if (xfbrowser_enable_doh) {
+    defines += ["XFBROWSER_ENABLE_DOH"]
+  }
+  
+  if (xfbrowser_fingerprint_protection) {
+    defines += ["XFBROWSER_FINGERPRINT_PROTECTION"]
+  }
+  
+  if (xfbrowser_adblock) {
+    defines += ["XFBROWSER_ADBLOCK"]
+  }
+}

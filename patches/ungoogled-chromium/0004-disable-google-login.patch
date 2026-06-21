@@ -1,0 +1,130 @@
+diff --git a/chrome/browser/signin/chrome_signin_client.cc b/chrome/browser/signin/chrome_signin_client.cc
+--- a/chrome/browser/signin/chrome_signin_client.cc
++++ b/chrome/browser/signin/chrome_signin_client.cc
+@@ -1,18 +1,4 @@
+-// Copyright 2014 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/signin/chrome_signin_client.h"
+-
+-#include "base/strings/utf_string_conversions.h"
+-#include "build/build_config.h"
+-#include "chrome/browser/browser_process.h"
+-#include "chrome/browser/content_settings/cookie_settings_factory.h"
+-#include "chrome/browser/content_settings/host_content_settings_map_factory.h"
+-#include "chrome/browser/profiles/profile.h"
+-#include "chrome/browser/signin/account_consistency_mode_manager.h"
+-#include "chrome/browser/signin/force_signin_verifier.h"
+-#include "chrome/browser/signin/identity_manager_factory.h"
++// XFBrowser: Google Sign-In completely disabled
++#include "chrome/browser/signin/chrome_signin_client.h"
+ 
+ ChromeSigninClient::ChromeSigninClient(Profile* profile)
+     : profile_(profile) {}
+@@ -22,7 +8,7 @@ ChromeSigninClient::~ChromeSigninClient() = default;
+ 
+ void ChromeSigninClient::Shutdown() {
+-  // XFBrowser: no sign-in to shut down
++  // No-op
+ }
+ 
+ PrefService* ChromeSigninClient::GetPrefs() {
+@@ -30,17 +16,8 @@ PrefService* ChromeSigninClient::GetPrefs() {
+ }
+ 
+-scoped_refptr<network::SharedURLLoaderFactory>
+-ChromeSigninClient::GetURLLoaderFactory() {
+-  return profile_->GetDefaultStoragePartition()
+-      ->GetURLLoaderFactoryForBrowserProcess();
+-}
+-
+ void ChromeSigninClient::DoFinalInit() {
+-  // Google sign-in disabled by XFBrowser
+-}
+-
+-bool ChromeSigninClient::IsClearPrimaryAccountAllowed(
+-    bool has_sync_account) const {
+-  return true;
++  // No sign-in initialization
+ }
+ 
++bool ChromeSigninClient::IsClearPrimaryAccountAllowed(bool) const {
++  return true;
++}
++
+ void ChromeSigninClient::BeforeClearPrimaryAccount(
+     signin::PrimaryAccountChangeEvent::Type event_type) {
+-  // Not needed - no sign-in
++  // No-op
+ }
+
+diff --git a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc b/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc
+--- a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc
++++ b/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc
+@@ -1,19 +1,5 @@
+-// Copyright 2017 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/ui/webui/signin/signin_web_dialog_ui.h"
+-
+-#include "base/strings/utf_string_conversions.h"
+-#include "chrome/browser/profiles/profile.h"
+-#include "chrome/browser/signin/identity_manager_factory.h"
+-#include "chrome/browser/ui/browser_dialogs.h"
+-#include "chrome/browser/ui/webui/signin/login_ui_service_factory.h"
+-#include "chrome/common/url_constants.h"
+-#include "components/signin/public/base/signin_pref_names.h"
+-#include "components/signin/public/identity_manager/identity_manager.h"
+-#include "content/public/browser/web_ui.h"
+-#include "content/public/browser/web_ui_data_source.h"
++// XFBrowser: Sign-in WebUI disabled
++#include "chrome/browser/ui/webui/signin/signin_web_dialog_ui.h"
+ 
+ SigninWebDialogUI::SigninWebDialogUI(content::WebUI* web_ui)
+     : WebDialogUI(web_ui) {}
+@@ -23,7 +9,7 @@ void SigninWebDialogUI::InitializeMessageHandlerWithBrowser(Browser*) {}
+ 
+ void SigninWebDialogUI::InitializeMessageHandlerWithProfile(Profile*) {
+-  // XFBrowser: sign-in dialog removed
++  // Sign-in UI disabled
+ }
+
+diff --git a/chrome/browser/sync/chrome_sync_client.cc b/chrome/browser/sync/chrome_sync_client.cc
+--- a/chrome/browser/sync/chrome_sync_client.cc
++++ b/chrome/browser/sync/chrome_sync_client.cc
+@@ -1,18 +1,5 @@
+-// Copyright 2013 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/sync/chrome_sync_client.h"
+-
+-#include <utility>
+-
+-#include "base/feature_list.h"
+-#include "base/files/file_path.h"
+-#include "base/functional/bind.h"
+-#include "base/metrics/histogram_functions.h"
+-#include "base/path_service.h"
+-#include "base/task/sequenced_task_runner.h"
+-#include "base/version.h"
++// XFBrowser: Google Sync completely disabled
++#include "chrome/browser/sync/chrome_sync_client.h"
+ 
+ ChromeSyncClient::ChromeSyncClient(Profile* profile) : profile_(profile) {}
+ 
+@@ -24,11 +11,5 @@ void ChromeSyncClient::Shutdown() {
+ }
+ 
+-syncer::SyncService* ChromeSyncClient::GetSyncService() {
+-  // XFBrowser: returns nullptr to disable sync
+-  return nullptr;
+-}
+-
+-syncer::SyncService* ChromeSyncClient::GetSyncService() const {
+-  return nullptr;
+-}
++syncer::SyncService* ChromeSyncClient::GetSyncService() { return nullptr; }
++syncer::SyncService* ChromeSyncClient::GetSyncService() const { return nullptr; }

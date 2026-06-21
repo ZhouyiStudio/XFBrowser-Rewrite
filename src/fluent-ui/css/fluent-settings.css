@@ -1,0 +1,200 @@
+/* ===========================================================
+   XFBrowser - Fluent 设置页面样式
+   =========================================================== */
+
+.xf-settings {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: var(--fluent-space-3xl);
+}
+
+.xf-settings-header {
+  margin-bottom: var(--fluent-space-3xl);
+}
+
+.xf-settings-title {
+  font-size: var(--fluent-font-title-large);
+  font-weight: 600;
+  color: var(--fluent-text-primary);
+  margin-bottom: var(--fluent-space-sm);
+}
+
+.xf-settings-subtitle {
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-secondary);
+}
+
+/* 设置分组 */
+.xf-settings-group {
+  margin-bottom: var(--fluent-space-2xl);
+  background: var(--fluent-bg-layer1);
+  border-radius: var(--fluent-radius-lg);
+  overflow: hidden;
+}
+
+.xf-settings-group-header {
+  padding: var(--fluent-space-xl) var(--fluent-space-2xl);
+  border-bottom: 1px solid var(--fluent-border-base);
+  font-size: var(--fluent-font-body);
+  font-weight: 600;
+  color: var(--fluent-text-primary);
+}
+
+.xf-settings-group-body {
+  padding: var(--fluent-space-md) var(--fluent-space-2xl);
+}
+
+/* 设置行 */
+.xf-settings-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: var(--fluent-space-lg) 0;
+  min-height: 44px;
+}
+
+.xf-settings-row + .xf-settings-row {
+  border-top: 1px solid var(--fluent-border-base);
+}
+
+.xf-settings-row-info {
+  flex: 1;
+  min-width: 0;
+}
+
+.xf-settings-row-label {
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-primary);
+  font-weight: 500;
+}
+
+.xf-settings-row-desc {
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-secondary);
+  margin-top: 2px;
+}
+
+.xf-settings-row-control {
+  flex-shrink: 0;
+  margin-left: var(--fluent-space-xl);
+}
+
+/* Fluent 开关控件 */
+.xf-toggle {
+  position: relative;
+  width: 40px;
+  height: 20px;
+  cursor: pointer;
+  flex-shrink: 0;
+}
+
+.xf-toggle input {
+  display: none;
+}
+
+.xf-toggle-track {
+  position: absolute;
+  inset: 0;
+  background: var(--fluent-text-disabled);
+  border-radius: var(--fluent-radius-round);
+  transition: background var(--fluent-duration-normal) var(--fluent-easing-standard);
+}
+
+.xf-toggle input:checked + .xf-toggle-track {
+  background: var(--fluent-accent);
+}
+
+.xf-toggle-thumb {
+  position: absolute;
+  top: 2px;
+  left: 2px;
+  width: 16px;
+  height: 16px;
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: var(--fluent-shadow-sm);
+  transition: transform var(--fluent-duration-normal) var(--fluent-easing-standard);
+}
+
+.xf-toggle input:checked ~ .xf-toggle-thumb {
+  transform: translateX(20px);
+}
+
+/* 下拉选择 */
+.xf-select {
+  height: 32px;
+  background: var(--fluent-bg-base);
+  border: 1px solid var(--fluent-border-base);
+  border-radius: var(--fluent-radius-md);
+  padding: 0 var(--fluent-space-xl);
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-primary);
+  font-family: var(--fluent-font-family);
+  cursor: pointer;
+  outline: none;
+  transition: border-color var(--fluent-duration-fast) var(--fluent-easing-standard);
+  min-width: 140px;
+}
+
+.xf-select:focus {
+  border-color: var(--fluent-border-focus);
+}
+
+/* 按钮 */
+.xf-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  height: 32px;
+  padding: 0 var(--fluent-space-xl);
+  border: 1px solid var(--fluent-border-base);
+  border-radius: var(--fluent-radius-md);
+  background: transparent;
+  color: var(--fluent-text-primary);
+  font-size: var(--fluent-font-body);
+  font-family: var(--fluent-font-family);
+  cursor: pointer;
+  transition: all var(--fluent-duration-fast) var(--fluent-easing-standard);
+  gap: var(--fluent-space-sm);
+}
+
+.xf-btn:hover {
+  background: var(--fluent-bg-hover);
+}
+
+.xf-btn-primary {
+  background: var(--fluent-accent);
+  color: var(--fluent-text-on-accent);
+  border-color: transparent;
+}
+
+.xf-btn-primary:hover {
+  background: var(--fluent-accent-hover);
+}
+
+.xf-btn-danger {
+  color: #d32f2f;
+  border-color: rgba(211, 47, 47, 0.3);
+}
+
+.xf-btn-danger:hover {
+  background: rgba(211, 47, 47, 0.08);
+}
+
+/* 搜索框 */
+.xf-input {
+  height: 32px;
+  background: var(--fluent-bg-base);
+  border: 1px solid var(--fluent-border-base);
+  border-radius: var(--fluent-radius-md);
+  padding: 0 var(--fluent-space-lg);
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-primary);
+  font-family: var(--fluent-font-family);
+  outline: none;
+  transition: border-color var(--fluent-duration-fast) var(--fluent-easing-standard);
+}
+
+.xf-input:focus {
+  border-color: var(--fluent-border-focus);
+}

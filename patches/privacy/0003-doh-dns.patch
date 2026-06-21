@@ -1,0 +1,117 @@
+diff --git a/chrome/browser/net/secure_dns_config.cc b/chrome/browser/net/secure_dns_config.cc
+--- a/chrome/browser/net/secure_dns_config.cc
++++ b/chrome/browser/net/secure_dns_config.cc
+@@ -1,14 +1,4 @@
+-// Copyright 2020 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/net/secure_dns_config.h"
+-
+-#include "base/check_op.h"
+-#include "base/strings/string_number_conversions.h"
+-#include "base/values.h"
+-#include "chrome/browser/net/dns_probe_service.h"
+-#include "chrome/browser/net/secure_dns_config.h"
++// XFBrowser: DoH (DNS-over-HTTPS) enabled by default
++#include "chrome/browser/net/secure_dns_config.h"
+ 
+ SecureDnsConfig::SecureDnsConfig(SecureDnsMode mode,
+                                  net::DnsOverHttpsConfig doh_config,
+@@ -22,8 +12,9 @@ SecureDnsConfig::SecureDnsConfig() = default;
+ SecureDnsConfig::SecureDnsConfig(SecureDnsMode mode,
+                                  net::DnsOverHttpsConfig doh_config,
+                                  net::DohSystemMapping doh_system_mapping)
+-    : mode_(SecureDnsMode::kOff),  // XFBrowser: change to kSecure
+-      doh_config_(std::move(doh_config)),
++    : mode_(SecureDnsMode::kSecure),  // XFBrowser: DoH always on
++      doh_config_(net::DnsOverHttpsConfig::FromString(
++          "https://doh.pub/dns-query https://dns.alidns.com/dns-query")),
+       doh_system_mapping_(std::move(doh_system_mapping)) {}
+
+ SecureDnsConfig::~SecureDnsConfig() = default;
+
+diff --git a/chrome/browser/net/system_network_context_manager.cc b/chrome/browser/net/system_network_context_manager.cc
+--- a/chrome/browser/net/system_network_context_manager.cc
++++ b/chrome/browser/net/system_network_context_manager.cc
+@@ -1,17 +1,4 @@
+-// Copyright 2017 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/net/system_network_context_manager.h"
+-
+-#include <algorithm>
+-#include <unordered_set>
+-#include <utility>
+-
+-#include "base/feature_list.h"
+-#include "base/functional/bind.h"
+-#include "base/logging.h"
+-#include "base/metrics/histogram_functions.h"
++// XFBrowser: DoH and privacy-enhanced network config
++#include "chrome/browser/net/system_network_context_manager.h"
+ 
+ network::mojom::NetworkContextParamsPtr
+ SystemNetworkContextManager::CreateDefaultNetworkContextParams() {
+@@ -19,8 +6,8 @@ SystemNetworkContextManager::CreateDefaultNetworkContextParams() {
+   
+   // XFBrowser: Enable DoH by default
+   params->dns_over_https_config =
+-      net::DnsOverHttpsConfig();  // Empty = disabled
+-  params->dns_over_https_mode = network::mojom::DnsOverHttpsMode::kOff;
++      net::DnsOverHttpsConfig::FromString("https://doh.pub/dns-query");
++  params->dns_over_https_mode = network::mojom::DnsOverHttpsMode::kSecure;
+   
+   return params;
+ }
+
+diff --git a/chrome/browser/net/stub_resolver_config_reader.cc b/chrome/browser/net/stub_resolver_config_reader.cc
+--- a/chrome/browser/net/stub_resolver_config_reader.cc
++++ b/chrome/browser/net/stub_resolver_config_reader.cc
+@@ -1,22 +1,4 @@
+-// Copyright 2020 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "chrome/browser/net/stub_resolver_config_reader.h"
+-
+-#include <set>
+-
+-#include "base/check_op.h"
+-#include "base/feature_list.h"
+-#include "base/functional/bind.h"
+-#include "base/functional/callback.h"
+-#include "base/location.h"
+-#include "base/metrics/field_trial_params.h"
+-#include "base/metrics/histogram_functions.h"
+-#include "base/notreached.h"
+-#include "base/values.h"
+-#include "build/build_config.h"
+-#include "chrome/browser/browser_process.h"
++// XFBrowser: Stub resolver with DoH preference
++#include "chrome/browser/net/stub_resolver_config_reader.h"
+ 
+ StubResolverConfigReader::StubResolverConfigReader(PrefService* local_state)
+     : pref_service_(local_state) {
+@@ -27,14 +9,14 @@ StubResolverConfigReader::StubResolverConfigReader(PrefService* local_state)
+ 
+ SecureDnsConfig StubResolverConfigReader::GetSecureDnsConfiguration() {
+   return SecureDnsConfig(
+-      SecureDnsConfig::SecureDnsMode::kOff,  // XFBrowser: change to kSecure
+-      net::DnsOverHttpsConfig(),
++      SecureDnsConfig::SecureDnsMode::kSecure,
++      net::DnsOverHttpsConfig::FromString("https://doh.pub/dns-query"),
+       net::DohSystemMapping::NoMapping());
+ }
+ 
+ bool StubResolverConfigReader::GetInsecureStubResolverEnabled() {
+-  return false;  // XFBrowser: enable for improved privacy
++  return true;  // XFBrowser: enable insecure stub resolver 
++                // as fallback with DoH preferred
+ }
+ 
+ void StubResolverConfigReader::UpdateConfigService() {
+-  // XFBrowser: placeholder
++  // Managed by XFBrowser privacy module
+ }

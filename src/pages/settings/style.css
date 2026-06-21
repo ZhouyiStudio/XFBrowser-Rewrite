@@ -1,0 +1,54 @@
+/* ===========================================================
+   XFBrowser - 设置页额外样式
+   =========================================================== */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: var(--fluent-font-family);
+  background: var(--fluent-bg-base);
+  color: var(--fluent-text-primary);
+  -webkit-font-smoothing: antialiased;
+  min-height: 100vh;
+}
+
+/* 页面内搜索 */
+.xf-settings-search {
+  margin-bottom: var(--fluent-space-2xl);
+}
+
+/* 设置保存状态提示 */
+.xf-settings-toast {
+  position: fixed;
+  bottom: var(--fluent-space-2xl);
+  left: 50%;
+  transform: translateX(-50%) translateY(100px);
+  background: var(--fluent-bg-layer1);
+  border-radius: var(--fluent-radius-lg);
+  box-shadow: var(--fluent-shadow-lg);
+  padding: var(--fluent-space-lg) var(--fluent-space-2xl);
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-primary);
+  border: 1px solid var(--fluent-border-base);
+  opacity: 0;
+  transition: all var(--fluent-duration-slow) var(--fluent-easing-standard);
+  z-index: 9999;
+  pointer-events: none;
+}
+
+.xf-settings-toast[data-show="true"] {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+/* 设置分组内联提示 */
+.xf-settings-group-note {
+  padding: var(--fluent-space-md) var(--fluent-space-2xl);
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-disabled);
+  border-top: 1px solid var(--fluent-border-base);
+}

@@ -1,0 +1,55 @@
+diff --git a/components/content_settings/core/browser/content_settings_pref.cc b/components/content_settings/core/browser/content_settings_pref.cc
+--- a/components/content_settings/core/browser/content_settings_pref.cc
++++ b/components/content_settings/core/browser/content_settings_pref.cc
+@@ -1,12 +1,4 @@
+-// Copyright 2015 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+-#include "components/content_settings/core/browser/content_settings_pref.h"
+-
+-#include "base/auto_reset.h"
+-#include "base/functional/bind.h"
+-#include "base/metrics/histogram_macros.h"
++// XFBrowser: Enhanced content blocking settings
++#include "components/content_settings/core/browser/content_settings_pref.h"
+ 
+ bool ContentSettingsPref::IsBlockedByDefault(const ContentSettingsType type) {
+-  return false;  // XFBrowser: Block tracking by default
++  switch (type) {
++    case ContentSettingsType::ADS:
++    case ContentSettingsType::TRACKING_PROTECTION:
++    case ContentSettingsType::COOKIES:
++      return true;  // XFBrowser: block tracking by default
++    default:
++      return false;
++  }
+ }
+ 
+ void ContentSettingsPref::SetBlockAllThirdPartyCookies(bool block) {
+-  // XFBrowser: Always block third-party cookies
++  // XFBrowser: enforced third-party cookie isolation
++  base::AutoReset<bool> reset(&updating_, true);
++  value_->SetBoolKey("block_third_party", true);
+ }
+
+diff --git a/components/content_settings/core/common/content_settings_types.h b/components/content_settings/core/common/content_settings_types.h
+--- a/components/content_settings/core/common/content_settings_types.h
++++ b/components/content_settings/core/common/content_settings_types.h
+@@ -1,14 +1,5 @@
+-// Copyright 2023 The Chromium Authors
+-// Use of this source code is governed by a BSD-style license that can be
+-// found in the LICENSE file.
+-
+ #ifndef COMPONENTS_CONTENT_SETTINGS_CORE_COMMON_CONTENT_SETTINGS_TYPES_H_
+ #define COMPONENTS_CONTENT_SETTINGS_CORE_COMMON_CONTENT_SETTINGS_TYPES_H_
+ 
+-#include "base/notreached.h"
+-#include "build/build_config.h"
+-#include "components/content_settings/core/common/content_settings_types.h"
+-#include "components/content_settings/core/common/content_settings_types.mojom.h"
+-
+-// XFBrowser: Added tracker protection type
+-// XFBrowser: Added fingerprint protection type
++// XFBrowser: extended content settings types for privacy
++// See src/privacy/ directory for implementation
