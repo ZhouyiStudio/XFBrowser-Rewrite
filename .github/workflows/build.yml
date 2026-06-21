@@ -61,6 +61,7 @@ jobs:
           @"
           ac_add_options --enable-application=browser
           mk_add_options MOZ_OBJDIR=obj-x64-release
+          mk_add_options AUTOCLOBBER=1
           ac_add_options --target=x86_64-pc-windows-msvc
           ac_add_options --disable-debug
           ac_add_options --enable-optimize
