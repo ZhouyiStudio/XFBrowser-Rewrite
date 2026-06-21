@@ -37,11 +37,19 @@ XFBrowser 是基于 ungoogled-chromium 的 Windows 隐私增强浏览器。
 - `$LASTEXITCODE` 检查 + `--whitespace=fix` 确保补丁应用失败时及时报错
 - XFBrowser 覆盖补丁（11 个）的 hunk header range count（`+N,M` 和 `-N,M`）已修正——original 工具生成的 patch 尾部 context 行未被计入 range
 
-### 待办
-- ~~XFBrowser 覆盖补丁（11 个）的 hunk header range count（`+N,M` 和 `-N,M`）已修正——original 工具生成的 patch 尾部 context 行未被计入 range~~
-- ~~4 个补丁同文件多 hunk 间的空白分隔行已移除（`git apply` 会丢失文件关联导致 "patch fragment without header"）~~
-- CI 上验证 `0001-remove-google-services.patch` 是否仍有错误
-- 全部 CI pipeline 通过后上线
+### 已完成（修复 XFBrowser overlay patch 格式）
+- hunk header range count（`+N,M` 和 `-N,M`）已修正——original 工具生成的 patch 尾部 context 行未被计入 range
+- 同文件多 hunk 间的空白分隔行已移除（`git apply` 会丢失文件关联导致 "patch fragment without header"）
+- 尾部多余的 trailing context 行已移除（会被当作 hunk body 的最后一个 context 行）
+- CI 的 `git apply` 添加 `--recount` 标志，忽略 header 行数直接根据 hunk body 推算
+- 等待 CI pipeline 验证
+
+## 重要决策
+- 放弃稀疏检出（排除太激进导致补丁丢失文件）
+- 用本地 commit 的 patch 目录替代远程 ungoogled-chromium 仓库克隆（可靠，避免 500+ MB 克隆）
+- 通过 `.gitattributes` 强制所有 patch 文件使用 LF，防止 Windows CI 上的 CRLF 损坏
+- 使用 `series` 文件保证官方补丁顺序
+- 11 个 XFBrowser 覆盖补丁是原项目作者工具生成，有 hunk range count 不匹配问题，已通过 `--recount` + 格式修复处理
 
 ## 重要决策
 - 放弃稀疏检出（排除太激进导致补丁丢失文件）
