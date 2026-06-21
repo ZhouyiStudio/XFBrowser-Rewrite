@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/signin/chrome_signin_client.cc b/chrome/browser/signin/chrome_signin_client.cc
 --- a/chrome/browser/signin/chrome_signin_client.cc
 +++ b/chrome/browser/signin/chrome_signin_client.cc
-@@ -1,18 +1,4 @@
+@@ -1,18 +1,5 @@
 -// Copyright 2014 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -22,7 +22,7 @@ diff --git a/chrome/browser/signin/chrome_signin_client.cc b/chrome/browser/sign
  
  ChromeSigninClient::ChromeSigninClient(Profile* profile)
      : profile_(profile) {}
-@@ -22,7 +8,7 @@ ChromeSigninClient::~ChromeSigninClient() = default;
+@@ -22,6 +8,6 @@ ChromeSigninClient::~ChromeSigninClient() = default;
  
  void ChromeSigninClient::Shutdown() {
 -  // XFBrowser: no sign-in to shut down
@@ -30,7 +30,7 @@ diff --git a/chrome/browser/signin/chrome_signin_client.cc b/chrome/browser/sign
  }
  
  PrefService* ChromeSigninClient::GetPrefs() {
-@@ -30,17 +16,8 @@ PrefService* ChromeSigninClient::GetPrefs() {
+@@ -30,21 +16,14 @@ PrefService* ChromeSigninClient::GetPrefs() {
  }
  
 -scoped_refptr<network::SharedURLLoaderFactory>
@@ -84,7 +84,7 @@ diff --git a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc b/chrome/bro
  
  SigninWebDialogUI::SigninWebDialogUI(content::WebUI* web_ui)
      : WebDialogUI(web_ui) {}
-@@ -23,7 +9,7 @@ void SigninWebDialogUI::InitializeMessageHandlerWithBrowser(Browser*) {}
+@@ -23,4 +9,4 @@ void SigninWebDialogUI::InitializeMessageHandlerWithBrowser(Browser*) {}
  
  void SigninWebDialogUI::InitializeMessageHandlerWithProfile(Profile*) {
 -  // XFBrowser: sign-in dialog removed
@@ -94,7 +94,7 @@ diff --git a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc b/chrome/bro
 diff --git a/chrome/browser/sync/chrome_sync_client.cc b/chrome/browser/sync/chrome_sync_client.cc
 --- a/chrome/browser/sync/chrome_sync_client.cc
 +++ b/chrome/browser/sync/chrome_sync_client.cc
-@@ -1,18 +1,5 @@
+@@ -1,17 +1,4 @@
 -// Copyright 2013 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.

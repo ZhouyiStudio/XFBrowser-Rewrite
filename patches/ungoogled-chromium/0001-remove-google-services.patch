@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc b/chrome/browser/autofill/autofill_gaia_key_fetcher.cc
 --- a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc
 +++ b/chrome/browser/autofill/autofill_gaia_key_fetcher.cc
-@@ -1,15 +1,4 @@
+@@ -1,19 +1,5 @@
 -// Copyright 2023 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -25,7 +25,7 @@ diff --git a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc b/chrome/brows
  
  namespace autofill {
 
-@@ -17,30 +6,7 @@ std::unique_ptr<AutofillGaiaKeyFetcher> AutofillGaiaKeyFetcher::Create(
+@@ -17,26 +6,11 @@ std::unique_ptr<AutofillGaiaKeyFetcher> AutofillGaiaKeyFetcher::Create(
      content::BrowserContext* browser_context) {
 -  IdentityManager* identity_manager =
 -      IdentityManagerFactory::GetForProfile(
@@ -64,13 +64,13 @@ diff --git a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc b/chrome/brows
 diff --git a/chrome/browser/signin/BUILD.gn b/chrome/browser/signin/BUILD.gn
 --- a/chrome/browser/signin/BUILD.gn
 +++ b/chrome/browser/signin/BUILD.gn
-@@ -25,4 +25,5 @@ source_set("signin") {
+@@ -25,5 +25,5 @@ source_set("signin") {
      "account_id_mismatch_helper.h",
      "account_consistency_disabled_unittest.cc",
      "account_investigator.cc",
      "account_investigator.h",
      "account_reconcilor_factory.cc",
-@@ -45,7 +46,6 @@ source_set("signin") {
+@@ -45,8 +46,6 @@ source_set("signin") {
      "dice_response_handler.h",
      "force_signin_verifier.cc",
      "force_signin_verifier.h",
@@ -79,7 +79,7 @@ diff --git a/chrome/browser/signin/BUILD.gn b/chrome/browser/signin/BUILD.gn
      "header_modification_delegate_impl.cc",
      "header_modification_delegate_impl.h",
      "identity_manager_factory.cc",
-@@ -94,8 +94,6 @@ source_set("signin") {
+@@ -94,7 +94,6 @@ source_set("signin") {
      "//chrome/browser/profiles:profiles",
      "//chrome/browser/sync:sync",
      "//chrome/common:channel_info",
@@ -91,7 +91,7 @@ diff --git a/chrome/browser/signin/BUILD.gn b/chrome/browser/signin/BUILD.gn
 diff --git a/chrome/browser/google/google_url_tracker_factory.cc b/chrome/browser/google/google_url_tracker_factory.cc
 --- a/chrome/browser/google/google_url_tracker_factory.cc
 +++ b/chrome/browser/google/google_url_tracker_factory.cc
-@@ -1,24 +1,8 @@
+@@ -1,24 +1,11 @@
 -// Copyright 2012 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.

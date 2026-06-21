@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/ui/views/frame/browser_frame.cc b/chrome/browser/ui/views/frame/browser_frame.cc
 --- a/chrome/browser/ui/views/frame/browser_frame.cc
 +++ b/chrome/browser/ui/views/frame/browser_frame.cc
-@@ -1,10 +1,4 @@
+@@ -1,10 +1,5 @@
 -// Copyright 2012 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -37,7 +37,7 @@ diff --git a/chrome/browser/ui/views/frame/browser_frame.cc b/chrome/browser/ui/
      // Windows 11: Mica material
      BOOL mica_enabled = TRUE;
      ::DwmSetWindowAttribute(
-@@ -31,6 +27,7 @@ void ApplyWindowBackdrop(HWND hwnd) {
+@@ -31,8 +27,11 @@ void ApplyWindowBackdrop(HWND hwnd) {
          DWMWA_MICA_EFFECT,
          &mica_enabled,
          sizeof(mica_enabled));
@@ -50,7 +50,7 @@ diff --git a/chrome/browser/ui/views/frame/browser_frame.cc b/chrome/browser/ui/
      ACCENT_POLICY accent = {0};
      accent.AccentState = ACCENT_ENABLE_ACRYLICBLURBEHIND;
      accent.AccentFlags = 0;
-@@ -40,7 +37,6 @@ void ApplyWindowBackdrop(HWND hwnd) {
+@@ -40,7 +37,7 @@ void ApplyWindowBackdrop(HWND hwnd) {
      WCA_EXCLUDEFROMCAPTURE = 0;
  
      data.cbSize = sizeof(WindowCompositionAttributeData);
@@ -59,7 +59,7 @@ diff --git a/chrome/browser/ui/views/frame/browser_frame.cc b/chrome/browser/ui/
      data.pvData = &accent;
      data.cbData = sizeof(accent);
      ::SetWindowCompositionAttribute(hwnd, &data);
-@@ -53,30 +49,16 @@ class BrowserFrameImpl : public BrowserFrame {
+@@ -53,19 +49,12 @@ class BrowserFrameImpl : public BrowserFrame {
   public:
    BrowserFrameImpl(BrowserView* browser_view) : BrowserFrame(browser_view) {
      HWND hwnd = GetNativeWindow().GetHWND();
@@ -89,7 +89,7 @@ diff --git a/chrome/browser/ui/views/frame/browser_frame.cc b/chrome/browser/ui/
 diff --git a/chrome/browser/ui/views/frame/browser_view.cc b/chrome/browser/ui/views/frame/browser_view.cc
 --- a/chrome/browser/ui/views/frame/browser_view.cc
 +++ b/chrome/browser/ui/views/frame/browser_view.cc
-@@ -1,9 +1,4 @@
+@@ -1,15 +1,7 @@
 -// Copyright 2012 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.

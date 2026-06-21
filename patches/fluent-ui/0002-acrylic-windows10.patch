@@ -31,7 +31,7 @@ diff --git a/chrome/browser/ui/views/frame/windows_10_caption_button.cc b/chrome
  
  Windows10CaptionButton::Windows10CaptionButton(
      PressedCallback callback,
-@@ -27,33 +11,17 @@ Windows10CaptionButton::Windows10CaptionButton(
+@@ -27,32 +11,17 @@ Windows10CaptionButton::Windows10CaptionButton(
      const gfx::VectorIcon& icon,
      int size)
      : ImageButton(std::move(callback)) {
@@ -80,7 +80,7 @@ diff --git a/chrome/browser/ui/views/frame/windows_10_caption_button.cc b/chrome
 diff --git a/chrome/browser/ui/views/frame/windows_10_caption_button.h b/chrome/browser/ui/views/frame/windows_10_caption_button.h
 --- a/chrome/browser/ui/views/frame/windows_10_caption_button.h
 +++ b/chrome/browser/ui/views/frame/windows_10_caption_button.h
-@@ -1,11 +1,6 @@
+@@ -1,13 +1,7 @@
 -// Copyright 2022 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.

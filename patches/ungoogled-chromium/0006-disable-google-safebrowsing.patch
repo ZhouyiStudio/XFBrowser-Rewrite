@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/safe_browsing/BUILD.gn b/chrome/browser/safe_browsing/BUILD.gn
 --- a/chrome/browser/safe_browsing/BUILD.gn
 +++ b/chrome/browser/safe_browsing/BUILD.gn
-@@ -1,21 +1,5 @@
+@@ -1,19 +1,4 @@
 -# Copyright 2017 The Chromium Authors
 -# Use of this source code is governed by a BSD-style license that can be
 -# found in the LICENSE file.
@@ -50,7 +50,7 @@ diff --git a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_fac
  
  safe_browsing::SafeBrowsingBlockingPage*
  ChromeSafeBrowsingBlockingPageFactory::CreateSafeBrowsingPage(
-@@ -21,7 +8,7 @@ ChromeSafeBrowsingBlockingPageFactory::CreateSafeBrowsingPage(
+@@ -21,5 +8,5 @@ ChromeSafeBrowsingBlockingPageFactory::CreateSafeBrowsingPage(
      content::WebContents* web_contents,
      const safe_browsing::UnsafeResource& unsafe_resource,
      bool should_trigger_reporting) {
@@ -61,7 +61,7 @@ diff --git a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_fac
 diff --git a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc b/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
 --- a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
 +++ b/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
-@@ -1,16 +1,4 @@
+@@ -1,16 +1,5 @@
 -// Copyright 2021 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -80,7 +80,7 @@ diff --git a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_u
  
  namespace safe_browsing {
  namespace deep_scanning {
-@@ -25,9 +13,4 @@ void LogDeepScanningEvent(DeepScanAccessPoint access_point,
+@@ -25,10 +13,6 @@ void LogDeepScanningEvent(DeepScanAccessPoint access_point,
                            const DeepScanningEvent& event) {
 -  // XFBrowser: cloud telemetry removed
 -}

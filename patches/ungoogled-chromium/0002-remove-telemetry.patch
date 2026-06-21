@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/metrics/chrome_metrics_services_manager_client.cc b/chrome/browser/metrics/chrome_metrics_services_manager_client.cc
 --- a/chrome/browser/metrics/chrome_metrics_services_manager_client.cc
 +++ b/chrome/browser/metrics/chrome_metrics_services_manager_client.cc
-@@ -24,15 +24,8 @@
+@@ -24,13 +24,9 @@
  // XFBrowser: Force-disable all metrics and crash reporting
  
  bool ChromeMetricsServicesManagerClient::IsMetricsReportingEnabled() {
@@ -21,7 +21,7 @@ diff --git a/chrome/browser/metrics/chrome_metrics_services_manager_client.cc b/
 diff --git a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp b/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
 --- a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
 +++ b/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
-@@ -1,12 +1,6 @@
+@@ -1,4 +1,2 @@
  // XFBrowser: Remove all UMAs, histograms, field trials
 -void RegisterChromeMetricsExtensions(MetricsService* service) {
 -  // Telemetry stripped by XFBrowser
@@ -31,7 +31,7 @@ diff --git a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp b/chrome/
 diff --git a/chrome/browser/ui/startup/google_api_keys_migration.cc b/chrome/browser/ui/startup/google_api_keys_migration.cc
 --- a/chrome/browser/ui/startup/google_api_keys_migration.cc
 +++ b/chrome/browser/ui/startup/google_api_keys_migration.cc
-@@ -1,14 +1,4 @@
+@@ -1,14 +1,6 @@
 -// Copyright 2022 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -53,7 +53,7 @@ diff --git a/chrome/browser/ui/startup/google_api_keys_migration.cc b/chrome/bro
 diff --git a/components/metrics/metrics_service.cc b/components/metrics/metrics_service.cc
 --- a/components/metrics/metrics_service.cc
 +++ b/components/metrics/metrics_service.cc
-@@ -1,32 +1,12 @@
+@@ -1,45 +1,23 @@
 -// Copyright 2014 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.

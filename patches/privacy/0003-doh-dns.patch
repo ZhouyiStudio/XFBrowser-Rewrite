@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/net/secure_dns_config.cc b/chrome/browser/net/secure_dns_config.cc
 --- a/chrome/browser/net/secure_dns_config.cc
 +++ b/chrome/browser/net/secure_dns_config.cc
-@@ -1,14 +1,4 @@
+@@ -1,14 +1,5 @@
 -// Copyright 2020 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -34,7 +34,7 @@ diff --git a/chrome/browser/net/secure_dns_config.cc b/chrome/browser/net/secure
 diff --git a/chrome/browser/net/system_network_context_manager.cc b/chrome/browser/net/system_network_context_manager.cc
 --- a/chrome/browser/net/system_network_context_manager.cc
 +++ b/chrome/browser/net/system_network_context_manager.cc
-@@ -1,17 +1,4 @@
+@@ -1,17 +1,5 @@
 -// Copyright 2017 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -69,7 +69,7 @@ diff --git a/chrome/browser/net/system_network_context_manager.cc b/chrome/brows
 diff --git a/chrome/browser/net/stub_resolver_config_reader.cc b/chrome/browser/net/stub_resolver_config_reader.cc
 --- a/chrome/browser/net/stub_resolver_config_reader.cc
 +++ b/chrome/browser/net/stub_resolver_config_reader.cc
-@@ -1,22 +1,4 @@
+@@ -1,22 +1,5 @@
 -// Copyright 2020 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -94,7 +94,7 @@ diff --git a/chrome/browser/net/stub_resolver_config_reader.cc b/chrome/browser/
  
  StubResolverConfigReader::StubResolverConfigReader(PrefService* local_state)
      : pref_service_(local_state) {
-@@ -27,14 +9,14 @@ StubResolverConfigReader::StubResolverConfigReader(PrefService* local_state)
+@@ -27,16 +9,17 @@ StubResolverConfigReader::StubResolverConfigReader(PrefService* local_state)
  
  SecureDnsConfig StubResolverConfigReader::GetSecureDnsConfiguration() {
    return SecureDnsConfig(

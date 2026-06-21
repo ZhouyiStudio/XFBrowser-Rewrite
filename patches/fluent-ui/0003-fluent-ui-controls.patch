@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/ui/views/tabs/tab_strip.cc b/chrome/browser/ui/views/tabs/tab_strip.cc
 --- a/chrome/browser/ui/views/tabs/tab_strip.cc
 +++ b/chrome/browser/ui/views/tabs/tab_strip.cc
-@@ -1,19 +1,4 @@
+@@ -1,39 +1,42 @@
 -// Copyright 2012 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -78,7 +78,7 @@ diff --git a/chrome/browser/ui/views/tabs/tab_strip.cc b/chrome/browser/ui/views
 diff --git a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc b/chrome/browser/ui/views/omnibox/omnibox_view_views.cc
 --- a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc
 +++ b/chrome/browser/ui/views/omnibox/omnibox_view_views.cc
-@@ -1,18 +1,4 @@
+@@ -1,18 +1,5 @@
 -// Copyright 2012 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -99,7 +99,7 @@ diff --git a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc b/chrome/brow
  
  OmniboxViewViews::OmniboxViewViews(OmniboxEditController* controller,
                                     std::unique_ptr<OmniboxClient> client,
-@@ -25,7 +11,7 @@ OmniboxViewViews::OmniboxViewViews(OmniboxEditController* controller,
+@@ -25,5 +11,12 @@ OmniboxViewViews::OmniboxViewViews(OmniboxEditController* controller,
        scheme_image_label_(this) {
    SetBorder(views::CreateEmptyBorder(gfx::Insets::VH(4, 12)));
    SetBackground(nullptr);
@@ -117,7 +117,7 @@ diff --git a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc b/chrome/brow
 diff --git a/chrome/browser/ui/views/location_bar/location_bar_view.cc b/chrome/browser/ui/views/location_bar/location_bar_view.cc
 --- a/chrome/browser/ui/views/location_bar/location_bar_view.cc
 +++ b/chrome/browser/ui/views/location_bar/location_bar_view.cc
-@@ -1,15 +1,4 @@
+@@ -1,17 +1,12 @@
 -// Copyright 2012 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.

@@ -1,7 +1,7 @@
 diff --git a/chrome/browser/incognito_mode_controller.cc b/chrome/browser/incognito_mode_controller.cc
 --- a/chrome/browser/incognito_mode_controller.cc
 +++ b/chrome/browser/incognito_mode_controller.cc
-@@ -1,14 +1,5 @@
+@@ -1,15 +1,5 @@
 -// Copyright 2023 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -19,7 +19,7 @@ diff --git a/chrome/browser/incognito_mode_controller.cc b/chrome/browser/incogn
  
  IncognitoModeController::IncognitoModeController(PrefService* pref_service)
      : pref_service_(pref_service) {
-@@ -16,8 +7,7 @@ IncognitoModeController::IncognitoModeController(PrefService* pref_service)
+@@ -16,8 +7,8 @@ IncognitoModeController::IncognitoModeController(PrefService* pref_service)
  
  bool IncognitoModeController::IsIncognitoModeAvailable() const {
 -  return true;  // XFBrowser: always available
@@ -34,7 +34,7 @@ diff --git a/chrome/browser/incognito_mode_controller.cc b/chrome/browser/incogn
 diff --git a/chrome/browser/private_network_access/chrome_private_network_access_checker.cc b/chrome/browser/private_network_access/chrome_private_network_access_checker.cc
 --- a/chrome/browser/private_network_access/chrome_private_network_access_checker.cc
 +++ b/chrome/browser/private_network_access/chrome_private_network_access_checker.cc
-@@ -1,13 +1,4 @@
+@@ -1,14 +1,5 @@
 -// Copyright 2023 The Chromium Authors
 -// Use of this source code is governed by a BSD-style license that can be
 -// found in the LICENSE file.
@@ -51,7 +51,7 @@ diff --git a/chrome/browser/private_network_access/chrome_private_network_access
  
  ChromePrivateNetworkAccessChecker::ChromePrivateNetworkAccessChecker(
      Profile* profile)
-@@ -16,7 +7,6 @@ ChromePrivateNetworkAccessChecker::ChromePrivateNetworkAccessChecker(
+@@ -16,6 +7,5 @@ ChromePrivateNetworkAccessChecker::ChromePrivateNetworkAccessChecker(
        profile_(profile) {
    if (host_content_settings_map_) {
      host_content_settings_map_->AddObserver(this);
