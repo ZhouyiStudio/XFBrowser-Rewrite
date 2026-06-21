@@ -50,6 +50,12 @@ jobs:
           Start-Process $exe -ArgumentList "/S" -Wait
           Remove-Item $exe -Force
 
+      - name: Pre-install pyyaml (workaround for pip resolver conflict)
+        if: steps.cache-bootstrap.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          pip install pyyaml==6.0.2 --force-reinstall 2>&1
+
       - name: mach bootstrap
         if: steps.cache-bootstrap.outputs.cache-hit != 'true'
         shell: pwsh
