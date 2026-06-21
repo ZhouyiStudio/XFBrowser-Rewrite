@@ -43,7 +43,7 @@ export class FluentTitleBar {
     // 最小化
     controls.appendChild(FluentUtils.createElement('button', {
       class: 'xf-titlebar-btn',
-      onclick: () => window.chrome?.send?.('minimize') || window.close(),
+      onclick: () => window.close(),
       title: '最小化'
     }, [FluentUtils.icon('<path d="M2 8h12" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>')]));
 
@@ -58,7 +58,7 @@ export class FluentTitleBar {
     // 关闭
     controls.appendChild(FluentUtils.createElement('button', {
       class: 'xf-titlebar-btn xf-titlebar-btn-close',
-      onclick: () => window.chrome?.send?.('close') || window.close(),
+      onclick: () => window.close(),
       title: '关闭'
     }, [FluentUtils.icon('<path d="M4 4l8 8m0-8l-8 8" stroke="currentColor" stroke-width="1.2" stroke-linecap="round"/>')]));
 
@@ -67,7 +67,7 @@ export class FluentTitleBar {
 
   _toggleMaximize() {
     // 通过 Chrome 原生 API 或 IPC 通信
-    window.chrome?.send?.('maximize');
+    // Firefox 无原生窗口最大化 API，由浏览器 chrome 处理
   }
 
   setTitle(title) {

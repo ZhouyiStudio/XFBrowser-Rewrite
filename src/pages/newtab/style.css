@@ -1,8 +1,3 @@
-/* ===========================================================
-   XFBrowser - 新标签页 Fluent 样式
-   原生 CSS，无预处理器
-   =========================================================== */
-
 * {
   margin: 0;
   padding: 0;
@@ -11,18 +6,23 @@
 
 body {
   font-family: var(--fluent-font-family);
-  background: var(--fluent-bg-base);
   color: var(--fluent-text-primary);
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+  transition: background 1s ease;
+  background: linear-gradient(135deg, #e8f0fe 0%, #f0f4ff 50%, #fafcff 100%);
+}
+
+[data-theme="dark"] body {
+  background: linear-gradient(135deg, #1a1a2e 0%, #16213e 50%, #0f3460 100%);
 }
 
 #app {
   flex: 1;
   display: flex;
   flex-direction: column;
-  max-width: 720px;
+  max-width: 640px;
   margin: 0 auto;
   padding: var(--fluent-space-3xl);
   width: 100%;
@@ -31,18 +31,18 @@ body {
 /* ---- 头部 ---- */
 .ntp-header {
   text-align: center;
-  padding: var(--fluent-space-3xl) 0 var(--fluent-space-2xl);
+  padding: var(--fluent-space-2xl) 0 var(--fluent-space-xl);
 }
 
 .ntp-logo {
-  margin-bottom: var(--fluent-space-xl);
+  margin-bottom: var(--fluent-space-lg);
 }
 
 .ntp-greeting {
-  font-size: var(--fluent-font-title-large);
+  font-size: 36px;
   font-weight: 600;
   color: var(--fluent-text-primary);
-  margin-bottom: var(--fluent-space-sm);
+  margin-bottom: var(--fluent-space-xs);
 }
 
 .ntp-date {
@@ -52,14 +52,14 @@ body {
 
 /* ---- 区域 ---- */
 .ntp-section {
-  margin-bottom: var(--fluent-space-2xl);
+  margin-bottom: var(--fluent-space-xl);
 }
 
 .ntp-section-header {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  margin-bottom: var(--fluent-space-lg);
+  margin-bottom: var(--fluent-space-md);
 }
 
 .ntp-section-header h2 {
@@ -89,68 +89,9 @@ body {
   color: var(--fluent-text-secondary);
 }
 
-/* ---- 快捷访问磁贴 ---- */
-.ntp-tiles {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, 112px);
-  gap: var(--fluent-space-lg);
-  justify-content: center;
-}
-
-.ntp-tile {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: var(--fluent-space-sm);
-  padding: var(--fluent-space-lg);
-  border-radius: var(--fluent-radius-lg);
-  cursor: pointer;
-  transition: all var(--fluent-duration-fast) var(--fluent-easing-standard);
-  text-decoration: none;
-  color: inherit;
-}
-
-.ntp-tile:hover {
-  background: var(--fluent-bg-hover);
-}
-
-.ntp-tile:active {
-  transform: scale(0.95);
-}
-
-.ntp-tile-icon {
-  width: 48px;
-  height: 48px;
-  border-radius: var(--fluent-radius-xl);
-  background: var(--fluent-bg-layer1);
-  box-shadow: var(--fluent-shadow-sm);
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  font-size: 20px;
-  overflow: hidden;
-}
-
-.ntp-tile-icon img {
-  width: 100%;
-  height: 100%;
-  object-fit: contain;
-  padding: 8px;
-}
-
-.ntp-tile-title {
-  font-size: var(--fluent-font-caption);
-  color: var(--fluent-text-secondary);
-  text-align: center;
-  max-width: 100%;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  white-space: nowrap;
-}
-
 /* ---- 搜索 ---- */
 .ntp-search-section {
-  margin-bottom: var(--fluent-space-2xl);
+  margin-bottom: var(--fluent-space-xl);
 }
 
 .ntp-search-container {
@@ -161,8 +102,8 @@ body {
   border-radius: var(--fluent-radius-xl);
   box-shadow: var(--fluent-shadow-sm);
   border: 1px solid var(--fluent-border-base);
-  padding: 0 var(--fluent-space-xl);
-  gap: var(--fluent-space-lg);
+  padding: 0 var(--fluent-space-md);
+  gap: var(--fluent-space-md);
   transition: all var(--fluent-duration-fast) var(--fluent-easing-standard);
 }
 
@@ -190,19 +131,114 @@ body {
   color: var(--fluent-text-disabled);
 }
 
+.ntp-search-engine {
+  border: none;
+  background: transparent;
+  color: var(--fluent-text-secondary);
+  font-size: var(--fluent-font-caption);
+  font-family: var(--fluent-font-family);
+  cursor: pointer;
+  padding: var(--fluent-space-xs);
+  border-radius: var(--fluent-radius-sm);
+  transition: background var(--fluent-duration-fast) var(--fluent-easing-standard);
+}
+
+.ntp-search-engine:hover {
+  background: var(--fluent-bg-hover);
+}
+
+/* ---- 快捷访问磁贴 ---- */
+.ntp-tiles {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, 96px);
+  gap: var(--fluent-space-md);
+  justify-content: center;
+}
+
+.ntp-tile {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--fluent-space-xs);
+  padding: var(--fluent-space-md);
+  border-radius: var(--fluent-radius-lg);
+  cursor: pointer;
+  transition: all var(--fluent-duration-fast) var(--fluent-easing-standard);
+  text-decoration: none;
+  color: inherit;
+}
+
+.ntp-tile:hover {
+  background: var(--fluent-bg-hover);
+  transform: translateY(-2px);
+}
+
+.ntp-tile:active {
+  transform: scale(0.95);
+}
+
+.ntp-tile-icon {
+  width: 48px;
+  height: 48px;
+  border-radius: var(--fluent-radius-xl);
+  background: var(--fluent-bg-layer1);
+  box-shadow: var(--fluent-shadow-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 20px;
+  overflow: hidden;
+}
+
+.ntp-tile-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  padding: 8px;
+}
+
+.ntp-tile-title {
+  font-size: 11px;
+  color: var(--fluent-text-secondary);
+  text-align: center;
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+/* ---- 每日一言 ---- */
+.ntp-quote-section {
+  text-align: center;
+  padding: var(--fluent-space-lg) 0;
+}
+
+.ntp-quote-text {
+  font-size: var(--fluent-font-body);
+  color: var(--fluent-text-secondary);
+  font-style: italic;
+  line-height: 1.6;
+  margin-bottom: var(--fluent-space-xs);
+}
+
+.ntp-quote-author {
+  font-size: var(--fluent-font-caption);
+  color: var(--fluent-text-disabled);
+}
+
 /* ---- 最近关闭 ---- */
 .ntp-recent-list {
   display: flex;
   flex-direction: column;
-  gap: var(--fluent-space-sm);
+  gap: var(--fluent-space-xs);
 }
 
 .ntp-recent-item {
   display: flex;
   align-items: center;
-  padding: var(--fluent-space-lg);
+  padding: var(--fluent-space-md);
   border-radius: var(--fluent-radius-md);
-  gap: var(--fluent-space-lg);
+  gap: var(--fluent-space-md);
   cursor: pointer;
   transition: background var(--fluent-duration-fast) var(--fluent-easing-standard);
 }
@@ -234,20 +270,20 @@ body {
 /* ---- 底部 ---- */
 .ntp-footer {
   margin-top: auto;
-  padding-top: var(--fluent-space-2xl);
+  padding-top: var(--fluent-space-lg);
 }
 
 .ntp-footer-links {
   display: flex;
   justify-content: center;
-  gap: var(--fluent-space-sm);
+  gap: var(--fluent-space-xs);
 }
 
 .ntp-footer-btn {
   display: flex;
   align-items: center;
-  gap: var(--fluent-space-sm);
-  padding: var(--fluent-space-sm) var(--fluent-space-lg);
+  gap: var(--fluent-space-xs);
+  padding: var(--fluent-space-xs) var(--fluent-space-lg);
   border: none;
   background: transparent;
   border-radius: var(--fluent-radius-md);
