@@ -44,10 +44,11 @@ jobs:
         if: steps.cache-bootstrap.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          New-Item -ItemType Directory -Path "C:\mozilla-build" -Force
-          $env:Path = "C:\Program Files\Git\usr\bin;$env:Path"
-          echo "MozillaBuild_DIR=C:\mozilla-build" | Out-File -FilePath $env:GITHUB_ENV -Append
-          echo "C:\Program Files\Git\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
+          $exe = "$env:TEMP\MozillaBuildSetup.exe"
+          curl.exe -sL -o $exe "https://ftp.mozilla.org/pub/mozilla/libraries/win32/MozillaBuildSetup-Latest.exe"
+          if (!(Test-Path $exe)) { throw "Download failed" }
+          Start-Process $exe -ArgumentList "/S" -Wait
+          Remove-Item $exe -Force
 
       - name: mach bootstrap
         if: steps.cache-bootstrap.outputs.cache-hit != 'true'
