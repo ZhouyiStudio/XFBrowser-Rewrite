@@ -67,6 +67,21 @@ jobs:
           Copy-Item "${{ github.workspace }}\config\sparse-checkout" ".git\info\sparse-checkout"
           git read-tree -mu HEAD
 
+      - name: Apply ungoogled-chromium patches
+        if: steps.cache.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          Set-Location chromium-src
+          Write-Host "Cloning ungoogled-chromium patches repo..."
+          git clone --depth 1 --verbose "https://github.com/ungoogled-software/ungoogled-chromium.git" ungoogled-patches 2>&1
+          $exit = $LASTEXITCODE
+          Write-Host "Clone exit code: $exit"
+          if ($exit -ne 0) { exit $exit }
+          if (Test-Path "ungoogled-patches\patches") {
+            Get-ChildItem "ungoogled-patches\patches" -Recurse -Filter *.patch |
+              ForEach-Object { git apply --ignore-whitespace $_.FullName 2>$null }
+          }
+
       - name: Apply XFBrowser patches
         if: steps.cache.outputs.cache-hit != 'true'
         shell: pwsh
