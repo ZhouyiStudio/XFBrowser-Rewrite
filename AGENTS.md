@@ -41,7 +41,7 @@ XFBrowser 是基于 ungoogled-chromium 的 Windows 隐私增强浏览器。
 - hunk header range count（`+N,M` 和 `-N,M`）已修正——original 工具生成的 patch 尾部 context 行未被计入 range
 - 同文件多 hunk 间的空白分隔行已移除（`git apply` 会丢失文件关联导致 "patch fragment without header"）
 - 尾部多余的 trailing context 行已移除（会被当作 hunk body 的最后一个 context 行）
-- CI 的 `git apply` 添加 `--recount` 标志，忽略 header 行数直接根据 hunk body 推算
+- CI 的 `git apply` 添加 `--recount` 标志，忽略 header 行数直接根据 hunk body 推算（仅限 XFBrowser overlay，官方 patch 不用）
 - 等待 CI pipeline 验证
 
 ## 重要决策
