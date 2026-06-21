@@ -27,9 +27,11 @@ jobs:
 
       - name: Clone mozilla-central (git mirror)
         if: steps.cache.outputs.cache-hit != 'true'
-        shell: pwsh
-        run: |
-          git clone --depth 1 "https://github.com/mozilla/gecko.git" firefox-src
+        uses: actions/checkout@v4
+        with:
+          repository: mozilla/gecko
+          path: firefox-src
+          fetch-depth: 1
 
       - name: Save Firefox version
         id: save-version
