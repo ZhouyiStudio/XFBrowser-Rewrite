@@ -78,6 +78,7 @@ jobs:
             if ($p -eq '' -or $p.StartsWith('#')) { continue }
             $path = "${{ github.workspace }}\patches\ungoogled-chromium-official\$p"
             git apply --ignore-whitespace --whitespace=fix $path
+            if ($LASTEXITCODE -ne 0) { throw "Patch failed: $p" }
           }
 
       - name: Apply XFBrowser patches
@@ -93,7 +94,8 @@ jobs:
           foreach ($d in $dirs) {
             if (Test-Path $d) {
               Get-ChildItem $d -Filter *.patch | ForEach-Object {
-                git apply --ignore-whitespace --whitespace=fix $_.FullName 2>$null
+                git apply --ignore-whitespace --whitespace=fix $_.FullName
+                if ($LASTEXITCODE -ne 0) { throw "Patch failed: $($_.Name)" }
               }
             }
           }
