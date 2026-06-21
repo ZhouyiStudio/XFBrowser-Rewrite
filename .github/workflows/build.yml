@@ -38,6 +38,15 @@ jobs:
           Start-Process $exe -ArgumentList "/S" -Wait
           Remove-Item $exe -Force
 
+      - name: Patch pyyaml pin (workaround pip strict resolver)
+        shell: pwsh
+        run: |
+          $files = Get-ChildItem -Recurse -File "firefox-src" | Select-String -Pattern "pyyaml==6\.0\.2" | ForEach-Object { $_.Path }
+          if ($files) {
+            $files | ForEach-Object { (Get-Content $_) -replace "pyyaml==6\.0\.2", "pyyaml==6.0.3" | Set-Content $_ }
+            echo "Patched pyyaml in: $($files -join ', ')"
+          } else { echo "pyyaml==6.0.2 not found (may be already patched)" }
+
       - name: Write mozconfig
         shell: pwsh
         run: |
