@@ -59,7 +59,7 @@
 +  close_multitab_confirmation_state_ = NOT_PROMPTED;
    unload_controller_.ResetTryToCloseWindow();
  }
- 
+
 @@ -3085,6 +3090,58 @@ bool Browser::CanCloseWithInProgressDown
    return false;
  }

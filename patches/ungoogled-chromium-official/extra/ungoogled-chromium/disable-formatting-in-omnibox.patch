@@ -1,5 +1,5 @@
 # Disables omission of URL elements in Omnibox and status bubble
-
+ 
 --- a/chrome/browser/ui/status_bubble.h
 +++ b/chrome/browser/ui/status_bubble.h
 @@ -18,7 +18,7 @@ class GURL;

@@ -1,7 +1,7 @@
 From: csagan5 <32685696+csagan5@users.noreply.github.com>
 Date: Sun, 8 Jul 2018 22:42:04 +0200
 Subject: Add flag to configure maximum connections per host
-
+ 
 With the introduction of this flag it is possible to increase the maximum
 allowed connections per host; this can however be detrimental to devices
 with limited CPU/memory resources and it is disabled by default.
@@ -14,7 +14,7 @@ with limited CPU/memory resources and it is disabled by default.
  .../common/network_switch_list.h                         |  4 ++++
  net/socket/client_socket_pool_manager.cc                 | 16 ++++++++++++++++
  7 files changed, 42 insertions(+)
-
+ 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
 @@ -2282,6 +2282,7 @@ static_library("browser") {

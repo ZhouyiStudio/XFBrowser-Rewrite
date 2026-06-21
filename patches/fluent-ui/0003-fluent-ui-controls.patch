@@ -74,7 +74,7 @@ diff --git a/chrome/browser/ui/views/tabs/tab_strip.cc b/chrome/browser/ui/views
 +    canvas->DrawRoundRect(shadow_bounds, 8, flags);
 +  }
 +}
- 
+
 diff --git a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc b/chrome/browser/ui/views/omnibox/omnibox_view_views.cc
 --- a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc
 +++ b/chrome/browser/ui/views/omnibox/omnibox_view_views.cc
@@ -113,7 +113,7 @@ diff --git a/chrome/browser/ui/views/omnibox/omnibox_view_views.cc b/chrome/brow
 +  bg->SetNativeControlColor(SkColorSetA(SK_ColorWHITE, 0x1A));
 +  SetBackground(base::WrapUnique(bg));
  }
- 
+
 diff --git a/chrome/browser/ui/views/location_bar/location_bar_view.cc b/chrome/browser/ui/views/location_bar/location_bar_view.cc
 --- a/chrome/browser/ui/views/location_bar/location_bar_view.cc
 +++ b/chrome/browser/ui/views/location_bar/location_bar_view.cc

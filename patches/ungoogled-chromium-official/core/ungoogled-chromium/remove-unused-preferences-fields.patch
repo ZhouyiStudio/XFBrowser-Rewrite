@@ -1,7 +1,7 @@
 # Remove unused Safe Browsing and Sign-in fields from Preferences file
 # TODO: This patch should probably be split up and merged into
 # disable-signin.patch and fix-building-without-safebrowsing.patch
-
+ 
 --- a/android_webview/browser/aw_browser_context.cc
 +++ b/android_webview/browser/aw_browser_context.cc
 @@ -62,7 +62,6 @@
@@ -54,7 +54,7 @@
 -
    force_browser_signin_.Init(prefs::kForceBrowserSignin,
                               g_browser_process->local_state());
- 
+
 @@ -202,7 +191,7 @@ SigninManagerAndroid::ManagementCredenti
  SigninManagerAndroid::ManagementCredentials::~ManagementCredentials() = default;
  
@@ -819,7 +819,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "components/spellcheck/browser/pref_names.h"
  #include "components/translate/core/browser/translate_pref_names.h"
- 
+
 @@ -67,11 +66,6 @@ const PrefMappingEntry kMappings[] = {
       APIPermissionID::kPrivacy},
      {"doNotTrackEnabled", prefs::kEnableDoNotTrack, APIPermissionID::kPrivacy,
@@ -867,7 +867,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "content/public/common/persistent_notification_status.h"
  #include "third_party/blink/public/mojom/notifications/notification.mojom.h"
- 
+
 @@ -53,7 +52,6 @@ void NotificationMetricsLogger::LogPersi
      const blink::PlatformNotificationData& notification_data,
      const GURL& origin) {
@@ -963,7 +963,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  
  namespace policy {
- 
+
 @@ -30,50 +29,6 @@ BrowserSigninPolicyHandler::~BrowserSign
  
  void BrowserSigninPolicyHandler::ApplyPolicySettings(const PolicyMap& policies,
@@ -1266,7 +1266,7 @@
 -        profile_prefs->GetBoolean(kSync_ExplicitBrowserSignin));
      profile_prefs->ClearPref(kSync_ExplicitBrowserSignin);
    }
- 
+
 @@ -2580,10 +2558,6 @@ void MigrateObsoleteProfilePrefs(PrefSer
    // Added 03/2024.
    profile_prefs->ClearPref(kDefaultSearchProviderChoicePendingDeprecated);
@@ -1366,7 +1366,7 @@
 -
    EXPECT_TRUE(prefs->GetBoolean(embedder_support::kAlternateErrorPagesEnabled));
    prefs->SetBoolean(embedder_support::kAlternateErrorPagesEnabled, false);
- 
+
 @@ -232,7 +228,6 @@ IN_PROC_BROWSER_TEST_F(PrefsFunctionalTe
  
    EXPECT_EQ(prefetch::PreloadPagesState::kNoPreloading,
@@ -2031,7 +2031,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  
  namespace settings_api = extensions::api::settings_private;
- 
+
 @@ -19,21 +18,6 @@ const char kGeneratedSafeBrowsingPref[]
  GeneratedSafeBrowsingPref::GeneratedSafeBrowsingPref(Profile* profile)
      : profile_(profile) {
@@ -2093,7 +2093,7 @@
 -
    return extensions::settings_private::SetPrefResult::SUCCESS;
  }
- 
+
 @@ -89,10 +50,8 @@ GeneratedSafeBrowsingPref::GetPrefObject
    pref_object.key = kGeneratedSafeBrowsingPref;
    pref_object.type = extensions::api::settings_private::PrefType::kNumber;
@@ -2151,7 +2151,7 @@
 -        &pref_object, enabled_pref);
      return;
    }
- 
+
 @@ -179,8 +125,6 @@ void GeneratedSafeBrowsingPref::ApplySaf
      // Reporting has been forcefully disabled by policy. Enhanced protection is
      // thus also implicitly disabled by the same policy.
@@ -2260,7 +2260,7 @@
 -  }
    return nullptr;
  }
- 
+
 @@ -416,9 +412,6 @@ void SafeBrowsingService::OnProfileAdded
    std::unique_ptr<PrefChangeRegistrar> registrar =
        std::make_unique<PrefChangeRegistrar>();
@@ -2466,7 +2466,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  #include "components/signin/public/base/signin_switches.h"
  #include "content/public/browser/network_service_instance.h"
- 
+
 @@ -96,7 +95,4 @@ BoundSessionCookieRefreshServiceFactory:
  void BoundSessionCookieRefreshServiceFactory::RegisterProfilePrefs(
      user_prefs::PrefRegistrySyncable* registry) {
@@ -2864,7 +2864,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  #include "components/signin/public/identity_manager/accounts_mutator.h"
  #include "components/signin/public/identity_manager/identity_manager.h"
- 
+
 @@ -141,9 +140,6 @@ void ImportCredentialsFromProvider(Profi
                                    account_id, profile));
      }
@@ -3005,7 +3005,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  #include "components/unified_consent/pref_names.h"
  #include "components/version_info/channel.h"
- 
+
 @@ -79,9 +77,6 @@ bool HasNonDefaultPrivacySetting(Profile
    auto* prefs = profile->GetPrefs();
  
@@ -3154,7 +3154,7 @@
 -  prefs.SetBoolean(prefs::kCookieClearOnExitMigrationNoticeComplete, true);
    return can_close;
  }
- 
+
 @@ -78,11 +76,6 @@ bool SetCookieClearOnExitMigrationComple
  bool CanShowCookieClearOnExitMigrationNotice(const Browser& browser) {
  #if BUILDFLAG(ENABLE_DICE_SUPPORT)
@@ -3956,7 +3956,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  #include "google_apis/gaia/gaia_auth_util.h"
  #include "third_party/skia/include/core/SkColor.h"
- 
+
 @@ -222,28 +221,6 @@ void TurnSyncOnHelperDelegateImpl::OnPro
      std::move(callback).Run(signin::SIGNIN_CHOICE_CANCEL);
      return;
@@ -4274,7 +4274,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "google_apis/gaia/gaia_auth_util.h"
  #include "url/gurl.h"
- 
+
 @@ -214,9 +213,7 @@ PasswordReuseDetectorImpl::CheckNonGaiaE
    // Skips password reuse check if |domain| matches enterprise login URL or
    // enterprise change password URL.
@@ -4295,7 +4295,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "components/signin/public/base/consent_level.h"
  #include "google_apis/gaia/gaia_auth_util.h"
- 
+
 @@ -382,23 +381,6 @@ void PasswordReuseManagerImpl::ScheduleP
  }
  
@@ -4361,7 +4361,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "google_apis/gaia/gaia_auth_util.h"
  #include "google_apis/gaia/gaia_urls.h"
- 
+
 @@ -693,7 +692,7 @@ StoreMetricsReporter::StoreMetricsReport
    is_opted_in_account_storage_ =
        features_util::IsOptedInForAccountStorage(prefs_, sync_service);
@@ -4687,7 +4687,7 @@
 +      base_path, std::move(ui_task_runner),
        std::move(io_task_runner), nullptr));
  }
- 
+
 @@ -315,17 +312,12 @@ void V4LocalDatabaseManager::CollectData
  
  V4LocalDatabaseManager::V4LocalDatabaseManager(
@@ -4718,7 +4718,7 @@
 -    }
  
      PopulateArtificialDatabase();
- 
+
 @@ -1247,8 +1233,7 @@ void V4LocalDatabaseManager::SetupUpdate
                            weak_factory_.GetWeakPtr());
  
@@ -4844,7 +4844,7 @@
 +        new V4UpdateProtocolManager(url_loader_factory, config, update_callback));
    }
  };
- 
+
 @@ -126,14 +113,12 @@ V4UpdateProtocolManagerFactory* V4Update
  std::unique_ptr<V4UpdateProtocolManager> V4UpdateProtocolManager::Create(
      scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
@@ -4903,7 +4903,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  
  class GURL;
- 
+
 @@ -44,9 +43,6 @@ class V4UpdateProtocolManagerFactory;
  using V4UpdateCallback =
      base::RepeatingCallback<void(std::unique_ptr<ParsedServerResponse>)>;
@@ -4923,7 +4923,7 @@
 +      V4UpdateCallback update_callback);
  
    void OnURLLoaderComplete(std::unique_ptr<std::string> response_body);
- 
+
 @@ -87,8 +82,7 @@ class V4UpdateProtocolManager {
    V4UpdateProtocolManager(
        scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
@@ -4942,7 +4942,7 @@
 -
    SEQUENCE_CHECKER(sequence_checker_);
  };
- 
+
 @@ -225,8 +217,7 @@ class V4UpdateProtocolManagerFactory {
    virtual std::unique_ptr<V4UpdateProtocolManager> CreateProtocolManager(
        scoped_refptr<network::SharedURLLoaderFactory> url_loader_factory,
@@ -5103,7 +5103,7 @@
 -using SafeBrowsingState = safe_browsing::SafeBrowsingState;
  
  const int kMetricsLoggingIntervalDay = 1;
- 
+
 @@ -61,11 +59,6 @@ SafeBrowsingMetricsCollector::SafeBrowsi
      PrefService* pref_service)
      : pref_service_(pref_service) {
@@ -5759,7 +5759,7 @@
 -  }
    SetUpMetrics();
  }
- 
+
 @@ -91,13 +83,7 @@ SecurityInterstitialControllerClient* Se
  }
  
@@ -5941,7 +5941,7 @@
 -  }
  }
  #endif  // BUILDFLAG(ENABLE_DICE_SUPPORT)
- 
+
 @@ -198,10 +191,6 @@ AccountReconcilor::~AccountReconcilor()
  
  // static
@@ -6057,7 +6057,7 @@
 +  return MIGRATION_NOT_STARTED;
  }
  #endif  // BUILDFLAG(IS_CHROMEOS_ASH)
- 
+
 @@ -597,26 +589,6 @@ void AccountTrackerService::OnAccountIma
      const CoreAccountId& account_id,
      const std::string& image_url_with_size,
@@ -6600,7 +6600,7 @@
 +      std::string();
    const bool existed_primary_account_with_sync =
        !last_gaia_id_with_sync_enabled.empty();
- 
+
 @@ -735,38 +587,6 @@ PrimaryAccountChangeEvent::State Primary
  void PrimaryAccountManager::ComputeExplicitBrowserSignin(
      const PrimaryAccountChangeEvent& event_details,
@@ -6667,7 +6667,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  #include "components/signin/public/base/signin_switches.h"
  #include "google_apis/gaia/core_account_id.h"
- 
+
 @@ -56,7 +55,7 @@ PrimaryAccountMutatorImpl::SetPrimaryAcc
    DCHECK(!account_info.gaia.empty());
  
@@ -6758,7 +6758,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  #include "components/sync_preferences/testing_pref_service_syncable.h"
  #include "testing/gtest/include/gtest/gtest.h"
- 
+
 @@ -24,40 +23,23 @@ TEST(DeviceIdHelper, GenerateSigninScope
  
  TEST(DeviceIdHelper, RecreateSigninScopedDeviceId) {
@@ -6828,7 +6828,7 @@
 -#include "components/signin/public/base/signin_pref_names.h"
  
  namespace switches {
- 
+
 @@ -61,11 +60,6 @@ BASE_FEATURE(kEnableBoundSessionCredenti
               base::FEATURE_DISABLED_BY_DEFAULT);
  

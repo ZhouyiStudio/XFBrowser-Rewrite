@@ -1,4 +1,4 @@
-
+ 
 --- a/chrome/browser/background/background_mode_manager.cc
 +++ b/chrome/browser/background/background_mode_manager.cc
 @@ -358,7 +358,7 @@ BackgroundModeManager::~BackgroundModeMa

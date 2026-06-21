@@ -32,7 +32,7 @@ diff --git a/components/content_settings/core/browser/content_settings_pref.cc b
 +  base::AutoReset<bool> reset(&updating_, true);
 +  value_->SetBoolKey("block_third_party", true);
  }
- 
+
 diff --git a/components/content_settings/core/common/content_settings_types.h b/components/content_settings/core/common/content_settings_types.h
 --- a/components/content_settings/core/common/content_settings_types.h
 +++ b/components/content_settings/core/common/content_settings_types.h

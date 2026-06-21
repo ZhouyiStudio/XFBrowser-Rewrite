@@ -2,7 +2,7 @@ From 4dfa8ed0814040317cb82d8545502186daa0a204 Mon Sep 17 00:00:00 2001
 From: Jan Engelhardt <jengelh@inai.de>
 Date: Tue, 7 Jul 2015 17:02:09 +0200
 Subject: [PATCH 62/76] safe_browsing: disable incident reporting
-
+ 
 Disables the safebrowsing incident reporting where you could upload
 information about a blocked URL to Google (also added a trk prefix to
 the URL so we get notified if this happens again in the future).
@@ -13,7 +13,7 @@ the URL so we get notified if this happens again in the future).
  chrome/browser/safe_browsing/safe_browsing_service.cc          | 2 +-
  .../security_interstitials/core/safe_browsing_loud_error_ui.cc | 1 +
  5 files changed, 7 insertions(+), 4 deletions(-)
-
+ 
 --- a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
 +++ b/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
 @@ -63,8 +63,7 @@ ChromeSafeBrowsingBlockingPageFactory::C

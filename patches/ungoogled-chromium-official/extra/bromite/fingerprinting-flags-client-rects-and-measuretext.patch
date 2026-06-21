@@ -6,7 +6,7 @@
 # chrome://flag setting added by ungoogled-chromium developers
 #
 # Unlike the latest Bromite patch, it was chosen to not regenerate the noise value each time the value is read to prevent potential efficiency issues with the load on the RNG.
-
+ 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
 @@ -2584,6 +2584,7 @@ static_library("browser") {
@@ -187,7 +187,7 @@
 +  }
    return MakeGarbageCollected<DOMRectList>(quads);
  }
- 
+
 @@ -2466,6 +2471,9 @@ gfx::RectF Element::GetBoundingClientRec
    DCHECK(element_layout_object);
    GetDocument().AdjustRectForScrollAndAbsoluteZoom(result,
@@ -212,7 +212,7 @@
 +
    return MakeGarbageCollected<DOMRectList>(quads);
  }
- 
+
 @@ -1614,7 +1620,11 @@ DOMRect* Range::getBoundingClientRect()
    // TODO(crbug.com/1499981): This should be removed once synchronized scrolling
    // impact is understood.

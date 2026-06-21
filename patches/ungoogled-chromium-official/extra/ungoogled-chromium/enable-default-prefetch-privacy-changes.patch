@@ -1,5 +1,5 @@
 # Enable chrome://flags/#prefetch-privacy-changes by default
-
+ 
 --- a/third_party/blink/common/features.cc
 +++ b/third_party/blink/common/features.cc
 @@ -1834,7 +1834,7 @@ BASE_FEATURE(kPrefetchFontLookupTables,

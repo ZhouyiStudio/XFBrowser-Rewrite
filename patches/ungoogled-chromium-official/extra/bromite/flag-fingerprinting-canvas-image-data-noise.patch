@@ -7,12 +7,12 @@
 From: csagan5 <32685696+csagan5@users.noreply.github.com>
 Date: Sat, 24 Mar 2018 05:18:03 +0100
 Subject: Canvas: fingerprinting mitigations for image data and webGL
-
+ 
 Disable webGL renderer info and modify the color data returned by ToBlob,
 ToDataURL and getImageData so that it will contain randomly manipulated
 pixels (maximum 10) that slightly change the color of the R,G,B components
 without a visible effect.
-
+ 
 Credits to Slaviro (https://github.com/Slaviro) for coming up with a better
 approach to change color components.
 ---
@@ -20,7 +20,7 @@ approach to change color components.
  .../platform/graphics/static_bitmap_image.cc       | 154 +++++++++++++++++++++
  .../platform/graphics/static_bitmap_image.h        |   2 +
  4 files changed, 163 insertions(+), 2 deletions(-)
-
+ 
 --- a/chrome/browser/bromite_flag_entries.h
 +++ b/chrome/browser/bromite_flag_entries.h
 @@ -16,4 +16,8 @@
@@ -145,7 +145,7 @@ approach to change color components.
 +#include "third_party/skia/include/private/SkColorData.h"
  #include "ui/gfx/geometry/skia_conversions.h"
  #include "v8/include/v8.h"
- 
+
 @@ -115,4 +119,154 @@ void StaticBitmapImage::DrawHelper(cc::P
        WebCoreClampingModeToSkiaRectConstraint(draw_options.clamping_mode));
  }

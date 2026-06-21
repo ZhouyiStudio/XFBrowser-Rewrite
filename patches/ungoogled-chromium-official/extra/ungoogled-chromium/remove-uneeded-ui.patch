@@ -30,7 +30,7 @@
 # the Third-party sign-in site settings (FedCM)
 # disable LiveCaption flag by default, this also removes non-functional Live Caption checkbox from media controls
 # the new feature badges
-
+ 
 --- a/chrome/browser/resources/extensions/item_list.html
 +++ b/chrome/browser/resources/extensions/item_list.html
 @@ -115,13 +115,6 @@

@@ -1,5 +1,5 @@
 # Add more URL schemes allowed for saving
-
+ 
 --- a/chrome/browser/ui/browser_commands.cc
 +++ b/chrome/browser/ui/browser_commands.cc
 @@ -554,11 +554,6 @@ int GetContentRestrictions(const Browser

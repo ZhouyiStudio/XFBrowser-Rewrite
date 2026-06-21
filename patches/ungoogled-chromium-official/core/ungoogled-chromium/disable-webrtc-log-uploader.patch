@@ -1,5 +1,5 @@
 # Disables WebRTC log uploading to Google
-
+ 
 --- a/chrome/browser/media/webrtc/webrtc_log_uploader.cc
 +++ b/chrome/browser/media/webrtc/webrtc_log_uploader.cc
 @@ -179,31 +179,13 @@ void WebRtcLogUploader::OnLoggingStopped

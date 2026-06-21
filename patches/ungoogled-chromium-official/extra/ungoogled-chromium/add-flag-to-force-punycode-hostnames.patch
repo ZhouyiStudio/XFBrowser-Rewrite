@@ -1,5 +1,5 @@
 # Add flag to force punycode in hostnames instead of Unicode when displaying Internationalized Domain Names (IDNs) to mitigate homograph attacks
-
+ 
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
 @@ -20,4 +20,8 @@

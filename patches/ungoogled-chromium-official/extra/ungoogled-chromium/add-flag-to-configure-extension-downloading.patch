@@ -1,6 +1,6 @@
 # Add extension-mime-request-handling chrome://flag to tweak the behavior of
 # extension MIME types
-
+ 
 --- a/chrome/browser/download/download_crx_util.cc
 +++ b/chrome/browser/download/download_crx_util.cc
 @@ -8,6 +8,7 @@

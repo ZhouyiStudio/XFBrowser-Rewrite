@@ -1,5 +1,5 @@
 # Add ability to always open dev context menu on reload button.
-
+ 
 --- a/chrome/browser/ui/views/toolbar/reload_button.cc
 +++ b/chrome/browser/ui/views/toolbar/reload_button.cc
 @@ -111,7 +111,7 @@ bool ReloadButton::GetMenuEnabled() cons

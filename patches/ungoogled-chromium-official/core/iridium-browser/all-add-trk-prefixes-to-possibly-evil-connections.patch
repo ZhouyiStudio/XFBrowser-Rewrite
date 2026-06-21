@@ -2,11 +2,11 @@ From 06f6141610cb2aa562c94dbb9f1f4355e4b34c5d Mon Sep 17 00:00:00 2001
 From: Jan Engelhardt <jengelh@inai.de>
 Date: Mon, 30 Sep 2019 09:37:51 +0200
 Subject: [PATCH 75/76] all: add trk: prefixes to possibly evil connections
-
+ 
 Prefix URLs to Google services with trk: so that whenever something
 tries to load them, the developer will be informed via printf and
 dialog (extra info bar between URLbar and content window) about this.
-
+ 
 If you see such dialog, we know that (a) either the URL needs to be
 whitelisted, or (b) the feature that triggered it needs to be disabled
 by default.
@@ -65,7 +65,7 @@ by default.
  .../chromevoxclassic/host/chrome/host.js      |  4 ++--
  ui/views/examples/webview_example.cc          |  2 +-
  54 files changed, 89 insertions(+), 87 deletions(-)
-
+ 
 --- a/build/apple/tweak_info_plist.py
 +++ b/build/apple/tweak_info_plist.py
 @@ -212,7 +212,7 @@ def _AddKeystoneKeys(plist, bundle_ident

@@ -30,7 +30,7 @@ diff --git a/chrome/browser/incognito_mode_controller.cc b/chrome/browser/incogn
 -  return false;  // XFBrowser: never locked
 +  return false;
  }
- 
+
 diff --git a/chrome/browser/private_network_access/chrome_private_network_access_checker.cc b/chrome/browser/private_network_access/chrome_private_network_access_checker.cc
 --- a/chrome/browser/private_network_access/chrome_private_network_access_checker.cc
 +++ b/chrome/browser/private_network_access/chrome_private_network_access_checker.cc
@@ -58,7 +58,7 @@ diff --git a/chrome/browser/private_network_access/chrome_private_network_access
 -    // XFBrowser: added stronger default restrictions
    }
  }
- 
+
 @@ -30,7 +20,7 @@ ChromePrivateNetworkAccessChecker::
  ChromePrivateNetworkAccessChecker::GetPrivateNetworkRequestPolicy(
      url::Origin& origin) {

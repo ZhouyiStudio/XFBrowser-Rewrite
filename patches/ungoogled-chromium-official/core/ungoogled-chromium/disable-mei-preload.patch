@@ -4,7 +4,7 @@
 # "enables a list of origins to be considered as having a high MEI until there
 # is enough local data to determine the user's preferred behavior." This feature
 # does not seem to outweigh the benefit of removing the binary, thus this patch.
-
+ 
 --- a/chrome/BUILD.gn
 +++ b/chrome/BUILD.gn
 @@ -382,7 +382,6 @@ if (!is_android && !is_mac) {

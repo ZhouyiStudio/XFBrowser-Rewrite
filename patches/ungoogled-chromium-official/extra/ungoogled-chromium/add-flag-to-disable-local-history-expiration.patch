@@ -1,5 +1,5 @@
 # Keep local history longer than 90 days
-
+ 
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
 @@ -52,4 +52,8 @@

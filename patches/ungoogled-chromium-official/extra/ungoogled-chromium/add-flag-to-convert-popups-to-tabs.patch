@@ -1,5 +1,5 @@
 # Make popups go to tabs instead
-
+ 
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
 @@ -48,4 +48,8 @@

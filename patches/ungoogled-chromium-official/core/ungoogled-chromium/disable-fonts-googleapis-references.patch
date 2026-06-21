@@ -1,5 +1,5 @@
 # Disables references to fonts.googleapis.com
-
+ 
 --- a/components/dom_distiller/content/browser/dom_distiller_viewer_source.cc
 +++ b/components/dom_distiller/content/browser/dom_distiller_viewer_source.cc
 @@ -292,7 +292,7 @@ bool DomDistillerViewerSource::ShouldSer

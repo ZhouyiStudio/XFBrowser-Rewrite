@@ -1,5 +1,5 @@
 # Disables various detections of Google hosts and functionality specific to them
-
+ 
 --- a/chrome/browser/ui/webui/suggest_internals/suggest_internals_handler.cc
 +++ b/chrome/browser/ui/webui/suggest_internals/suggest_internals_handler.cc
 @@ -56,9 +56,6 @@ void SuggestInternalsHandler::OnSuggestR
@@ -316,7 +316,7 @@
 -  }
    return false;
  }
- 
+
 @@ -159,162 +48,53 @@ std::string GetGoogleLocale(const std::s
  
  GURL AppendGoogleLocaleParam(const GURL& url,

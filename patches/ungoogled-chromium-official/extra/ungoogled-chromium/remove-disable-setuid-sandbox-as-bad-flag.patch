@@ -1,5 +1,5 @@
 # Remove the "--disable-setuid-sandbox" command line flag as a bad flag
-
+ 
 --- a/chrome/browser/ui/startup/bad_flags_prompt.cc
 +++ b/chrome/browser/ui/startup/bad_flags_prompt.cc
 @@ -75,7 +75,6 @@ const char* const kBadFlags[] = {

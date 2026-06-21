@@ -18,7 +18,7 @@
 +  if (command_line_switch == "http-accept-header") return existing_value.empty() ? new_value : existing_value;
    return CombineAndSanitizeOriginLists(existing_value, new_value);
  }
- 
+
 @@ -463,6 +464,7 @@ void FlagsState::SetOriginListFlag(const
                                     FlagsStorage* flags_storage) {
    const std::string new_value =

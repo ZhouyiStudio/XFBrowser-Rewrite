@@ -2,12 +2,12 @@
 From: csagan5 <32685696+csagan5@users.noreply.github.com>
 Date: Sun, 8 Jul 2018 18:16:34 +0200
 Subject: Disable fetching of all field trials
-
+ 
 ---
  .../browser/flags/ChromeFeatureList.java      | 19 ++++---------------
  .../variations/service/variations_service.cc  | 12 +-----------
  2 files changed, 5 insertions(+), 26 deletions(-)
-
+ 
 --- a/chrome/browser/flags/android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureList.java
 +++ b/chrome/browser/flags/android/java/src/org/chromium/chrome/browser/flags/ChromeFeatureList.java
 @@ -52,7 +52,7 @@ public abstract class ChromeFeatureList

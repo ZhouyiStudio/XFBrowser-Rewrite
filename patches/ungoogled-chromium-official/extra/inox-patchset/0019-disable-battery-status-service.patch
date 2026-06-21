@@ -71,7 +71,7 @@
 -  battery_fetcher_.reset();
    is_shutdown_ = true;
  }
- 
+
 @@ -102,9 +57,6 @@ BatteryStatusService::GetUpdateCallbackF
  
  void BatteryStatusService::SetBatteryManagerForTesting(

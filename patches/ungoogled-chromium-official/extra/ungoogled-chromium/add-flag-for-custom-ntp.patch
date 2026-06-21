@@ -35,7 +35,7 @@
 +  if (command_line_switch == "custom-ntp") return existing_value.empty() ? new_value : existing_value;
    return CombineAndSanitizeOriginLists(existing_value, new_value);
  }
- 
+
 @@ -461,6 +462,7 @@ void FlagsState::SetOriginListFlag(const
                                     const std::string& value,
                                     FlagsStorage* flags_storage) {

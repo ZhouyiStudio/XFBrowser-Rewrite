@@ -1,5 +1,5 @@
 # Split up the learn.doubleclick.net string literal to prevent domain substitution breaking compilation due to the use of the excluded HSTS list json file in this code.
-
+ 
 --- a/net/tools/transport_security_state_generator/transport_security_state_generator.cc
 +++ b/net/tools/transport_security_state_generator/transport_security_state_generator.cc
 @@ -132,7 +132,7 @@ bool CheckDuplicateEntries(const Transpo

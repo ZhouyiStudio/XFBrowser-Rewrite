@@ -34,7 +34,7 @@ diff --git a/chrome/browser/after_startup_task_utils.cc b/chrome/browser/after_s
 +#include "base/synchronization/atomic_flag.h"
  
  namespace {
- 
+
 @@ -39,15 +16,7 @@ void AfterStartupTaskUtils::StartMonitoringStartup() {
  }
  
@@ -54,7 +54,7 @@ diff --git a/chrome/browser/after_startup_task_utils.cc b/chrome/browser/after_s
 -  // XFBrowser: stripped ad-related callbacks
 +  std::move(callback).Run();
  }
- 
+
 diff --git a/components/feed/BUILD.gn b/components/feed/BUILD.gn
 --- a/components/feed/BUILD.gn
 +++ b/components/feed/BUILD.gn
@@ -76,7 +76,7 @@ diff --git a/components/feed/BUILD.gn b/components/feed/BUILD.gn
 +group("feed") {
 +  public_deps = []
 +}
- 
+
 diff --git a/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc b/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc
 --- a/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc
 +++ b/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc
@@ -100,7 +100,7 @@ diff --git a/chrome/browser/ui/webui/ntp/ntp_resource_cache.cc b/chrome/browser/
      : profile_(profile), is_swipe_tracking_from_scroll_events_enabled_(false) {
 -  // Ad content stripped by XFBrowser
  }
- 
+
 diff --git a/chrome/browser/web_applications/components/web_app_ui_manager.cc b/chrome/browser/web_applications/components/web_app_ui_manager.cc
 --- a/chrome/browser/web_applications/components/web_app_ui_manager.cc
 +++ b/chrome/browser/web_applications/components/web_app_ui_manager.cc

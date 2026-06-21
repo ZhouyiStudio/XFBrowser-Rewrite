@@ -1,5 +1,5 @@
 # Disable some background communication with clients2.google.com
-
+ 
 --- a/chrome/browser/chrome_content_browser_client.cc
 +++ b/chrome/browser/chrome_content_browser_client.cc
 @@ -2707,24 +2707,6 @@ void ChromeContentBrowserClient::AppendE

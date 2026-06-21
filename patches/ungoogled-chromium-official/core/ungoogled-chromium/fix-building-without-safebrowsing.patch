@@ -1,5 +1,5 @@
 # Additional changes to Inox's fix-building-without-safebrowsing.patch
-
+ 
 --- a/chrome/browser/BUILD.gn
 +++ b/chrome/browser/BUILD.gn
 @@ -626,8 +626,6 @@ static_library("browser") {
@@ -133,7 +133,7 @@
 -  }
    return nullptr;
  }
- 
+
 @@ -7318,32 +7296,7 @@ ChromeContentBrowserClient::GetAsyncChec
      safe_browsing::hash_realtime_utils::HashRealTimeSelection
          hash_realtime_selection,
@@ -184,7 +184,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "content/public/browser/download_item_utils.h"
  #include "content/public/browser/download_manager.h"
- 
+
 @@ -267,14 +265,6 @@ void DownloadBubbleUIController::Process
    switch (command) {
      case DownloadCommands::KEEP:
@@ -815,7 +815,7 @@
 -}
  
  }  // namespace
- 
+
 @@ -74,16 +55,8 @@ void ContextSignalsDecorator::OnSignalsF
                ToListValue(context_info.browser_affiliation_ids));
    signals.Set(device_signals::names::kProfileAffiliationIds,
@@ -1088,7 +1088,7 @@
 -
    std::move(callback).Run(user_data->settings());
  }
- 
+
 @@ -177,9 +171,7 @@ void LogVerdictSource(
  
  bool IsScreenshotAllowedByDataControls(content::BrowserContext* context,
@@ -2102,7 +2102,7 @@
 -  router->OnPasswordBreach(kPasswordBreachEntryTrigger, identities);
  }
  #endif
- 
+
 @@ -1744,6 +1725,7 @@ bool ChromePasswordManagerClient::IsPass
      is_enabled = false;
    }
@@ -2536,7 +2536,7 @@
 -#include "chrome/browser/safe_browsing/cloud_content_scanning/file_analysis_request.h"
  
  namespace safe_browsing {
- 
+
 @@ -24,10 +23,6 @@ class FileOpeningJob {
      FileOpeningTask();
      ~FileOpeningTask();
@@ -2986,7 +2986,7 @@
 +#endif // BUILDFLAG(FULL_SAFE_BROWSING)
    open_button_->SetEnabled((mode_ == download::DownloadItemMode::kNormal) ||
                             prompt_to_scan || allow_open_during_deep_scan);
- 
+
 @@ -1276,7 +1277,9 @@ void DownloadItemView::ShowContextMenuIm
  }
  
@@ -3719,7 +3719,7 @@
 -    SaveRetryState(TailoredSecurityRetryState::NO_RETRY_NEEDED);
      return;
    }
- 
+
 @@ -419,7 +418,6 @@ void TailoredSecurityService::MaybeNotif
        RecordEnabledNotificationResult(
            TailoredSecurityNotificationResult::kSafeBrowsingControlledByPolicy);
@@ -3727,7 +3727,7 @@
 -    SaveRetryState(TailoredSecurityRetryState::NO_RETRY_NEEDED);
      return;
    }
- 
+
 @@ -523,31 +521,10 @@ void TailoredSecurityService::Shutdown()
  }
  
@@ -3769,7 +3769,7 @@
 -#include "components/safe_browsing/core/common/safe_browsing_prefs.h"
  #include "net/traffic_annotation/network_traffic_annotation.h"
  #include "url/gurl.h"
- 
+
 @@ -186,9 +185,6 @@ class TailoredSecurityService : public K
                             RetryDisabledStateRemainsUnset);
    friend class TailoredSecurityTabHelperTest;

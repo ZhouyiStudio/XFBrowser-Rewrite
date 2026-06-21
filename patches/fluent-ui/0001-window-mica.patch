@@ -85,7 +85,7 @@ diff --git a/chrome/browser/ui/views/frame/browser_frame.cc b/chrome/browser/ui/
 -  
 +  // ... rest of implementation
  };
- 
+
 diff --git a/chrome/browser/ui/views/frame/browser_view.cc b/chrome/browser/ui/views/frame/browser_view.cc
 --- a/chrome/browser/ui/views/frame/browser_view.cc
 +++ b/chrome/browser/ui/views/frame/browser_view.cc

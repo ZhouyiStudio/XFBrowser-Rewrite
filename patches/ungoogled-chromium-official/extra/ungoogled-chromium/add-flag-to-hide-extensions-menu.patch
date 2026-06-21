@@ -33,7 +33,7 @@
 +
    widget->Show();
  }
- 
+
 @@ -921,6 +934,9 @@ void ExtensionsToolbarContainer::UpdateC
  }
  

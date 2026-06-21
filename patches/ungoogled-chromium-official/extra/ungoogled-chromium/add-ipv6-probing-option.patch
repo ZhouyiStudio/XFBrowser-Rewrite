@@ -1,5 +1,5 @@
 # Disables IPv6 probing and adds an option to change the IPv6 probing result
-
+ 
 --- a/chrome/browser/ungoogled_flag_entries.h
 +++ b/chrome/browser/ungoogled_flag_entries.h
 @@ -4,4 +4,8 @@

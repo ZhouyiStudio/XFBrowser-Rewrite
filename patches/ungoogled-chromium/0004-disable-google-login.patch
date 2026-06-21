@@ -58,7 +58,7 @@ diff --git a/chrome/browser/signin/chrome_signin_client.cc b/chrome/browser/sign
 -  // Not needed - no sign-in
 +  // No-op
  }
- 
+
 diff --git a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc b/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc
 --- a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc
 +++ b/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc
@@ -90,7 +90,7 @@ diff --git a/chrome/browser/ui/webui/signin/signin_web_dialog_ui.cc b/chrome/bro
 -  // XFBrowser: sign-in dialog removed
 +  // Sign-in UI disabled
  }
- 
+
 diff --git a/chrome/browser/sync/chrome_sync_client.cc b/chrome/browser/sync/chrome_sync_client.cc
 --- a/chrome/browser/sync/chrome_sync_client.cc
 +++ b/chrome/browser/sync/chrome_sync_client.cc
@@ -114,7 +114,7 @@ diff --git a/chrome/browser/sync/chrome_sync_client.cc b/chrome/browser/sync/chr
 +#include "chrome/browser/sync/chrome_sync_client.h"
  
  ChromeSyncClient::ChromeSyncClient(Profile* profile) : profile_(profile) {}
- 
+
 @@ -24,11 +11,5 @@ void ChromeSyncClient::Shutdown() {
  }
  
