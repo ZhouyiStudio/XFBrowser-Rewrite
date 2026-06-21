@@ -81,3 +81,4 @@ the URL so we get notified if this happens again in the future).
  
  void RecordExtendedReportingPrefChanged(bool report) {
    UMA_HISTOGRAM_BOOLEAN("SafeBrowsing.Pref.Extended.SecurityInterstitial",
+ 

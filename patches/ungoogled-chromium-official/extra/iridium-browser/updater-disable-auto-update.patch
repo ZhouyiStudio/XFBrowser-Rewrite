@@ -25,3 +25,4 @@ the case anyway, since we are based off Chromium, not Chrome.
      CFPreferencesSetAppValue(
          checkInterval, base::apple::NSToCFPtrCast(@(fiveHoursInSeconds)), app);
      CFPreferencesAppSynchronize(app);
+ 

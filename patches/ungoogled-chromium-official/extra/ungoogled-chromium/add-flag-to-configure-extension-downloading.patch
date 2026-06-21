@@ -118,3 +118,4 @@
 +     "Used when deciding how to handle a request for a CRX or User Script MIME type. ungoogled-chromium flag.",
 +     kOsAll, MULTI_VALUE_TYPE(kExtensionHandlingChoices)},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

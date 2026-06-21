@@ -47,3 +47,4 @@
    std::string header_value = kFrameAcceptHeaderValue;
  
    if (allow_sxg_responses &&
+ 

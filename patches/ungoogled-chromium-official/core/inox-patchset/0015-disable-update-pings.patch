@@ -9,3 +9,4 @@
  }
  
  std::vector<GURL> Configurator::PingUrl() const {
+ 

@@ -1108,3 +1108,4 @@
  
    blink::WebScriptController::RegisterExtension(
        extensions_v8::LoadTimesExtension::Get());
+ 

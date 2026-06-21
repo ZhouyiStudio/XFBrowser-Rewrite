@@ -28,9 +28,9 @@ diff --git a/chrome/browser/net/secure_dns_config.cc b/chrome/browser/net/secure
 +      doh_config_(net::DnsOverHttpsConfig::FromString(
 +          "https://doh.pub/dns-query https://dns.alidns.com/dns-query")),
        doh_system_mapping_(std::move(doh_system_mapping)) {}
-
+ 
  SecureDnsConfig::~SecureDnsConfig() = default;
-
+ 
 diff --git a/chrome/browser/net/system_network_context_manager.cc b/chrome/browser/net/system_network_context_manager.cc
 --- a/chrome/browser/net/system_network_context_manager.cc
 +++ b/chrome/browser/net/system_network_context_manager.cc
@@ -65,7 +65,7 @@ diff --git a/chrome/browser/net/system_network_context_manager.cc b/chrome/brows
    
    return params;
  }
-
+ 
 diff --git a/chrome/browser/net/stub_resolver_config_reader.cc b/chrome/browser/net/stub_resolver_config_reader.cc
 --- a/chrome/browser/net/stub_resolver_config_reader.cc
 +++ b/chrome/browser/net/stub_resolver_config_reader.cc
@@ -115,3 +115,4 @@ diff --git a/chrome/browser/net/stub_resolver_config_reader.cc b/chrome/browser/
 -  // XFBrowser: placeholder
 +  // Managed by XFBrowser privacy module
  }
+ 

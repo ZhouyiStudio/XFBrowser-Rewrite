@@ -40,3 +40,4 @@
 +     "Allows themes to override Google's built-in Incognito theming. ungoogled-chromium flag.",
 +     kOsDesktop, SINGLE_VALUE_TYPE("enable-incognito-themes")},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

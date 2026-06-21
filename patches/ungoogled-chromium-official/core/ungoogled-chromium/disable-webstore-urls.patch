@@ -175,3 +175,4 @@
        return true;
      case ExtensionFetch::CREDENTIALS_OAUTH2_TOKEN:
        fetch->oauth2_attempt_count++;
+ 

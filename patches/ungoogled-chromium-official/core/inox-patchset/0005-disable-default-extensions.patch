@@ -83,3 +83,4 @@
  }
  
  void WebstoreInstaller::ReportFailure(const std::string& error,
+ 

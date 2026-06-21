@@ -9,3 +9,4 @@
 +     "Hides the SidePanel Button. ungoogled-chromium flag.",
 +     kOsDesktop, SINGLE_VALUE_TYPE("hide-sidepanel-button")},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

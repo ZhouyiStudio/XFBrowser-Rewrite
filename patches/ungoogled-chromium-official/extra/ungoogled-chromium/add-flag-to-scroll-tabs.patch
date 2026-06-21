@@ -85,3 +85,4 @@
 +     "Switch to the left/right tab if the wheel-scroll happens over the tabstrip, or the empty space beside the tabstrip. ungoogled-chromium flag.",
 +     kOsDesktop, MULTI_VALUE_TYPE(kScrollEventChangesTab)},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

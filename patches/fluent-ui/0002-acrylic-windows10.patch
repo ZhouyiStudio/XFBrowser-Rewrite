@@ -76,7 +76,7 @@ diff --git a/chrome/browser/ui/views/frame/windows_10_caption_button.cc b/chrome
 +  // Draw Fluent icon
 +  ImageButton::PaintButtonContents(canvas);
  }
-
+ 
 diff --git a/chrome/browser/ui/views/frame/windows_10_caption_button.h b/chrome/browser/ui/views/frame/windows_10_caption_button.h
 --- a/chrome/browser/ui/views/frame/windows_10_caption_button.h
 +++ b/chrome/browser/ui/views/frame/windows_10_caption_button.h
@@ -94,3 +94,4 @@ diff --git a/chrome/browser/ui/views/frame/windows_10_caption_button.h b/chrome/
 +#include "ui/views/controls/button/image_button.h"
  
  class Windows10CaptionButton : public views::ImageButton {
+ 

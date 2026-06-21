@@ -17,7 +17,7 @@ diff --git a/chrome/browser/metrics/chrome_metrics_services_manager_client.cc b/
 -  return false;  // XFBrowser: UKM disabled
 +  return false;  // UKM always disabled
  }
-
+ 
 diff --git a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp b/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
 --- a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
 +++ b/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp
@@ -27,7 +27,7 @@ diff --git a/chrome/browser/metrics/ChromeBrowserMetricsExtensions.cpp b/chrome/
 -  // Telemetry stripped by XFBrowser
 -}
 +void RegisterChromeMetricsExtensions(MetricsService* service) {}
-
+ 
 diff --git a/chrome/browser/ui/startup/google_api_keys_migration.cc b/chrome/browser/ui/startup/google_api_keys_migration.cc
 --- a/chrome/browser/ui/startup/google_api_keys_migration.cc
 +++ b/chrome/browser/ui/startup/google_api_keys_migration.cc
@@ -44,12 +44,12 @@ diff --git a/chrome/browser/ui/startup/google_api_keys_migration.cc b/chrome/bro
 -#include "chrome/common/chrome_switches.h"
 +// XFBrowser: Remove Google API keys migration
 +#include "chrome/browser/ui/startup/google_api_keys_migration.h"
-
+ 
  void MaybeMigrateGoogleApiKeys() {
 -  // Migration logic removed - XFBrowser does not use Google APIs
 +  // No-op in XFBrowser
  }
-
+ 
 diff --git a/components/metrics/metrics_service.cc b/components/metrics/metrics_service.cc
 --- a/components/metrics/metrics_service.cc
 +++ b/components/metrics/metrics_service.cc
@@ -78,7 +78,7 @@ diff --git a/components/metrics/metrics_service.cc b/components/metrics/metrics_
 +// XFBrowser: Minimal stub - telemetry disabled
 +#include "components/metrics/metrics_service.h"
 +#include "components/prefs/pref_service.h"
-
+ 
  MetricsService::MetricsService(MetricsStateManager* state_manager,
                                 MetricsServiceClient* client,
                                 PrefService* local_state)
@@ -90,7 +90,7 @@ diff --git a/components/metrics/metrics_service.cc b/components/metrics/metrics_
 +    : local_state_(local_state) {}
  
  MetricsService::~MetricsService() = default;
-
+ 
  void MetricsService::Start() {
 -  // No-op in XFBrowser
 +  // Telemetry permanently disabled
@@ -105,3 +105,4 @@ diff --git a/components/metrics/metrics_service.cc b/components/metrics/metrics_
 -  // Minimal registration to avoid crashes
 +  registry->RegisterInt64Pref(prefs::kMetricsReportingEnabledTimestamp, 0);
  }
+ 

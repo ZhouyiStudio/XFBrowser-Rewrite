@@ -206,3 +206,4 @@
 +     "Show a warning prompt when closing the browser window. ungoogled-chromium flag",
 +     kOsDesktop, MULTI_VALUE_TYPE(kCloseConfirmation)},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

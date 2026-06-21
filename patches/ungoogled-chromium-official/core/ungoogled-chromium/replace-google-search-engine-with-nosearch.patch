@@ -33,3 +33,4 @@
        "type": "SEARCH_ENGINE_GOOGLE",
        "preconnect_to_search_url" : "ALLOWED",
        "prefetch_likely_navigations" : "ALLOWED",
+ 

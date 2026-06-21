@@ -713,3 +713,4 @@
        DVLOG(1) << "Discarding report instead of uploading.";
        UploadResult result;
        result.status = UploadResult::SUCCESS;
+ 

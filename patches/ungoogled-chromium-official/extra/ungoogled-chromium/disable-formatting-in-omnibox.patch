@@ -20,3 +20,4 @@
 -  registry->RegisterBooleanPref(omnibox::kPreventUrlElisionsInOmnibox, false);
 +  registry->RegisterBooleanPref(omnibox::kPreventUrlElisionsInOmnibox, true);
  }
+ 

@@ -83,3 +83,4 @@
 +     "Clears all browsing data on exit. ungoogled-chromium flag",
 +     kOsDesktop, FEATURE_VALUE_TYPE(features::kClearDataOnExit)},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

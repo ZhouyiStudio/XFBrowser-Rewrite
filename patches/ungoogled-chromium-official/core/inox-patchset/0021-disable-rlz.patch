@@ -28,3 +28,4 @@
  
  declare_args() {
    enable_rlz = is_chrome_branded && enable_rlz_support
+ 

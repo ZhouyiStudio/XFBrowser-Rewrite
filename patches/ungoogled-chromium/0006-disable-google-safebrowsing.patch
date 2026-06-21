@@ -25,7 +25,7 @@ diff --git a/chrome/browser/safe_browsing/BUILD.gn b/chrome/browser/safe_browsin
 +group("safe_browsing") {
 +  public_deps = []
 +}
-
+ 
 diff --git a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc b/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
 --- a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
 +++ b/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_factory.cc
@@ -57,7 +57,7 @@ diff --git a/chrome/browser/safe_browsing/chrome_safe_browsing_blocking_page_fac
 -  return nullptr;  // XFBrowser: no Safe Browsing pages
 +  return nullptr;  // Replaced by local adblock engine
  }
-
+ 
 diff --git a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc b/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
 --- a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
 +++ b/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_utils.cc
@@ -91,3 +91,4 @@ diff --git a/chrome/browser/safe_browsing/cloud_content_scanning/deep_scanning_u
  }
  }  // namespace deep_scanning
  }  // namespace safe_browsing
+ 

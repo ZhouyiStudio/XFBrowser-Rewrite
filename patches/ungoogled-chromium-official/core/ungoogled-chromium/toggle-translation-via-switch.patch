@@ -104,3 +104,4 @@
  
      // Load embedded translate.js.
      data_.append(ui::ResourceBundle::GetSharedInstance().LoadDataResourceString(
+ 

@@ -12,3 +12,4 @@
    net::NetworkTrafficAnnotationTag traffic_annotation =
        net::DefineNetworkTrafficAnnotation("profile_avatar", R"(
          semantics {
+ 

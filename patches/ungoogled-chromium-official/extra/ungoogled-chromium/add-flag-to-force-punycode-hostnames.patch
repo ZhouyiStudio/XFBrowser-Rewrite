@@ -35,3 +35,4 @@
    // Compute the top level domain to be used in spoof checks later.
    std::string_view top_level_domain;
    std::u16string top_level_domain_unicode;
+ 

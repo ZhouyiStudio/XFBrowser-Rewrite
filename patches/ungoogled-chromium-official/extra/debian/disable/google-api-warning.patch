@@ -14,3 +14,4 @@ author: Michael Gilbert <mgilbert@debian.org>
      if (ObsoleteSystem::IsObsoleteNowOrSoon()) {
        PrefService* local_state = g_browser_process->local_state();
        if (!local_state ||
+ 

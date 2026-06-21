@@ -29,3 +29,4 @@ Instead, let them appear just like regular ones.
  
  #endif  // defined(PLATFORM_USES_CHROMIUM_EV_METADATA)
  }  // namespace
+ 

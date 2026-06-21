@@ -457,3 +457,4 @@
  
    // Sets the `is_active` field of the specified TemplateURL to `kTrue` or
    // `kFalse`. Called when a user explicitly activates/deactivates the search
+ 

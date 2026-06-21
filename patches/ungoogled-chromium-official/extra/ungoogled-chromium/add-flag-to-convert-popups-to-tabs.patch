@@ -50,3 +50,4 @@
          return true;
        case ui::mojom::WindowOpenDisposition::NEW_WINDOW:
          *out = WindowOpenDisposition::NEW_WINDOW;
+ 

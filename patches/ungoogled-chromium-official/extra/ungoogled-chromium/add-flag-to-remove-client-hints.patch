@@ -68,3 +68,4 @@
    NavigatorUAData* ua_data =
        MakeGarbageCollected<NavigatorUAData>(GetUAExecutionContext());
  
+ 

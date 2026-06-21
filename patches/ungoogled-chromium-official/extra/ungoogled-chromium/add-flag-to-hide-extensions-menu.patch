@@ -55,3 +55,4 @@
 +     "Hides the extensions container. This includes the puzzle piece icon as well as any pinned extensions. ungoogled-chromium flag.",
 +     kOsDesktop, SINGLE_VALUE_TYPE("hide-extensions-menu")},
  #endif  // CHROME_BROWSER_UNGOOGLED_FLAG_ENTRIES_H_
+ 

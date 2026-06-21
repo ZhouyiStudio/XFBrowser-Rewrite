@@ -22,7 +22,7 @@ diff --git a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc b/chrome/brows
 +// XFBrowser: Remove Google Gaia key fetcher dependency
 +#include "chrome/browser/autofill/autofill_gaia_key_fetcher.h"
 +#include "base/notreached.h"
-
+ 
  namespace autofill {
  
 @@ -17,30 +6,7 @@ std::unique_ptr<AutofillGaiaKeyFetcher> AutofillGaiaKeyFetcher::Create(
@@ -60,7 +60,7 @@ diff --git a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc b/chrome/brows
 +    base::OnceCallback<void(const std::string&)> callback) {
 +  std::move(callback).Run(std::string());
 +}
-
+ 
 diff --git a/chrome/browser/signin/BUILD.gn b/chrome/browser/signin/BUILD.gn
 --- a/chrome/browser/signin/BUILD.gn
 +++ b/chrome/browser/signin/BUILD.gn
@@ -87,7 +87,7 @@ diff --git a/chrome/browser/signin/BUILD.gn b/chrome/browser/signin/BUILD.gn
      "//components/signin/public/identity_manager:identity_manager",
      "//components/sync/service:service",
      "//content/public/browser:browser",
-
+ 
 diff --git a/chrome/browser/google/google_url_tracker_factory.cc b/chrome/browser/google/google_url_tracker_factory.cc
 --- a/chrome/browser/google/google_url_tracker_factory.cc
 +++ b/chrome/browser/google/google_url_tracker_factory.cc
@@ -112,7 +112,7 @@ diff --git a/chrome/browser/google/google_url_tracker_factory.cc b/chrome/browse
 +// XFBrowser: Google URL tracker disabled
 +#include "chrome/browser/google/google_url_tracker_factory.h"
 +#include "chrome/browser/profiles/profile.h"
-
+ 
 -// static
 -GoogleURLTrackerFactory* GoogleURLTrackerFactory::GetInstance() {
 -  static base::NoDestructor<GoogleURLTrackerFactory> instance;
@@ -123,3 +123,4 @@ diff --git a/chrome/browser/google/google_url_tracker_factory.cc b/chrome/browse
 +GoogleURLTrackerFactory* GoogleURLTrackerFactory::GetInstance() {
 +  return nullptr;
 +}
+ 
