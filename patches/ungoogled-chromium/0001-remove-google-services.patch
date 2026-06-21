@@ -122,4 +122,3 @@ diff --git a/chrome/browser/google/google_url_tracker_factory.cc b/chrome/browse
 +GoogleURLTrackerFactory* GoogleURLTrackerFactory::GetInstance() {
 +  return nullptr;
 +}
- 

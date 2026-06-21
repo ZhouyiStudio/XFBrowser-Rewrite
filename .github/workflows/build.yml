@@ -77,7 +77,7 @@ jobs:
             $p = $line.Trim()
             if ($p -eq '' -or $p.StartsWith('#')) { continue }
             $path = "${{ github.workspace }}\patches\ungoogled-chromium-official\$p"
-            git apply --ignore-whitespace --whitespace=fix $path
+            git apply --recount --ignore-whitespace --whitespace=fix $path
             if ($LASTEXITCODE -ne 0) { throw "Patch failed: $p" }
           }
 
