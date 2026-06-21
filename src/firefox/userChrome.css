@@ -1,0 +1,115 @@
+/* ===========================================================
+   XFBrowser - Firefox userChrome.css
+   Copy this file to your Firefox profile's chrome/ directory.
+   This styles the browser UI chrome with Fluent Design.
+   =========================================================== */
+
+/* Import XFBrowser Fluent UI themes.
+   Adjust paths to match your setup. For source-tree integration
+   these would be registered as chrome://xfbrowser/skin/ */
+
+/* ---- Toolbar / Navigation Bar ---- */
+#nav-bar {
+  background: var(--fluent-bg-layer1) !important;
+  border-bottom: 1px solid var(--fluent-border-base) !important;
+  padding: 2px 8px !important;
+}
+
+#urlbar {
+  background: var(--fluent-bg-base) !important;
+  border-radius: var(--fluent-radius-xl) !important;
+  border: 1px solid transparent !important;
+  min-height: 36px !important;
+}
+
+#urlbar:focus-within {
+  border-color: var(--fluent-border-focus) !important;
+  box-shadow: 0 0 0 1px var(--fluent-border-focus) !important;
+  background: var(--fluent-bg-layer1) !important;
+}
+
+#urlbar-input {
+  font-size: var(--fluent-font-body) !important;
+  color: var(--fluent-text-primary) !important;
+}
+
+/* ---- Tab Strip ---- */
+#tabbrowser-tabs {
+  --tab-min-height: 36px !important;
+}
+
+.tab-background {
+  border-radius: var(--fluent-radius-lg) !important;
+  background: transparent !important;
+}
+
+.tab-background[selected="true"] {
+  background: var(--fluent-bg-layer2) !important;
+  box-shadow: var(--fluent-shadow-xs) !important;
+}
+
+.tabbrowser-tab:not([selected]):hover .tab-background {
+  background: var(--fluent-bg-hover) !important;
+}
+
+.tab-label {
+  font-size: var(--fluent-font-caption) !important;
+  color: var(--fluent-text-primary) !important;
+}
+
+/* ---- Title Bar ---- */
+#titlebar {
+  -moz-window-drag: drag !important;
+}
+
+#titlebar-buttonbox {
+  -moz-window-drag: no-drag !important;
+}
+
+/* ---- Sidebar ---- */
+#sidebar-box {
+  background: var(--fluent-bg-layer1) !important;
+  border-right: 1px solid var(--fluent-border-base) !important;
+}
+
+/* ---- Bookmarks ---- */
+#personal-bookmarks {
+  background: var(--fluent-bg-layer1) !important;
+  border-bottom: 1px solid var(--fluent-border-base) !important;
+  min-height: 32px !important;
+}
+
+/* ---- Context Menus ---- */
+menupopup {
+  background: var(--fluent-bg-layer1) !important;
+  border-radius: var(--fluent-radius-lg) !important;
+  box-shadow: var(--fluent-shadow-xl) !important;
+  border: 1px solid var(--fluent-border-base) !important;
+  padding: 4px !important;
+}
+
+menuitem {
+  border-radius: var(--fluent-radius-sm) !important;
+  padding: 4px 12px !important;
+}
+
+menuitem:hover {
+  background: var(--fluent-bg-hover) !important;
+}
+
+/* ---- Buttons ---- */
+.toolbarbutton-1 {
+  border-radius: var(--fluent-radius-md) !important;
+  fill: var(--fluent-text-secondary) !important;
+}
+
+.toolbarbutton-1:hover {
+  background: var(--fluent-bg-hover) !important;
+  fill: var(--fluent-text-primary) !important;
+}
+
+/* ---- Downloads ---- */
+#downloadsPanel {
+  border-radius: var(--fluent-radius-lg) !important;
+  background: var(--fluent-bg-layer1) !important;
+}

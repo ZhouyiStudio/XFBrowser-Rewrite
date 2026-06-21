@@ -14,10 +14,6 @@
   scrollbar-width: none;
 }
 
-.xf-bookmarks-bar::-webkit-scrollbar {
-  display: none;
-}
-
 .xf-bookmark-item {
   display: flex;
   align-items: center;

@@ -1,8 +1,9 @@
-/* ===========================================================
-   XFBrowser - 浏览器指纹随机伪装模块
-   每会话 / 每域名生成随机指纹，防止跨站追踪
-   纯 ES Module
-   =========================================================== */
+const lazy = {};
+ChromeUtils.defineESModuleGetters(lazy, {
+  Services: "resource://gre/modules/Services.sys.mjs",
+});
+
+const Ci = Components.interfaces;
 
 export class FingerprintRandomizer {
   constructor() {
@@ -10,7 +11,44 @@ export class FingerprintRandomizer {
     this._enabled = true;
   }
 
-  /** 获取当前域名的伪装指纹 */
+  init() {
+    this._applyPrefs();
+    this._registerObserver();
+  }
+
+  _applyPrefs() {
+    if (this._enabled) {
+      lazy.Services.prefs.setBoolPref("privacy.resistFingerprinting", true);
+      lazy.Services.prefs.setBoolPref("privacy.fingerprintingProtection", true);
+      lazy.Services.prefs.setBoolPref("privacy.spoof_english", true);
+      lazy.Services.prefs.setIntPref("privacy.window.maxInnerWidth", 2560);
+      lazy.Services.prefs.setIntPref("privacy.window.maxInnerHeight", 1440);
+    }
+  }
+
+  _registerObserver() {
+    lazy.Services.obs.addObserver(this, "http-on-modify-request");
+    lazy.Services.obs.addObserver(this, "user-agent-override");
+  }
+
+  observe(subject, topic, data) {
+    if (topic === "http-on-modify-request" && subject instanceof Ci.nsIHttpChannel) {
+      this._applyPerDomainFingerprint(subject);
+    }
+  }
+
+  _applyPerDomainFingerprint(channel) {
+    const URI = channel.URI;
+    const host = URI.host;
+    const fp = this.getForDomain(host);
+    if (!fp) return;
+
+    const ua = fp.userAgent;
+    if (ua) {
+      channel.setRequestHeader("User-Agent", ua, false);
+    }
+  }
+
   getForDomain(domain) {
     if (!this._enabled) return null;
     if (!this._fingerprints.has(domain)) {
@@ -19,7 +57,6 @@ export class FingerprintRandomizer {
     return this._fingerprints.get(domain);
   }
 
-  /** 生成随机指纹 */
   _generateFingerprint() {
     return {
       userAgent: this._randomUserAgent(),
@@ -27,64 +64,51 @@ export class FingerprintRandomizer {
       timezone: this._randomTimezone(),
       canvas: this._randomCanvasNoise(),
       fonts: this._randomFonts(),
-      hardware: this._randomHardware()
+      hardware: this._randomHardware(),
     };
   }
 
-  /** 随机 UA */
   _randomUserAgent() {
     const browsers = [
-      // Chrome 128 on Windows 11
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
-      // Chrome 127 on Windows 11
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/127.0.0.0 Safari/537.36',
-      // Chrome 128 on Windows 10
-      'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/128.0.0.0 Safari/537.36',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:128.0) Gecko/20100101 Firefox/128.0',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:127.0) Gecko/20100101 Firefox/127.0',
+      'Mozilla/5.0 (Windows NT 10.0; Win64; x64; rv:129.0) Gecko/20100101 Firefox/129.0',
     ];
     return browsers[Math.floor(Math.random() * browsers.length)];
   }
 
-  /** 随机屏幕参数 */
   _randomScreen() {
     const screens = [
       { width: 1920, height: 1080, colorDepth: 24, pixelRatio: 1 },
       { width: 2560, height: 1440, colorDepth: 24, pixelRatio: 1.25 },
       { width: 1366, height: 768, colorDepth: 24, pixelRatio: 1 },
       { width: 3840, height: 2160, colorDepth: 24, pixelRatio: 1.5 },
-      { width: 1920, height: 1200, colorDepth: 24, pixelRatio: 1 },
     ];
     return screens[Math.floor(Math.random() * screens.length)];
   }
 
-  /** 随机时区 */
   _randomTimezone() {
-    const timezones = [
+    const zones = [
       'Asia/Shanghai', 'Asia/Tokyo', 'America/New_York',
       'Europe/London', 'Asia/Singapore', 'Australia/Sydney',
-      'Europe/Berlin', 'America/Los_Angeles'
+      'Europe/Berlin', 'America/Los_Angeles',
     ];
-    return timezones[Math.floor(Math.random() * timezones.length)];
+    return zones[Math.floor(Math.random() * zones.length)];
   }
 
-  /** Canvas 噪声参数 */
   _randomCanvasNoise() {
-    return {
-      amplitude: Math.random() * 0.001,
-      frequency: Math.random() * 0.5
-    };
+    return { amplitude: Math.random() * 0.001, frequency: Math.random() * 0.5 };
   }
 
-  /** 随机字体列表 */
   _randomFonts() {
-    const fontSets = [
+    const sets = [
       ['Arial', 'Times New Roman', 'Segoe UI', 'Consolas'],
       ['Calibri', 'Verdana', 'Georgia', 'Courier New'],
       ['Segoe UI', 'Arial', 'Tahoma', 'Lucida Console'],
     ];
-    return fontSets[Math.floor(Math.random() * fontSets.length)];
+    return sets[Math.floor(Math.random() * sets.length)];
   }
 
-  /** 随机硬件参数 */
   _randomHardware() {
     return {
       cpuCores: [4, 6, 8, 12, 16][Math.floor(Math.random() * 5)],
@@ -93,12 +117,12 @@ export class FingerprintRandomizer {
     };
   }
 
-  /** 启用/禁用 */
   setEnabled(val) {
     this._enabled = val;
+    lazy.Services.prefs.setBoolPref("privacy.resistFingerprinting", val);
+    lazy.Services.prefs.setBoolPref("privacy.fingerprintingProtection", val);
   }
 
-  /** 清除当前会话指纹（下次访问重新生成） */
   resetSession() {
     this._fingerprints.clear();
   }

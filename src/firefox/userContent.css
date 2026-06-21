@@ -1,0 +1,102 @@
+/* ===========================================================
+   XFBrowser - Firefox userContent.css
+   Copy this file to your Firefox profile's chrome/ directory.
+   This styles web content pages (newtab, settings, etc.)
+   =========================================================== */
+
+/* ---- New Tab Page ---- */
+@-moz-document url("about:newtab"), url("about:home") {
+  body {
+    background: var(--fluent-bg-base) !important;
+    color: var(--fluent-text-primary) !important;
+    font-family: var(--fluent-font-family) !important;
+  }
+
+  .outer-wrapper {
+    max-width: 720px !important;
+  }
+
+  .search-inner-wrapper {
+    border-radius: var(--fluent-radius-xl) !important;
+    border: 1px solid var(--fluent-border-base) !important;
+    background: var(--fluent-bg-layer1) !important;
+  }
+
+  .search-handoff-button {
+    border-radius: var(--fluent-radius-xl) !important;
+    background: transparent !important;
+  }
+
+  .logo-and-wordmark {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+  }
+
+  .section-top-bar {
+    display: none !important;
+  }
+
+  .section-title {
+    font-size: var(--fluent-font-body) !important;
+    font-weight: 600 !important;
+    color: var(--fluent-text-secondary) !important;
+    text-transform: uppercase !important;
+    letter-spacing: 0.5px !important;
+  }
+
+  .card-outer {
+    border-radius: var(--fluent-radius-lg) !important;
+    box-shadow: var(--fluent-shadow-sm) !important;
+    transition: box-shadow var(--fluent-duration-fast) var(--fluent-easing-standard) !important;
+  }
+
+  .card-outer:hover {
+    box-shadow: var(--fluent-shadow-md) !important;
+  }
+}
+
+/* ---- Settings / Preferences ---- */
+@-moz-document url-prefix("about:preferences") {
+  body {
+    background: var(--fluent-bg-base) !important;
+    color: var(--fluent-text-primary) !important;
+    font-family: var(--fluent-font-family) !important;
+  }
+
+  .main-content {
+    background: transparent !important;
+  }
+
+  .groupbox {
+    background: var(--fluent-bg-layer1) !important;
+    border-radius: var(--fluent-radius-lg) !important;
+    border: none !important;
+    box-shadow: var(--fluent-shadow-sm) !important;
+    margin-bottom: 16px !important;
+  }
+
+  .groupbox-title {
+    border-bottom: 1px solid var(--fluent-border-base) !important;
+    font-weight: 600 !important;
+  }
+}
+
+/* ---- About Pages ---- */
+@-moz-document url-prefix("about:") {
+  :root {
+    --in-content-page-background: var(--fluent-bg-base) !important;
+    --in-content-page-color: var(--fluent-text-primary) !important;
+    --in-content-text-color: var(--fluent-text-primary) !important;
+    --in-content-button-background: transparent !important;
+    --in-content-button-background-hover: var(--fluent-bg-hover) !important;
+    --in-content-button-background-active: var(--fluent-bg-active) !important;
+    --in-content-primary-button-background: var(--fluent-accent) !important;
+    --in-content-primary-button-background-hover: var(--fluent-accent-hover) !important;
+    --in-content-primary-button-background-active: var(--fluent-accent-active) !important;
+    --in-content-box-background: var(--fluent-bg-layer1) !important;
+    --in-content-box-border-color: var(--fluent-border-base) !important;
+    --in-content-table-background: var(--fluent-bg-layer1) !important;
+    --in-content-table-border-color: var(--fluent-border-base) !important;
+  }
+}

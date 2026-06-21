@@ -15,10 +15,6 @@
   scrollbar-width: none;
 }
 
-.xf-tabstrip::-webkit-scrollbar {
-  display: none;
-}
-
 /* 单个标签 */
 .xf-tab {
   display: flex;

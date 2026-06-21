@@ -1,0 +1,12 @@
+# XFBrowser Fluent UI skin registration
+# Copy this to mozilla-central/browser/app/profile/extensions/XFBrowser@xf/chrome.manifest
+# Or integrate via browser/components/xfbrowser/ path
+
+skin	xfbrowser	classic/1.0	chrome/skin/
+content	xfbrowser	chrome/content/
+
+# Overlay the browser window with Fluent UI
+overlay	chrome://browser/content/browser.xhtml	chrome://xfbrowser/content/fluent-overlay.xhtml
+
+# Resource alias for privacy engine modules
+resource	xfbrowser	modules/

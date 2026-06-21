@@ -1,27 +1,27 @@
-/* ===========================================================
-   XFBrowser - 内置广告拦截引擎
-   基于 uBlock Origin 精简规则引擎
-   纯 ES Module，无外部依赖
-   =========================================================== */
+const lazy = {};
+ChromeUtils.defineESModuleGetters(lazy, {
+  Services: "resource://gre/modules/Services.sys.mjs",
+});
+
+const Cc = Components.classes;
+const Ci = Components.interfaces;
 
 export class AdBlockEngine {
   constructor() {
     this._networkFilters = [];
     this._cosmeticFilters = [];
-    this._scriptletFilters = [];
-    this._rulesLoaded = false;
     this._blockedCount = 0;
+    this._policyRegistered = false;
   }
 
   async init() {
     await this._loadDefaultRules();
-    this._rulesLoaded = true;
-    console.log(`[AdBlock] 规则已加载: ${this._networkFilters.length} 条网络规则`);
+    this._registerContentPolicy();
+    console.log(`[XFB AdBlock] Loaded ${this._networkFilters.length} rules`);
   }
 
   async _loadDefaultRules() {
-    // 内置 EasyList 精简规则（仅核心域名）
-    const builtinRules = [
+    const rules = [
       '||doubleclick.net^',
       '||googleadservices.com^',
       '||googlesyndication.com^',
@@ -59,11 +59,9 @@ export class AdBlockEngine {
       '||sharethrough.com^',
       '||pubnative.net^',
       '||inmobi.com^',
-      // 中国大陆常用广告域名
       '||cnzz.com^',
       '||cnzz.mmstat.com^',
       '||t.cn^',
-      '||sogou.com^?ad=',
       '||pos.baidu.com^',
       '||cpro.baidustatic.com^',
       '||union.sina.com.cn^',
@@ -72,7 +70,6 @@ export class AdBlockEngine {
       '||ads.qq.com^',
       '||gtimg.cn^',
       '||p.t.qq.com^',
-      // 追踪分析
       '||dpm.demdex.net^',
       '||piwik.org^',
       '||matomo.org^',
@@ -86,32 +83,29 @@ export class AdBlockEngine {
       '||bat.bing.com^',
       '||analytics.tiktok.com^',
     ];
-
-    for (const rule of builtinRules) {
-      if (rule.startsWith('||')) {
-        this._networkFilters.push(this._parseNetworkFilter(rule));
+    for (const r of rules) {
+      if (r.startsWith('||')) {
+        this._networkFilters.push(new NetworkFilter(r.slice(2, -1)));
       }
     }
   }
 
-  _parseNetworkFilter(rule) {
-    // 简化规则解析: ||domain.com^
-    const domain = rule.slice(2, -1);
-    return new NetworkFilter(domain);
+  _registerContentPolicy() {
+    if (this._policyRegistered) return;
+    const catMan = Cc["@mozilla.org/categorymanager;1"].getService(Ci.nsICategoryManager);
+    const uuid = Services.uuid.generateUUID().toString();
+    catMan.addCategoryEntry("content-policy", uuid, uuid, false, true);
+    this._policyRegistered = true;
   }
 
-  /** 判断请求是否应被拦截 */
   shouldBlock(request) {
-    if (!this._rulesLoaded) return false;
-
-    const url = request.url || '';
-    const type = request.type || '';
-
-    // 不拦截文档和首屏资源
-    if (type === 'main_frame' || type === 'document') return false;
-
-    for (const filter of this._networkFilters) {
-      if (filter.matches(url)) {
+    const url = request instanceof Ci.nsIURI ? request.spec : String(request.url || '');
+    const type = request instanceof Ci.nsILoadInfo
+      ? this._loadInfoTypeToString(request)
+      : (request.type || '');
+    if (type === 'document' || type === 'main_frame') return false;
+    for (const f of this._networkFilters) {
+      if (f.matches(url)) {
         this._blockedCount++;
         return true;
       }
@@ -119,38 +113,52 @@ export class AdBlockEngine {
     return false;
   }
 
-  /** 返回已拦截数量 */
-  getBlockedCount() {
-    return this._blockedCount;
-  }
-
-  /** 添加自定义规则 */
-  addRule(ruleStr) {
-    if (ruleStr.startsWith('||')) {
-      this._networkFilters.push(this._parseNetworkFilter(ruleStr));
+  _loadInfoTypeToString(loadInfo) {
+    switch (loadInfo.externalContentPolicyType) {
+      case Ci.nsIContentPolicy.TYPE_DOCUMENT: return 'document';
+      case Ci.nsIContentPolicy.TYPE_SUBDOCUMENT: return 'sub_frame';
+      case Ci.nsIContentPolicy.TYPE_SCRIPT: return 'script';
+      case Ci.nsIContentPolicy.TYPE_IMAGE: return 'image';
+      case Ci.nsIContentPolicy.TYPE_STYLESHEET: return 'stylesheet';
+      case Ci.nsIContentPolicy.TYPE_OBJECT: return 'object';
+      case Ci.nsIContentPolicy.TYPE_XMLHTTPREQUEST: return 'xmlhttprequest';
+      case Ci.nsIContentPolicy.TYPE_FETCH: return 'fetch';
+      case Ci.nsIContentPolicy.TYPE_FONT: return 'font';
+      case Ci.nsIContentPolicy.TYPE_MEDIA: return 'media';
+      case Ci.nsIContentPolicy.TYPE_WEBSOCKET: return 'websocket';
+      case Ci.nsIContentPolicy.TYPE_WEB_MANIFEST: return 'manifest';
+      default: return 'other';
     }
   }
 
-  /** 获取所有规则 */
+  getBlockedCount() { return this._blockedCount; }
+
+  addRule(ruleStr) {
+    if (ruleStr.startsWith('||')) {
+      this._networkFilters.push(new NetworkFilter(ruleStr.slice(2, -1)));
+    }
+  }
+
   getRules() {
-    return this._networkFilters.map(f => f.toString());
+    return this._networkFilters.map(f => `||${f.domain}^`);
   }
 }
 
 class NetworkFilter {
-  constructor(domain) {
-    this.domain = domain;
-  }
+  constructor(domain) { this.domain = domain; }
+  matches(url) { try { return url.includes(this.domain); } catch { return false; } }
+}
 
-  matches(url) {
-    try {
-      return url.includes(this.domain);
-    } catch {
-      return false;
-    }
-  }
-
-  toString() {
-    return `||${this.domain}^`;
-  }
+export function createAdBlockPolicy(engine) {
+  return {
+    QueryInterface: ChromeUtils.generateQI([Ci.nsIContentPolicy]),
+    shouldLoad(contentLocation, loadInfo, mimeTypeGuess) {
+      return engine.shouldBlock(contentLocation)
+        ? Ci.nsIContentPolicy.REJECT_REQUEST
+        : Ci.nsIContentPolicy.ACCEPT;
+    },
+    shouldProcess(contentLocation, loadInfo, mimeTypeGuess) {
+      return Ci.nsIContentPolicy.ACCEPT;
+    },
+  };
 }

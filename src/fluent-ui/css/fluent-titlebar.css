@@ -10,7 +10,7 @@
   padding: 0 var(--fluent-space-md);
   background: transparent;
   user-select: none;
-  -webkit-app-region: drag;
+  -moz-window-drag: drag;
 }
 
 .xf-titlebar:active {
@@ -33,7 +33,7 @@
   display: flex;
   align-items: center;
   gap: 0;
-  -webkit-app-region: no-drag;
+  -moz-window-drag: no-drag;
   margin-right: calc(-1 * var(--fluent-space-md));
 }
 
@@ -91,7 +91,7 @@
   width: 16px;
   height: 16px;
   margin-right: var(--fluent-space-md);
-  -webkit-app-region: no-drag;
+  -moz-window-drag: no-drag;
 }
 
 .xf-titlebar-icon img {
