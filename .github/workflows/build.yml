@@ -7,49 +7,10 @@ on:
 
 env:
   PYTHON_VERSION: '3.12'
+  MOZILLABUILD: C:\mozilla-build
 
 jobs:
-  sync:
-    name: 1-Sync Firefox source
-    runs-on: windows-2022
-    outputs:
-      firefox-version: ${{ steps.save-version.outputs.version }}
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Restore cached Firefox source
-        id: cache
-        uses: actions/cache@v4
-        with:
-          path: firefox-src
-          key: xf-firefox-central-v1-${{ github.run_id }}
-          restore-keys: xf-firefox-central-v1-
-
-      - name: Clone mozilla-central (git mirror)
-        if: steps.cache.outputs.cache-hit != 'true'
-        uses: actions/checkout@v4
-        with:
-          repository: mozilla/gecko-dev
-          path: firefox-src
-          fetch-depth: 1
-
-      - name: Save Firefox version
-        id: save-version
-        shell: pwsh
-        run: |
-          $ver = & git -C firefox-src log -1 --oneline
-          echo "version=$ver" >> $env:GITHUB_OUTPUT
-          echo "$ver" > firefox-version.txt
-
-      - name: Upload version info
-        uses: actions/upload-artifact@v4
-        with:
-          name: firefox-version
-          path: firefox-version.txt
-
-  bootstrap:
-    name: 2-Bootstrap toolchain
-    needs: sync
+  build:
     runs-on: windows-2022
     steps:
       - uses: actions/checkout@v4
@@ -62,21 +23,31 @@ jobs:
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
 
-      - name: Restore Firefox source
-        uses: actions/cache@v4
-        with:
-          path: firefox-src
-          key: xf-firefox-central-v1-${{ github.run_id }}
-
-      - name: Restore cached bootstrap state
+      - name: Restore cached bootstrap
         id: cache-bootstrap
         uses: actions/cache@v4
         with:
           path: |
-            firefox-src\.mozbuild
-            firefox-src\clang
-          key: xf-bootstrap-v1-${{ hashFiles('firefox-src/python/**') }}
+            C:\Users\runneradmin\.mozbuild
+            C:\mozilla-build
+          key: xf-bootstrap-v1-${{ hashFiles('firefox-src/python/mozbuild/**') }}
           restore-keys: xf-bootstrap-v1-
+
+      - name: Clone mozilla-central
+        uses: actions/checkout@v4
+        with:
+          repository: mozilla/gecko-dev
+          path: firefox-src
+          fetch-depth: 1
+
+      - name: Install MozillaBuild
+        if: steps.cache-bootstrap.outputs.cache-hit != 'true'
+        shell: pwsh
+        run: |
+          $msi = "$env:TEMP\mozilla-build.msi"
+          Invoke-WebRequest -Uri "https://github.com/mozilla/mozilla-build/releases/download/v4.0/mozilla-build-4.0.0.msi" -OutFile $msi
+          Start-Process msiexec -ArgumentList "/i $msi /quiet /norestart" -Wait
+          Remove-Item $msi -Force
 
       - name: mach bootstrap
         if: steps.cache-bootstrap.outputs.cache-hit != 'true'
@@ -84,42 +55,6 @@ jobs:
         run: |
           Set-Location firefox-src
           python mach bootstrap --application-choice=browser --no-system-changes 2>&1
-
-      - name: Verify toolchain
-        shell: pwsh
-        run: |
-          rustc --version
-          python --version
-          echo "mozbuild: $(Test-Path firefox-src/.mozbuild)"
-
-  build:
-    name: 3-Compile XFBrowser
-    needs: bootstrap
-    runs-on: windows-2022
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: Setup Rust
-        uses: dtolnay/rust-toolchain@stable
-
-      - name: Restore Firefox source
-        uses: actions/cache@v4
-        with:
-          path: firefox-src
-          key: xf-firefox-central-v1-${{ github.run_id }}
-
-      - name: Restore bootstrap state
-        uses: actions/cache@v4
-        with:
-          path: |
-            firefox-src\.mozbuild
-            firefox-src\clang
-          key: xf-bootstrap-v1-${{ hashFiles('firefox-src/python/**') }}
 
       - name: Write mozconfig
         shell: pwsh
@@ -140,22 +75,11 @@ jobs:
           Set-Location firefox-src
           python mach configure 2>&1
 
-      - name: mach build (compile)
+      - name: mach build
         shell: pwsh
         run: |
           Set-Location firefox-src
           python mach build 2>&1
-
-      - name: Show build size
-        shell: pwsh
-        run: |
-          $dir = "firefox-src\obj-x64-release\dist\firefox"
-          if (Test-Path $dir) {
-            $size = (Get-ChildItem -Recurse $dir | Measure-Object -Property Length -Sum).Sum
-            "Build output: $([math]::Round($size/1MB, 1)) MB"
-          } else {
-            "Build output not found"
-          }
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
@@ -163,58 +87,3 @@ jobs:
           name: XFBrowser-firefox-x64
           path: firefox-src\obj-x64-release\dist\firefox
           retention-days: 14
-
-  package:
-    name: 4-Package installer
-    needs: build
-    if: always()
-    runs-on: windows-2022
-    steps:
-      - uses: actions/checkout@v4
-
-      - name: Restore Firefox source
-        uses: actions/cache@v4
-        with:
-          path: firefox-src
-          key: xf-firefox-central-v1-${{ github.run_id }}
-
-      - name: Setup Python
-        uses: actions/setup-python@v5
-        with:
-          python-version: ${{ env.PYTHON_VERSION }}
-
-      - name: mach package
-        shell: pwsh
-        run: |
-          Set-Location firefox-src
-          python mach package 2>&1
-
-      - name: Upload installer
-        uses: actions/upload-artifact@v4
-        with:
-          name: XFBrowser-installer
-          path: firefox-src\obj-x64-release\dist\install
-          retention-days: 14
-
-  summary:
-    name: Summary
-    needs: [sync, build, package]
-    if: always()
-    runs-on: windows-2022
-    steps:
-      - name: Download version info
-        uses: actions/download-artifact@v4
-        with:
-          name: firefox-version
-
-      - name: Print build summary
-        shell: pwsh
-        run: |
-          Write-Host "================================" -ForegroundColor Cyan
-          Write-Host "  XFBrowser Build Summary" -ForegroundColor Cyan
-          Write-Host "================================" -ForegroundColor Cyan
-          $ver = Get-Content firefox-version.txt -ErrorAction SilentlyContinue
-          if ($ver) { Write-Host "Firefox: $ver" }
-          Write-Host "Sync: $('${{ needs.sync.result }}')"
-          Write-Host "Build: $('${{ needs.build.result }}')"
-          Write-Host "Package: $('${{ needs.package.result }}')"
