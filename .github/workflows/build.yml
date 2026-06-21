@@ -31,42 +31,9 @@ jobs:
       - name: Checkout XFBrowser
         uses: actions/checkout@v4
 
-      - name: Check disk space (before)
+      - name: Check disk space
         shell: pwsh
         run: Get-PSDrive C | Select-Object Used, Free
-
-      - name: Free up disk space
-        shell: pwsh
-        run: |
-          Write-Host "Removing pre-installed tools to free space for Chromium build..."
-          $remove = @(
-            "$env:ProgramFiles\dotnet",
-            "$env:ProgramFiles\Microsoft SQL Server",
-            "$env:ProgramFiles\Microsoft SDKs",
-            "$env:ProgramFiles(x86)\Microsoft SDKs",
-            "$env:ProgramFiles(x86)\Windows Kits\10\Windows Performance Toolkit",
-            "$env:ProgramFiles(x86)\Windows Phone Kits",
-            "$env:ProgramFiles(x86)\Windows Mobile Kits",
-            "$env:SystemDrive\Android",
-            "$env:SystemDrive\hostedtoolcache\windows\go",
-            "$env:SystemDrive\hostedtoolcache\windows\ruby",
-            "$env:SystemDrive\hostedtoolcache\windows\pipx",
-            "$env:SystemDrive\hostedtoolcache\windows\stack",
-            "$env:SystemDrive\hostedtoolcache\windows\miniconda",
-            "$env:SystemDrive\hostedtoolcache\windows\python",
-            "$env:SystemDrive\hostedtoolcache\windows\node",
-            "$env:SystemDrive\hostedtoolcache\windows\java",
-            "$env:SystemDrive\hostedtoolcache\windows\maven",
-            "$env:SystemDrive\hostedtoolcache\windows\gradle",
-            "$env:SystemDrive\hostedtoolcache\windows\kotlin",
-            "$env:LocalAppData\Microsoft\pip_cache",
-            "$env:LOCALAPPDATA\Microsoft\php_sdk"
-          )
-          foreach ($p in $remove) { if (Test-Path $p) { Remove-Item -Recurse -Force $p -ErrorAction SilentlyContinue } }
-          # Clean WinSxS temporary files
-          Dism /Online /Cleanup-Image /StartComponentCleanup /ResetBase /Quiet 2>$null
-          Write-Host "Disk cleanup done."
-          Get-PSDrive C | Select-Object Used, Free
 
       - name: Setup VS + depot_tools
         shell: pwsh
