@@ -63,7 +63,7 @@ jobs:
           git clone --no-checkout --depth 1 --branch "$env:CHROMIUM_REF" `
             "https://chromium.googlesource.com/chromium/src.git" chromium-src
           Set-Location chromium-src
-          git sparse-checkout init --cone
+          git sparse-checkout init --no-cone
           Copy-Item "${{ github.workspace }}\config\sparse-checkout" ".git\info\sparse-checkout"
           git read-tree -mu HEAD
 
@@ -72,7 +72,7 @@ jobs:
         shell: pwsh
         run: |
           Set-Location chromium-src
-          git clone --depth 1 "https://github.com/ungoogled-software/ungoogled-chromium.git" ungoogled-patches
+          git clone --depth 1 "https://github.com/ungoogled-software/ungoogled-chromium.git" ungoogled-patches 2>&1
           if (Test-Path "ungoogled-patches\patches") {
             Get-ChildItem "ungoogled-patches\patches" -Recurse -Filter *.patch |
               ForEach-Object { git apply --ignore-whitespace $_.FullName 2>$null }
