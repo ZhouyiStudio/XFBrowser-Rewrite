@@ -2,7 +2,7 @@
 setlocal DISABLEDELAYEDEXPANSION
 set "XFBROOT=%~dp0"
 set "SRC_DIR=%XFBROOT%firefox-src"
-set "FIREFOX_REPO=https://github.com/mozilla/gecko.git"
+set "FIREFOX_REPO=https://github.com/mozilla/gecko-dev.git"
 
 if not exist "%SRC_DIR%" (
     echo Cloning mozilla-central (git mirror)...

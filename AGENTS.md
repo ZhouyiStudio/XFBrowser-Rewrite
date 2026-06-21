@@ -23,7 +23,7 @@ XFBrowser 是基于 **Firefox (mozilla-central)** 的 Windows 隐私增强浏览
 - 已完成从 Chromium 到 Firefox 的迁移
 - CI 使用 `windows-2022` runner，`mach build` 构建
 - `actions/cache@v4` 缓存 mozilla-central 源码避免重复克隆
-- Firefox git mirror: https://github.com/mozilla/gecko.git
+- Firefox git mirror: https://github.com/mozilla/gecko-dev.git
 
 ## 历史
 - 原项目基于 ungoogled-chromium（128.0.6613.84），有 104 个官方补丁 + 12 个 XFBrowser 定制补丁
