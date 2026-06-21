@@ -31,6 +31,13 @@ if errorlevel 1 (
     exit /b 1
 )
 
+python mach package
+if errorlevel 1 (
+    echo Packaging failed!
+    pause
+    exit /b 1
+)
+
 echo.
 echo Build complete! Output: %SRC_DIR%\obj-x64-release\dist\firefox
 pause

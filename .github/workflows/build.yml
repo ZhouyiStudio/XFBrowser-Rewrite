@@ -29,6 +29,14 @@ jobs:
           path: firefox-src
           fetch-depth: 1
 
+      - name: Cache Firefox obj directory
+        uses: actions/cache@v4
+        with:
+          path: firefox-src\obj-x64-release
+          key: firefox-obj-${{ runner.os }}-${{ github.run_id }}
+          restore-keys: |
+            firefox-obj-${{ runner.os }}-
+
       - name: Install MozillaBuild
         shell: pwsh
         run: |
@@ -70,6 +78,12 @@ jobs:
         run: |
           Set-Location firefox-src
           python mach build 2>&1
+
+      - name: mach package
+        shell: pwsh
+        run: |
+          Set-Location firefox-src
+          python mach package 2>&1
 
       - name: Upload build artifact
         uses: actions/upload-artifact@v4
