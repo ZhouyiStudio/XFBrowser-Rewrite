@@ -44,10 +44,10 @@ jobs:
         if: steps.cache-bootstrap.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
-          $msi = "$env:TEMP\mozilla-build.msi"
-          Invoke-WebRequest -Uri "https://github.com/mozilla/mozilla-build/releases/download/v4.0/mozilla-build-4.0.0.msi" -OutFile $msi
-          Start-Process msiexec -ArgumentList "/i $msi /quiet /norestart" -Wait
-          Remove-Item $msi -Force
+          New-Item -ItemType Directory -Path "C:\mozilla-build" -Force
+          $env:Path = "C:\Program Files\Git\usr\bin;$env:Path"
+          echo "MozillaBuild_DIR=C:\mozilla-build" | Out-File -FilePath $env:GITHUB_ENV -Append
+          echo "C:\Program Files\Git\usr\bin" | Out-File -FilePath $env:GITHUB_PATH -Append
 
       - name: mach bootstrap
         if: steps.cache-bootstrap.outputs.cache-hit != 'true'
