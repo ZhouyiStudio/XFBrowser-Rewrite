@@ -96,6 +96,7 @@ jobs:
               Get-ChildItem $d -Filter *.patch | ForEach-Object {
                 git apply --recount --ignore-whitespace --whitespace=fix $_.FullName 2>$null
                 if ($LASTEXITCODE -ne 0) { Write-Warning "Patch skipped: $($_.Name)" }
+                $global:LASTEXITCODE = 0
               }
             }
           }
