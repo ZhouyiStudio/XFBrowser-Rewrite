@@ -6,8 +6,7 @@ on:
     branches: [master, main]
 
 env:
-  PYTHON_VERSION: '3.12'
-  MOZILLABUILD: C:\mozilla-build
+  PYTHON_VERSION: '3.11'
 
 jobs:
   build:
@@ -15,23 +14,13 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Setup Python
+      - name: Setup Python 3.11
         uses: actions/setup-python@v5
         with:
           python-version: ${{ env.PYTHON_VERSION }}
 
       - name: Setup Rust
         uses: dtolnay/rust-toolchain@stable
-
-      - name: Restore cached bootstrap
-        id: cache-bootstrap
-        uses: actions/cache@v4
-        with:
-          path: |
-            C:\Users\runneradmin\.mozbuild
-            C:\mozilla-build
-          key: xf-bootstrap-v1-${{ hashFiles('firefox-src/python/mozbuild/**') }}
-          restore-keys: xf-bootstrap-v1-
 
       - name: Clone mozilla-central
         uses: actions/checkout@v4
@@ -41,7 +30,6 @@ jobs:
           fetch-depth: 1
 
       - name: Install MozillaBuild
-        if: steps.cache-bootstrap.outputs.cache-hit != 'true'
         shell: pwsh
         run: |
           $exe = "$env:TEMP\MozillaBuildSetup.exe"
@@ -50,30 +38,16 @@ jobs:
           Start-Process $exe -ArgumentList "/S" -Wait
           Remove-Item $exe -Force
 
-      - name: Pre-install pyyaml (workaround for pip resolver conflict)
-        if: steps.cache-bootstrap.outputs.cache-hit != 'true'
-        shell: pwsh
-        run: |
-          pip install pyyaml==6.0.2 --force-reinstall 2>&1
-
-      - name: mach bootstrap
-        if: steps.cache-bootstrap.outputs.cache-hit != 'true'
-        shell: pwsh
-        run: |
-          Set-Location firefox-src
-          python mach bootstrap --application-choice=browser --no-system-changes 2>&1
-
       - name: Write mozconfig
         shell: pwsh
         run: |
           @"
           ac_add_options --enable-application=browser
-          export MOZILLA_OFFICIAL=1
           mk_add_options MOZ_OBJDIR=obj-x64-release
           ac_add_options --target=x86_64-pc-windows-msvc
           ac_add_options --disable-debug
           ac_add_options --enable-optimize
-          ac_add_options --enable-official-branding
+          ac_add_options --disable-clang-plugin
           "@ | Out-File -FilePath "firefox-src\mozconfig" -Encoding utf8
 
       - name: mach configure
