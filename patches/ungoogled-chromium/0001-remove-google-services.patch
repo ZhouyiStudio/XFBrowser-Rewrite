@@ -24,7 +24,6 @@ diff --git a/chrome/browser/autofill/autofill_gaia_key_fetcher.cc b/chrome/brows
 +#include "base/notreached.h"
  
  namespace autofill {
-
 @@ -17,26 +6,11 @@ std::unique_ptr<AutofillGaiaKeyFetcher> AutofillGaiaKeyFetcher::Create(
      content::BrowserContext* browser_context) {
 -  IdentityManager* identity_manager =

@@ -34,7 +34,6 @@ diff --git a/chrome/browser/after_startup_task_utils.cc b/chrome/browser/after_s
 +#include "base/synchronization/atomic_flag.h"
  
  namespace {
-
 @@ -39,14 +16,14 @@ void AfterStartupTaskUtils::StartMonitoringStartup() {
  }
  

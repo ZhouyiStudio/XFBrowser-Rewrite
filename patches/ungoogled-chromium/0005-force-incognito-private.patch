@@ -58,7 +58,6 @@ diff --git a/chrome/browser/private_network_access/chrome_private_network_access
 -    // XFBrowser: added stronger default restrictions
    }
  }
-
 @@ -30,7 +20,7 @@ ChromePrivateNetworkAccessChecker::
  ChromePrivateNetworkAccessChecker::GetPrivateNetworkRequestPolicy(
      url::Origin& origin) {

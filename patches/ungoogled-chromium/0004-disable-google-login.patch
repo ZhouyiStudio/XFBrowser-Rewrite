@@ -114,7 +114,6 @@ diff --git a/chrome/browser/sync/chrome_sync_client.cc b/chrome/browser/sync/chr
 +#include "chrome/browser/sync/chrome_sync_client.h"
  
  ChromeSyncClient::ChromeSyncClient(Profile* profile) : profile_(profile) {}
-
 @@ -24,11 +11,5 @@ void ChromeSyncClient::Shutdown() {
  }
  
