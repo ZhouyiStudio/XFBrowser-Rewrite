@@ -8,11 +8,11 @@ Firefox bundles the custom new tab page as a system addon.
 diff --git a/browser/extensions/moz.build b/browser/extensions/moz.build
 --- a/browser/extensions/moz.build
 +++ b/browser/extensions/moz.build
-@@ -5,6 +5,7 @@
-
- DIRS += [
-     'report-site-issue',
-     'screenshots',
-     'webcompat',
-+    'xfbrowser-newtab',
+@@ -10,6 +10,7 @@
+     "pictureinpicture",
+     "search-detection",
+     "newtab",
++    "xfbrowser-newtab",
  ]
+ 
+ with Files("**"):
