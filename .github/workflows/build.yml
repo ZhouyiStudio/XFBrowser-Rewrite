@@ -55,6 +55,45 @@ jobs:
             echo "Patched pyyaml in: $($files -join ', ')"
           } else { echo "pyyaml==6.0.2 not found (may be already patched)" }
 
+      - name: Copy new tab page and apply patches
+        shell: pwsh
+        run: |
+          $extDir = "firefox-src/browser/extensions/xfbrowser-newtab"
+          $ntpDir = "$extDir/newtab"
+          New-Item -ItemType Directory -Path $ntpDir -Force
+
+          Copy-Item "src/pages/newtab/index.html" "$ntpDir/index.html"
+          Copy-Item "src/pages/newtab/app.js" "$ntpDir/app.js"
+          Copy-Item "src/pages/newtab/style.css" "$ntpDir/style.css"
+
+          Copy-Item "src/fluent-ui/css/fluent-tokens.css" "$ntpDir/fluent-tokens.css"
+          Copy-Item "src/fluent-ui/js/fluent-theme.js" "$ntpDir/fluent-theme.js"
+          Copy-Item "src/fluent-ui/js/fluent-utils.js" "$ntpDir/fluent-utils.js"
+
+          @"
+          {
+            "manifest_version": 2,
+            "name": "XFBrowser 新标签页",
+            "version": "1.2.0",
+            "description": "XFBrowser Fluent UI 新标签页",
+            "chrome_url_overrides": { "newtab": "newtab/index.html" },
+            "permissions": [],
+            "applications": { "gecko": { "id": "newtab@xfbrowser" } }
+          }
+          "@ | Out-File -FilePath "$extDir/manifest.json" -Encoding utf8
+
+          (Get-Content "$ntpDir/index.html") -replace '../../fluent-ui/css/fluent-tokens.css', 'fluent-tokens.css' | Set-Content "$ntpDir/index.html"
+          (Get-Content "$ntpDir/app.js") -replace '../../fluent-ui/js/fluent-theme.js', './fluent-theme.js' | Set-Content "$ntpDir/app.js"
+
+          Get-ChildItem -Recurse -Filter "*.patch" "patches" | ForEach-Object {
+            $patch = $_.FullName
+            Write-Host "Applying patch: $patch"
+            Push-Location "firefox-src"
+            git apply --ignore-whitespace $patch 2>&1
+            if ($LASTEXITCODE -ne 0) { throw "Patch failed: $patch" }
+            Pop-Location
+          }
+
       - name: Write mozconfig
         shell: pwsh
         run: |

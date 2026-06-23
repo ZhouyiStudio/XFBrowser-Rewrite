@@ -9,9 +9,9 @@ XFBrowser 是基于 **Firefox (mozilla-central)** 的 Windows 隐私增强浏览
 
 ## 源码结构
 - `src/fluent-ui/` - Fluent UI v2 前端（纯 CSS + ES Module）
-- `src/pages/` - 内置页面（新标签页、设置页）
+- `src/pages/` - 内置页面（新标签页、设置页），直接修改 Firefox 源码
 - `src/privacy/` - 隐私引擎（广告拦截、指纹伪装、Cookie隔离、DoH）
-- `patches/` - Firefox 补丁集（保留目录结构，内容待添加）
+- `patches/` - Firefox 补丁集
 - `.github/workflows/build.yml` - CI 构建定义
 
 ## 代码规范
@@ -24,6 +24,12 @@ XFBrowser 是基于 **Firefox (mozilla-central)** 的 Windows 隐私增强浏览
 - CI 使用 `windows-2022` runner，`mach build` 构建
 - `actions/cache@v4` 缓存 mozilla-central 源码避免重复克隆
 - Firefox git mirror: https://github.com/mozilla/gecko-dev.git
+- CI 流程：复制 `src/pages/` + `src/fluent-ui/` 到 Firefox 源码树 → 应用 `patches/` 目录下所有 patch → `mach build`
+
+## 补丁管理
+- `patches/` 目录存放对 Firefox 源码的直接修改补丁（git format-patch 格式）
+- CI 的 `Copy new tab page and apply patches` 步骤会先复制文件再批量应用补丁
+- 新增补丁: `git diff firefox-src > patches/XXXX-description.patch`
 
 ## 历史
 - 原项目基于 ungoogled-chromium（128.0.6613.84），有 104 个官方补丁 + 12 个 XFBrowser 定制补丁
